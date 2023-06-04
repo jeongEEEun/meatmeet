@@ -1,0 +1,53 @@
+.container {
+  font-family: 'Noto Sans KR', sans-serif;
+  margin: 0 center;
+  padding: 0;
+  max-width: 1000px;
+}
+
+.view {
+  font-weight: normal;
+  font-size: 16px;
+  color: rgb(127, 127, 127);
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 20px;
+}
+
+.count {
+  margin-left: 5px;
+}
+.location {
+  font-weight: bold;
+  font-size: 16px;
+  text-align: left;
+  color: rgb(127, 127, 127);
+  margin-left: 40px;
+}
+
+.container h2 {
+  font-weight: bold;
+  font-size: 28px;
+  text-align: left;
+  color: rgb(0, 0, 0);
+  margin-left: 40px;
+  margin-top: 10px;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+}
+
+.container img {
+  top: 278px;
+  left: 149px;
+  width: 600px;
+  height: 400px;
+  margin-left: 40px;
+  margin-top: 10px;
+}
+
+.ingredient {
+  margin-left: 50px;
+}
