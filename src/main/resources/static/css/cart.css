@@ -1,0 +1,47 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+@font-face {
+  font-family: 'GeekbleMalang2WOFF2';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/GeekbleMalang2WOFF2.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+.circle-button {
+    display: inline-block;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+.circle-button:hover {
+    border-radius: 8px 8px 8px 8px;
+    background-color: #8d8989;
+  }
+h2 {
+	margin-top: 50px;
+	width: 100%;
+    text-align: center;
+    font-weight: bold;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 40vh;
+}
+.small-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+  }
+.home-button {
+    display: inline-block;
+    padding: 10px 60px;
+    border: 1px solid #ff6666;
+    background-color: #ff6666;
+    border-radius: 5px;
+    color: #fff;
+}
+  
