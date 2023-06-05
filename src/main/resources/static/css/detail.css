@@ -1,8 +1,16 @@
+@charset "UTF-8";
+
+html, body, h1, h2, h3, h4, h5, h6, ul, li, p, a {
+  margin: 0;
+  padding: 0;
+} 
+
 .container {
   font-family: 'Noto Sans KR', sans-serif;
   margin: 0 center;
   padding: 0;
   max-width: 1000px;
+  color: #333;
 }
 
 .view {
@@ -29,25 +37,125 @@
   font-weight: bold;
   font-size: 28px;
   text-align: left;
-  color: rgb(0, 0, 0);
-  margin-left: 40px;
-  margin-top: 10px;
-}
-
-.content {
-  display: flex;
-  align-items: center;
+  margin: 10px 0 10px 40px;
 }
 
 .container img {
+  float: left;
   top: 278px;
   left: 149px;
   width: 600px;
   height: 400px;
   margin-left: 40px;
   margin-top: 10px;
+  margin-right: 40px;
 }
 
+.content {
+  text-align: center;
+  font-size: 16px;
+}
+
+.content h3 {
+  font-weight: bold;
+  font-size: 18px;
+  text-align: left;
+}
+
+.content li {
+  list-style-type: none;
+  text-align: left;
+  margin-top: 10px;
+}
 .ingredient {
-  margin-left: 50px;
+  padding-top: 20px;
+}
+
+.ingredient hr {
+  width: 300px;
+}
+
+.source {
+  padding-top: 10px;
+}
+
+.method {
+  clear: both;
+  padding-top: 20px;
+  padding-left: 10px;
+  margin-right: 20px;
+}
+
+.method ul {
+  padding-left: 40px;
+}
+
+.method h3 {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.method li {
+  font-size: 16px;
+  list-style-type: decimal;
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+.review {
+  padding-left: 50px;
+  margin-right: 20px;
+}
+
+.review h3 {
+  font-weight: bold;
+  font-size: 18px;
+  padding-top: 20px;
+  float: left;
+  padding-bottom: 10px;
+}
+
+.review hr {
+  clear: both;
+}
+
+.comment .name{
+  font-weight: bold;
+  font-size: 16px;
+  float: left;
+  margin-right: 10px;
+}
+.comment .text {
+  clear: both;
+  padding-top: 10px;
+}
+.comment-add {
+  padding: 20px 0 80px 0;
+
+}
+
+.comment-add input {
+  padding: 6px 12px;
+  width: 800px;
+  height: 50px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  margin-right: 20px;
+}
+
+.comment-add button {
+  font-size: 16px;
+  color: rgb(64, 64, 64);
+  text-align: center;
+  width: 100px;
+  height: 50px;
+  border-radius: 4px;
+  background-color: #ffb3b3;
+  border: none;
+}
+
+.comment-add button:hover {
+  color: #fff;
 }
