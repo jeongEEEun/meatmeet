@@ -1,5 +1,4 @@
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
-<<<<<<< HEAD
 
 @font-face {
     font-family: 'GeekbleMalang2WOFF2';
@@ -60,7 +59,7 @@ p.bold {
 
 p.order {
     font-size: 20px;
-    margin-left: 10px;
+    margin-left:20px;
 }
 
 p.order2 {
@@ -84,21 +83,4 @@ p.special {
     border-radius: 5px;
     color: #fff;
     width: 200px;
-=======
-@font-face {
-  font-family: 'GeekbleMalang2WOFF2';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/GeekbleMalang2WOFF2.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
-}
-table {
-    border-collapse: collapse;
-}
-table tr {
-    font-weight: bold;
-}
-table td {
-    border-bottom: 1px solid black;
-    padding: 5px;
->>>>>>> fa639ee2ed13ebbbd4eeeb1c6256a1a385c0f68c
 }
