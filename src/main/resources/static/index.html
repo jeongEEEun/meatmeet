@@ -9,6 +9,30 @@
 	<link rel="stylesheet" href="css/header-footer.css">
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/index.css">
+	<link rel="stylesheet" href="css/jquery.qtip.min.css">
+	<script src="js/jquery.min.js"></script>
+	<script src="js/jquery.qtip.min.js"></script>
+	<script>
+		jQuery(document).ready(function (e) {
+			jQuery('area').qtip({
+				style: {
+					classes: 'qtip-bootstrap'
+				},
+				position: {
+					target: 'mouse',
+					width: 500, // Overrides width set by CSS (but no max-width!)
+        	height: 200 // Overrides height set by CSS (but no max-height!)
+				},
+				events: {
+					show: function (event, api) {
+						api.set({
+							'content.text': api.elements.target.attr('title')
+						});
+					}
+				}
+			});
+		});
+	</script>
 </head>
 
 <body>
@@ -40,20 +64,71 @@
 	</header>
 
 	<div>
+		<div>
+
+		</div>
 		<div class="banner-box mt-5"><img src="img/banner.png" alt="메인 배너" class="banner"></div>
-		<div class="title-box">
+		<div class="title-box mb-5">
 			<h2 class="title mt-5">축산물 시세</h2>
-			<div class="sub-title pt-0">부위 클릭시 레시피/구매 페이지로 이동합니다.</div>
+			<div class="sub-title pt-0">빨간 점에 마우스를 올려 시세를 확인해보세요.</div>
+			<div class="sub-title pt-0">클릭시 레시피/구매 페이지로 이동합니다.</div>
 		</div>
 		<div class="wrap">
-			<div class="pig">
+			<div class="box pb-5">
 				<h3>돼지</h3>
-				<p>빨간 점에 마우스를 올려 시세를 확인해보세요.</p>
-				<p>클릭시 레시피/구매 페이지로 이동합니다.</p>
-				<img src="img/돼지.png" alt="돼지고기 부위별 시세">
+				<div class="img-box">
+					<img src="img/돼지.png" usemap="#image-map">
+					<map name="image-map">
+						<a href="#"><area target="_self" alt="목살" title="목살" href="#" coords="430,178,390,140" shape="rect"></a>
+						<a href="#"><area target="_self" alt="갈비" title="갈비" href="#" coords="412,266,450,304" shape="rect"></a>
+						<a href="#"><area target="_self" alt="앞다리" title="앞다리" href="#" coords="404,393,444,433" shape="rect"></a>
+						<a href="#"><area target="_self" alt="삼겹살" title="삼겹살" href="#" coords="569,391,611,433" shape="rect"></a>
+					</map>
+				</div>
 			</div>
-			<div class="cow">
-				<img src="img/소.png" alt="돼지고기 부위별 시세">
+			<hr class="">
+			<div class="box pb-5 pt-5">
+				<h3>소</h3>
+				<img src="img/소.png" alt="소고기 부위별 시세">
+			</div>
+			<hr>
+			<div class="box pt-5">
+				<div class="chicken-egg-milk mb-5">
+					<h3>닭</h3>
+					<div>
+						<span>1kg</span>
+						<span>1,000원</span>
+					</div>
+					<div>
+						<span>어제랑</span>
+						<span>똑같아요</span>
+					</div>
+					<a href="#"><img src="img/닭.png" alt="닭고기 시세"></a>
+				</div>
+				<div class="chicken-egg-milk">
+					<h3>계란</h3>
+					<div>
+						<span>1kg</span>
+						<span>1,000원</span>
+					</div>
+					<div>
+						<span>어제랑</span>
+						<span>똑같아요</span>
+					</div>
+					<a href="#"><img src="img/계란.png" alt="계란 시세"></a>
+				</div>
+				<div class="chicken-egg-milk">
+					<h3>우유</h3>
+					<div>
+						<span>1kg</span>
+						<span>1,000원</span>
+					</div>
+					<div>
+						<span>어제랑</span>
+						<span>똑같아요</span>
+					</div>
+					<a href="#"><img src="img/우유.png" alt="우유 시세"></a>
+				</div>
 			</div>
 		</div>
 	</div>
