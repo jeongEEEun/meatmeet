@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<title>meatmeet</title>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/header-footer.css">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/index.css">
+	<link rel="stylesheet" href="css/jquery.qtip.min.css">
+	<script src="js/jquery.min.js"></script>
+	<script src="js/jquery.qtip.min.js"></script>
+	<script>
+		jQuery(document).ready(function (e) {
+			jQuery('area').qtip({
+				style: {
+					classes: 'qtip-bootstrap'
+				},
+				content: {
+					text: '<div class="price-tooltip"><b>축산물명</b><br>100g 1,000원<br>어제보다 000원 비싸요</div>'
+				},
+				hide: {
+					fixed: true
+				},
+				events: {
+					show: function (event, api) {
+						api.set({
+							'content.text': api.elements.target.attr('title')
+						});
+					}
+				}
+			});
+		});
+	</script>
+</head>
+
+<body>
+	<header>
+		<ul class="row px-0 pt-4">
+			<li class="col p-0 pe-1">
+				<a href="#">
+					<img src="img/logo2.png" alt="meatmeet 로고" class="logo">
+				</a>
+			</li>
+			<li class="col p-0">
+				<a href="#" class="ms-5 title">레시피</a>
+			</li>
+			<li class="col p-0">
+				<a href="#" class="title">나의 레시피</a>
+			</li>
+			<div class="col-5 m-0 p-0">
+				<li class="me-5">
+					<a href="#" class="title">
+						<img src="img/icon_login.png" alt="로그인 아이콘" class="icon">
+						로그인
+					</a>
+				</li>
+				<li>
+					<a href="#" class="title">회원가입</a>
+				</li>
+			</div>
+		</ul>
+	</header>
+
+	<div class="container">
+		<div class="remote-box border border-1 rounded-3 shadow-sm">
+			<b>바로가기 버튼</b>
+			<p>클릭시 해당 축산물 위치로 스크롤합니다.</p>
+			<a class="btn btn-primary btn-sm m-1" href="#pig" role="button">돼지</a>
+			<a class="btn btn-primary btn-sm m-1" href="#cow" role="button">소</a>
+			<a class="btn btn-primary btn-sm m-1" href="#chicken-egg-milk" role="button">닭/계란/우유</a>
+		</div>
+		<div class="banner-box mt-5"><img src="img/banner.png" alt="메인 배너" class="banner"></div>
+		<div class="title-box mb-5">
+			<h2 class="title mt-5">축산물 시세</h2>
+			<div class="sub-title pt-0">빨간 점에 마우스를 올려 시세를 확인해보세요.</div>
+			<div class="sub-title pt-0">클릭시 레시피/구매 페이지로 이동합니다.</div>
+		</div>
+		<div class="wrap">
+			<div class="box pb-5" id="pig">
+				<h3>돼지</h3>
+				<img src="img/돼지.png" usemap="#pig-map">
+				<map name="pig-map">
+					<area target="_blank" alt="목살" href="#" coords="210,82,8" shape="circle">
+					<area target="_blank" alt="목살" href="#" coords="315,4,351,25" shape="rect">
+					<area target="_blank" alt="갈비" href="#" coords="221,146,9" shape="circle">
+					<area target="_blank" alt="갈비" href="#" coords="24,261,60,283" shape="rect">
+					<area target="_blank" alt="앞다리" href="#" coords="217,213,8" shape="circle">
+					<area target="_blank" alt="앞다리" href="#" coords="8,296,59,317" shape="rect">
+					<area target="_blank" alt="삼겹살" href="#" coords="303,213,9" shape="circle">
+					<area target="_blank" alt="삼겹살" href="#" coords="460,269,510,290" shape="rect">
+				</map>
+			</div>
+			<hr class="">
+			<div class="box pb-5 pt-5" id="cow">
+				<h3>소</h3>
+				<img src="img/소.png" alt="소고기 부위별 시세" usemap="#cow-map">
+				<map name="cow-map">
+					<area target="_blank" alt="등심" href="등심" coords="289,88,9" shape="circle">
+					<area target="_blank" alt="등심" href="등심" coords="393,5,428,27" shape="rect">
+					<area target="_blank" alt="안심" href="안심" coords="347,121,9" shape="circle">
+					<area target="_blank" alt="안심" href="안심" coords="449,43,484,62" shape="rect">
+					<area target="_blank" alt="설도" href="설도" coords="394,179,9" shape="circle">
+					<area target="_blank" alt="설도" href="설도" coords="498,237,535,257" shape="rect">
+					<area target="_blank" alt="갈비" href="갈비" coords="238,145,9" shape="circle">
+					<area target="_blank" alt="갈비" href="갈비" coords="64,239,98,258" shape="rect">
+					<area target="_blank" alt="양지" href="양지" coords="279,207,8" shape="circle">
+					<area target="_blank" alt="양지" href="양지" coords="64,301,98,320" shape="rect">
+				</map>
+			</div>
+			<hr>
+			<div class="box pt-5 pb-5">
+				<div class="chicken-egg-milk" id="chicken-egg-milk">
+					<h3>닭</h3>
+					<a href="#"><img src="img/닭.png" alt="닭고기 시세"></a>
+					<div>
+						<span>1kg</span>
+						<span>1,000원</span>
+					</div>
+					<div>
+						<span>어제랑</span>
+						<span>똑같아요</span>
+					</div>
+				</div>
+				<div class="chicken-egg-milk">
+					<h3>계란</h3>
+					<a href="#"><img src="img/계란.png" alt="계란 시세"></a>
+					<div>
+						<span>15개</span>
+						<span>1,000원</span>
+					</div>
+					<div>
+						<span>어제랑</span>
+						<span>똑같아요</span>
+					</div>
+				</div>
+				<div class="chicken-egg-milk">
+					<h3>우유</h3>
+					<a href="#"><img src="img/우유.png" alt="우유 시세"></a>
+					<div>
+						<span>1L</span>
+						<span>1,000원</span>
+					</div>
+					<div>
+						<span>어제랑</span>
+						<span>똑같아요</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer>
+		<div class="row mt-5">
+			<div class="col mt-5">
+				<ul>
+					<li class="title">meat meet</li>
+					<li>상호 : 미트미트 | 대표자명 : 홍길동 | <a href="#">개인정보처리방침</a></li>
+					<li>사업자등록번호 : 000-00-00000</li>
+					<li>연락처 : 00-000-0000</li>
+					<li>이메일 : meatmeet@gmail.com</li>
+					<li>주소 : 서울특별시 OO구 OO로O길</li>
+				</ul>
+			</div>
+			<div class="col pt-5">
+				<a href="#">
+					<img src="img/logo_white.png" alt="meatmeet로고" class="mt-3">
+				</a>
+			</div>
+		</div>
+	</footer>
+</body>
+
+</html>

@@ -1,0 +1,86 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+@font-face {
+    font-family: 'GeekbleMalang2WOFF2';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/GeekbleMalang2WOFF2.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+div.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 50vh;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+td.bold {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+table td {
+    border-bottom: 1px solid black;
+    padding: 10px 60px;
+}
+
+.box {
+    width: 230px;
+    border: 1px solid gray;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 40px;
+}
+
+p.bold {
+    font-weight: bold;
+    font-size: 25px;
+    text-align: center;
+    margin-left: 50px;
+}
+
+.box hr {
+    margin: 0 10px;
+    margin-bottom: 20px;
+    border-top: 2px solid black;
+    width: 100%;
+}
+
+p.order {
+    font-size: 20px;
+    margin-left:20px;
+}
+
+p.order2 {
+    font-size: 20px;
+    margin-right: 10px;
+    margin-left: auto;
+}
+
+p.special {
+    margin-right: 10px;
+    font-size: 20px;
+    color: #ff6666;
+}
+
+.box button.order-button {
+    margin-top: 10px;
+    display: inline-block;
+    padding: 10px 60px;
+    border: 1px solid #ff6666;
+    background-color: #ff6666;
+    border-radius: 5px;
+    color: #fff;
+    width: 200px;
+}
