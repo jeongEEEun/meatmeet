@@ -2,15 +2,16 @@
 .container {
     position: relative;
     width: 1000px;
+    height: 100%;
+    min-height: 100vh;
     text-align: center;
     margin: 0 auto;
 }
 nav {
     position: relative;
     background-color: #ff6666;
-    padding-top: 40px;
+    padding-top: 20px;
     padding-bottom: 1px;
-    margin-bottom: 40px;
 }
 nav h1{
     font-size: 28px;
@@ -41,14 +42,15 @@ nav .menu .item:hover {
 }
 
 
-nav .submenu{
+nav .submenu {
     background-color: #ffffff;
 }
+
 nav .submenu ul {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    padding-top: 10px;
+
 }
 
 nav .submenu ul li {
@@ -63,8 +65,120 @@ nav .submenu ul li:hover {
     transform: scale(1.1);
 }
 
+.content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    position: relative;
+  }
+
+.content.recipes {
+    width: 70%;
+}
+.content ul{
+    display: inline-block;
+}
+.content li {
+  width: 180px;
+  height: 200px;
+  margin: 30px;
+  border: 1px solid #ffb3b3;
+  display: inline-block;
+  background-color: #ffb3b3;
+  padding: 0;
+}
+
+.content li a{
+  color: #000000;
+  text-decoration: none;
+}
+.recipe-img-placeholder {
+    width: 100%; /* 이미지의 가로 크기 */
+    height: 55%; /* 이미지의 세로 크기 */
+    background-color: #ffffff;
+  }
+.recipe-writer{
+    text-align: left;
+    padding: 5px;
+}
+.recipe-title {
+    text-align: left;
+    padding: 5px;
+}
+.add-to-cart-section {
+    width: 20%;
+    height: 300px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: 1px solid #ffb3b3;
+    border-radius: 5px;
+    padding: 20px;
+    margin-top: 30px;
+}
+.add-to-cart-section img {
+    width: 100%;
+    height: 130px;
+}
+.add-to-cart-section h1 {
+    font-size: 28px;
+    margin: 10px 0;
+}
+.add-to-cart-section.now-price {
+    font-size: 14px;
+}
+.now-price span.price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ff6666;
+}
+.add-to-cart-section.change {
+    font-size: 14px;
+    padding: 20px 0;
+}
+.change span.change-price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ff6666;
+}
+.add-to-cart-btn {
+    width: 100%; /* 너비를 100%로 조정 */
+    position: relative;
+    top: 30px;
+    padding: 10px 20px;
+    background-color: #ff6666; /* 평소 색상 설정 */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #ff3333;
+}
+
+.write-recipe {
+    width: 8%;
+    height: 30px;
+    position: absolute;
+    top: 500px;
+    right: 0;
+    background-color: #ff6666;
+    color: #fff;
+    border: none;
+    border-radius: 15px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+  }
+  
+  .write-recipe:hover {
+    background-color: #ff3333;
+  }
+  
 
 .hide {
     display: none;
 }
-  
