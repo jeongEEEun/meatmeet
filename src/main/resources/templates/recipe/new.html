@@ -51,7 +51,7 @@
 				part.style.display = "none";
 			});
 
-			var selectedParts = document.querySelector("#" + category + "_part");
+			var selectedParts = document.querySelector("#" + category + "-part");
 			selectedParts.style.display = "block";
 		}
 	</script>
@@ -60,8 +60,8 @@
 		<hr>
 		<div class="category">
 			<form action="#">
-				<div class="cateory_select">
-					<label for="category_select">카테고리</label>
+				<div class="cateory-select">
+					<label for="category-select">카테고리</label>
 					<select class="type" name="type" id="type" onchange="handleCategoryChange()">
 						<option value="" selected disabled>종류</option>
 						<option value="pork">돼지</option>
@@ -72,14 +72,14 @@
 					</select>
 					<select class="part" name="part" id="part">
 						<option value="" selected disabled>부위</option>
-						<optgroup id="pork_part" label="돼지" style="display: none;">
+						<optgroup id="pork-part" label="돼지" style="display: none;">
 							<option value="neck">목심</option>
 							<option value="rib">갈비</option>
 							<option value="belly">삼겹살</option>
 							<option value="forelegs">앞다리</option>
 						</optgroup>
 
-						<optgroup id="beef_part" label="소" style="display: none;">
+						<optgroup id="beef-part" label="소" style="display: none;">
 							<option value="rib">갈비</option>
 							<option value="brisket">양지</option>
 							<option value="round">설도</option>
@@ -87,16 +87,16 @@
 							<option value="tenderloin">안심</option>
 						</optgroup>
 
-						<optgroup id="chicken_part" label="닭" style="display: none;">
+						<optgroup id="chicken-part" label="닭" style="display: none;">
 							<option value="broiler">육계</option>
 						</optgroup>
 
-						<optgroup id="egg_part" label="계란" style="display: none;">
+						<optgroup id="egg-part" label="계란" style="display: none;">
 							<option value="30eggs">특란30구</option>
 							<option value="10eggs">특란10구</option>
 						</optgroup>
 
-						<optgroup id="milk_part" label="우유" style="display: none;">
+						<optgroup id="milk-part" label="우유" style="display: none;">
 							<option value="whitemilk">흰우유</option>
 						</optgroup>
 					</select>
