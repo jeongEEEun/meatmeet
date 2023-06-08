@@ -2,13 +2,14 @@
 <html lang="ko">
 
 <head>
-  <title>회원가입</title>
+  <title>로그인</title>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/static/css/header-footer.css">
-  <link rel="stylesheet" href="/static/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/static/css/signup.css">
+  <link rel="stylesheet" href="../../static/css/reset.css" th:href="@{/css/reset.css}">
+  <link rel="stylesheet" href="../../static/css/header-footer.css" th:href="@{/css/header-footer.css}">
+  <link rel="stylesheet" href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+  <link rel="stylesheet" href="../../static/css/signup.css" th:href="@{/css/signup.css}">
 </head>
 
 <body>
@@ -38,12 +39,35 @@
         </li>
       </div>
     </ul>
+    <hr>
   </header>
   <!-- header end -->
 
   <!-- container start -->
-  <div class="container">
-
+  <div class="container signin pt-5">
+    <h2 class="mt-5 mb-5">로그인</h2>
+    <div class="row">
+      <div class="col-2">
+        <img src="../../static/img/signin-line-left.png" alt="" class="box-line">
+      </div>
+      <div class="col-8 box">
+        <form action="">
+          <div class="row mb-2">
+            <input type="text" name="id" id="id" class="form-control col-sm" placeholder="아이디를 입력하세요">
+          </div>
+          <div class="row mb-2">
+            <input type="password" name="pw" id="pw" class="form-control col-sm" placeholder="비밀번호를 입력하세요">
+          </div>
+          <div class="row mb-5 mt-4">
+            <input type="submit" value="로그인" class="btn btn-primary col ms-1">
+            <a href="#"><span>회원가입</span></a>
+          </div>
+        </form>
+      </div>
+      <div class="col-2">
+        <img src="../../static/img/signin-line-right.png" alt="" class="box-line">
+      </div>
+    </div>
   </div>
   <!-- container end -->
 
