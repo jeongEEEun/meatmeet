@@ -49,3 +49,10 @@ input[type="radio"] {
   margin-right: 5px;
   margin-left: 10px;
 }
+
+.center {
+  /* height: calc(100vh - 220px); */
+  overflow-y: auto;
+  overflow-x: auto;
+  padding: 20px 20px;
+}
