@@ -5,11 +5,11 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="/meatmeet/src/main/resources/static/css/header-footer.css">
-	<link rel="stylesheet" href="/meatmeet/src/main/resources/static/css/bootstrap.min.css">
-	<link rel="stylesheet" href="/meatmeet/src/main/resources/static/css/cart.css">
-	<link rel="stylesheet" href="/meatmeet/src/main/resources/static/css/cart-add.css">
-	<link rel="stylesheet" href="/meatmeet/src/main/resources/static/css/order.css">
+	<link rel="stylesheet" href="/src/main/resources/static/css/header-footer.css" th:href="@{/css/header-footer.css}">
+	<link rel="stylesheet" href="/src/main/resources/static/css/bootstrap.min.css" th:href="@{/cssbootstrap.min.css}">
+	<link rel="stylesheet" href="/src/main/resources/static/css/cart.css" th:href="@{/css/cart.css}">
+	<link rel="stylesheet" href="/src/main/resources/static/css/cart-add.css" th:href="@{/css/cart-add.css}">
+	<link rel="stylesheet" href="/src/main/resources/static/css/order.css" th:href="@{/css/order.css}">
 	<title>order.html</title>
 </head>
 
@@ -18,7 +18,7 @@
 		<ul class="row px-0 pt-4">
 			<li class="col p-0 pe-1">
 				<a href="#">
-					<img src="/meatmeet/src/main/resources/static/img/logo.png" alt="meatmeet 로고" class="logo">
+					<img src="/src/main/resources/static/img/logo.png" alt="meatmeet 로고" class="logo">
 				</a>
 			</li>
 			<li class="col p-0">
@@ -30,13 +30,13 @@
 			<div class="col-5 m-0 p-0">
 				<li class="me-5">
 					<a href="#" class="title">
-						<img src="/meatmeet/src/main/resources/static/img/order.png" alt="주문내역 아이콘" class="icon">
+						<img src="/src/main/resources/static/img/order.png" alt="주문내역 아이콘" class="icon">
 						주문내역
 					</a>
 				</li>
 				<li>
 					<a href="#" class="title">
-						<img src="/meatmeet/src/main/resources/static/img/cart.png" alt="장바구니 아이콘" class="icon">
+						<img src="/src/main/resources/static/img/cart.png" alt="장바구니 아이콘" class="icon">
 						장바구니</a>
 				</li>
 				<li>
@@ -51,18 +51,17 @@
 	<div class="center">
 		<form>
 			<h3>주문자 정보</h3>
-
 			<label for="name">이름</label>
-			<input type="text" id="name" name="name" placeholder="성함을 입력해주세요" required>
+			<input type="text" id="write" name="name" placeholder="성함을 입력해주세요" required>
 			<br>
 			<label for="phone">전화번호</label>
-			<input type="tel" id="phone" name="phone" placeholder="전화번호를 입력해주세요" required>
+			<input type="tel" id="write" name="phone" placeholder="전화번호를 입력해주세요" required>
 			<br>
 			<label for="address">주소</label>
-			<input type="address" id="address" name="address" placeholder="내용을 입력해주세요" required>
+			<input type="address" id="write" name="address" placeholder="내용을 입력해주세요" required>
 			<br>
 			<label for="request">요청사항</label>
-			<select name="request" id="select-request">
+			<select name="request" id="write">
 				<option value="1">배송 시 요청사항을 선택해 주세요</option>
 				<option value="2">문 앞에 놔주세요</option>
 				<option value="3">오실 때 연락주세요</option>
@@ -96,8 +95,6 @@
 			</div>
 		</div>
 	</div>
-	<div class="wrap">
-	</div>
 	<footer>
 		<div class="row">
 			<div class="col mt-3">
@@ -112,7 +109,7 @@
 			</div>
 			<div class="col pt-5">
 				<a href="#">
-					<img src="/meatmeet/src/main/resources/static/img/logo_white.png" alt="meatmeet로고" class="mt-3">
+					<img src="/src/main/resources/static/img/logo_white.png" alt="meatmeet로고" class="mt-3">
 				</a>
 			</div>
 		</div>

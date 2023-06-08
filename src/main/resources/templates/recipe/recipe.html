@@ -1,166 +1,643 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>레시피 목록</title>
-    <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/recipe.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>레시피 목록</title>
+  <link th:href="@{/css/reset.css}" rel="stylesheet">
+  <link th:href="@{/css/header-footer.css}" rel="stylesheet">
+  <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+  <link th:href="@{/css/recipe.css}" rel="stylesheet">
+  
 </head>
 <body>
-    <div class="container">
-        <nav>
-            <h1>레시피</h1>
-            <ul class="menu">
-                <li class="item" data-target="all">전체</li>
-                <li class="item" data-target="pig">돼지</li>
-                <li class="item" data-target="cow">소</li>
-                <li class="item" data-target="chicken">닭</li>
-                <li class="item" data-target="egg">계란</li>
-                <li class="item" data-target="milk">우유</li>
-            </ul>
-            <div class="submenu hide" id="pig">
-                <ul>
-                    <li data-target="pig-neck">목살</li>
-                    <li data-target="pig-rib">갈비</li>
-                    <li data-target="pig-belly">삼겹살</li>
-                    <li data-target="pig-legs">앞다리</li>
-                </ul>
-            </div>
-            <div class="submenu hide" id="cow">
-                <ul>
-                    <li data-target="cow-sirloin">등심</li>
-                    <li data-target="cow-relief">안심</li>
-                    <li data-target="cow-rib">갈비</li>
-                    <li data-target="cow-brisket">양지</li>
-                    <li data-target="cow-butt">설도</li>
-                </ul>
-            </div>
-        </nav>
+  <header>
+		<ul class="row px-0 pt-4">
+			<li class="col p-0 pe-1">
+				<a href="#">
+					<img src="../image/logo2.png" alt="meatmeet 로고" class="logo">
+				</a>
+			</li>
+			<li class="col p-0">
+				<a href="#" class="ms-5 title">레시피</a>
+			</li>
+			<li class="col p-0">
+				<a href="#" class="title">나의 레시피</a>
+			</li>
+			<div class="col-5 m-0 p-0">
+				<li class="me-5">
+					<a href="#" class="title">
+						<img src="../image/icon_login.png" alt="로그인 아이콘" class="icon">
+						로그인
+					</a>
+				</li>
+				<li>
+					<a href="#" class="title">회원가입</a>
+				</li>
+			</div>
+		</ul>
+	</header>
+  <div class="container">
+    <nav>
+      <h1 class="title">레시피</h1>
+      <ul class="menu">
+        <li class="item" data-target="all">전체</li>
+        <li class="item" data-target="pig">돼지</li>
+        <li class="item" data-target="cow">소</li>
+        <li class="item" data-target="chicken">닭</li>
+        <li class="item" data-target="egg">계란</li>
+        <li class="item" data-target="milk">우유</li>
+      </ul>
+      <div class="submenu hide" id="pig">
+        <ul>
+          <li data-target="pig-neck">목살</li>
+          <li data-target="pig-rib">갈비</li>
+          <li data-target="pig-belly">삼겹살</li>
+          <li data-target="pig-legs">앞다리</li>
+        </ul>
+      </div>
+      <div class="submenu hide" id="cow">
+        <ul>
+          <li data-target="cow-sirloin">등심</li>
+          <li data-target="cow-relief">안심</li>
+          <li data-target="cow-rib">갈비</li>
+          <li data-target="cow-brisket">양지</li>
+          <li data-target="cow-butt">설도</li>
+        </ul>
+      </div>
+    </nav>
 
-        <div class="content">
-            <div id="chicken all">
-                <ul>
-                    <li><a href="#" class="recipe-link">닭 레시피 1</a></li>
-                    <li><a href="#" class="recipe-link">닭 레시피 2</a></li>
-                    <li><a href="#" class="recipe-link">닭 레시피 3</a></li>
-                </ul>
-            </div>
-            <div id="milk all">
-                <ul>
-                    <li><a href="#" class="recipe-link">우유 레시피 1</a></li>
-                    <li><a href="#" class="recipe-link">우유 레시피 2</a></li>
-                    <li><a href="#" class="recipe-link">우유 레시피 3</a></li>
-                </ul>
-            </div>
-            <div id="egg all">
-                <ul>
-                    <li><a href="#" class="recipe-link">달걀 레시피 1</a></li>
-                    <li><a href="#" class="recipe-link">달걀 레시피 2</a></li>
-                    <li><a href="#" class="recipe-link">달걀 레시피 3</a></li>
-                </ul>
-            </div>
-            <div id="pig-neck all">
-                <ul>
-                    <li><a href="#" class="recipe-link">목살 레시피 </a></li>
-                </ul>
-            </div>
-            <div id="pig-rib all">
-                <ul>
-                    <li><a href="#" class="recipe-link">갈비 레시피 </a></li>
-                </ul>
-            </div>
-            <div id="pig-belly all">
-                <ul>
-                    <li><a href="#" class="recipe-link">삼겹살 레시피 </a></li>
-                </ul>
-            </div>
-            <div id="pig-legs all">
-                <ul>
-                    <li><a href="#" class="recipe-link">앞다리살 레시피 </a></li>
-                </ul>
-            </div>
-            <div id="cow-sirloin all">
-                <ul>
-                    <li><a href="#" class="recipe-link">등심 레시피 </a></li>
-                </ul>
-            </div>
-            <div id="cow-relief all">
-                <ul>
-                    <li><a href="#" class="recipe-link">안심 레시피 </a></li>
-                </ul>
-            </div>
-            <div id="cow-rib all">
-                <ul>
-                    <li><a href="#" class="recipe-link">갈비 레시피 </a></li>
-                </ul>
-            </div>
-            <div id="cow-brisket all">
-                <ul>
-                    <li><a href="#" class="recipe-link">양지 레시피 </a></li>
-                </ul>
-            </div>
-            <div id="cow-butt all">
-                <ul>
-                    <li><a href="#" class="recipe-link">설도 레시피 </a></li>
-                </ul>
-            </div>
-            
-                <button class="add-to-cart-btn">장바구니 담기</button>
-            </div>
+    <div class="content">
+      <div class="recipes">
+        <div id="chicken" class="all">
+          <ul>
+            <li>
+              <a href="#" class="recipe-link">
+                <img src="#" alt="" class="recipe-img">
+                <div class="recipe-img-placeholder"></div>
+                <div class="recipe-writer">
+                  작성자
+                </div>
+                <div class="recipe-title">
+                  레시피 제목
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="recipe-link">
+                <img src="#" alt="" class="recipe-img">
+                <div class="recipe-img-placeholder"></div>
+                <div class="recipe-writer">
+                  작성자
+                </div>
+                <div class="recipe-title">
+                  레시피 제목
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="recipe-link">
+                <img src="#" alt="" class="recipe-img">
+                <div class="recipe-img-placeholder"></div>
+                <div class="recipe-writer">
+                  작성자
+                </div>
+                <div class="recipe-title">
+                  레시피 제목
+                </div>
+              </a>
+            </li>
+          </ul>
         </div>
+        <div id="milk" class="all">
+          <ul>
+            <li>
+              <a href="#" class="recipe-link">
+                <img src="#" alt="" class="recipe-img">
+                <div class="recipe-img-placeholder"></div>
+                <div class="recipe-writer">
+                  작성자
+                </div>
+                <div class="recipe-title">
+                  레시피 제목
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="recipe-link">
+                <img src="#" alt="" class="recipe-img">
+                <div class="recipe-img-placeholder"></div>
+                <div class="recipe-writer">
+                  작성자
+                </div>
+                <div class="recipe-title">
+                  레시피 제목
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="recipe-link">
+                <img src="#" alt="" class="recipe-img">
+                <div class="recipe-img-placeholder"></div>
+                <div class="recipe-writer">
+                  작성자
+                </div>
+                <div class="recipe-title">
+                  레시피 제목
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div id="egg" class="all">
+          <ul>
+            <li>
+              <a href="#" class="recipe-link">
+                <img src="#" alt="" class="recipe-img">
+                <div class="recipe-img-placeholder"></div>
+                <div class="recipe-writer">
+                  작성자
+                </div>
+                <div class="recipe-title">
+                  레시피 제목
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="recipe-link">
+                <img src="#" alt="" class="recipe-img">
+                <div class="recipe-img-placeholder"></div>
+                <div class="recipe-writer">
+                  작성자
+                </div>
+                <div class="recipe-title">
+                  레시피 제목
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="recipe-link">
+                <img src="#" alt="" class="recipe-img">
+                <div class="recipe-img-placeholder"></div>
+                <div class="recipe-writer">
+                  작성자
+                </div>
+                <div class="recipe-title">
+                  레시피 제목
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div id="pig-neck" class="all">
+          <ul>
+            <li>
+              <a href="#" class="recipe-link">
+                <img src="#" alt="" class="recipe-img">
+                <div class="recipe-img-placeholder"></div>
+                <div class="recipe-writer">
+                  작성자
+                </div>
+                <div class="recipe-title">
+                  레시피 제목
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="recipe-link">
+                <img src="#" alt="" class="recipe-img">
+                <div class="recipe-img-placeholder"></div>
+                <div class="recipe-writer">
+                  작성자
+                </div>
+                <div class="recipe-title">
+                  레시피 제목
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="recipe-link">
+                <img src="#" alt="" class="recipe-img">
+                <div class="recipe-img-placeholder"></div>
+                <div class="recipe-writer">
+                  작성자
+                </div>
+                <div class="recipe-title">
+                  레시피 제목
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div id="pig-rib" class="all">
+          <ul>
+            <li>
+              <a href="#" class="recipe-link">
+                <img src="#" alt="" class="recipe-img">
+                <div class="recipe-img-placeholder"></div>
+                <div class="recipe-writer">
+                  작성자
+                </div>
+                <div class="recipe-title">
+                  레시피 제목
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="recipe-link">
+                <img src="#" alt="" class="recipe-img">
+                <div class="recipe-img-placeholder"></div>
+                <div class="recipe-writer">
+                  작성자
+                </div>
+                <div class="recipe-title">
+                  레시피 제목
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="recipe-link">
+                <img src="#" alt="" class="recipe-img">
+                <div class="recipe-img-placeholder"></div>
+                <div class="recipe-writer">
+                  작성자
+                </div>
+                <div class="recipe-title">
+                  레시피 제목
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div id="pig-belly" class="all">
+          <ul>
+            <li>
+              <a href="#" class="recipe-link">
+                <img src="#" alt="" class="recipe-img">
+                <div class="recipe-img-placeholder"></div>
+                <div class="recipe-writer">
+                  작성자
+                </div>
+                <div class="recipe-title">
+                  레시피 제목
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="recipe-link">
+                <img src="#" alt="" class="recipe-img">
+                <div class="recipe-img-placeholder"></div>
+                <div class="recipe-writer">
+                  작성자
+                </div>
+                <div class="recipe-title">
+                  레시피 제목
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="recipe-link">
+                <img src="#" alt="" class="recipe-img">
+                <div class="recipe-img-placeholder"></div>
+                <div class="recipe-writer">
+                  작성자
+                </div>
+                <div class="recipe-title">
+                  레시피 제목
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div id="pig-legs" class="all">
+          <ul>
+            <li>
+              <a href="#" class="recipe-link">
+                <img src="#" alt="" class="recipe-img">
+                <div class="recipe-img-placeholder"></div>
+                <div class="recipe-writer">
+                  작성자
+                </div>
+                <div class="recipe-title">
+                  레시피 제목
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="recipe-link">
+                <img src="#" alt="" class="recipe-img">
+                <div class="recipe-img-placeholder"></div>
+                <div class="recipe-writer">
+                  작성자
+                </div>
+                <div class="recipe-title">
+                  레시피 제목
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="recipe-link">
+                <img src="#" alt="" class="recipe-img">
+                <div class="recipe-img-placeholder"></div>
+                <div class="recipe-writer">
+                  작성자
+                </div>
+                <div class="recipe-title">
+                  레시피 제목
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div id="cow-sirloin" class="all">
+          <ul>
+            <li>
+              <a href="#" class="recipe-link">
+                <img src="#" alt="" class="recipe-img">
+                <div class="recipe-img-placeholder"></div>
+                <div class="recipe-writer">
+                  작성자
+                </div>
+                <div class="recipe-title">
+                  레시피 제목
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="recipe-link">
+                <img src="#" alt="" class="recipe-img">
+                <div class="recipe-img-placeholder"></div>
+                <div class="recipe-writer">
+                  작성자
+                </div>
+                <div class="recipe-title">
+                  레시피 제목
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="recipe-link">
+                <img src="#" alt="" class="recipe-img">
+                <div class="recipe-img-placeholder"></div>
+                <div class="recipe-writer">
+                  작성자
+                </div>
+                <div class="recipe-title">
+                  레시피 제목
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div id="cow-relief" class="all">
+          <ul>
+            <li>
+              <a href="#" class="recipe-link">
+                <img src="#" alt="" class="recipe-img">
+                <div class="recipe-img-placeholder"></div>
+                <div class="recipe-writer">
+                  작성자
+                </div>
+                <div class="recipe-title">
+                  레시피 제목
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="recipe-link">
+                <img src="#" alt="" class="recipe-img">
+                <div class="recipe-img-placeholder"></div>
+                <div class="recipe-writer">
+                  작성자
+                </div>
+                <div class="recipe-title">
+                  레시피 제목
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="recipe-link">
+                <img src="#" alt="" class="recipe-img">
+                <div class="recipe-img-placeholder"></div>
+                <div class="recipe-writer">
+                  작성자
+                </div>
+                <div class="recipe-title">
+                  레시피 제목
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div id="cow-rib" class="all">
+          <ul>
+            <li>
+              <a href="#" class="recipe-link">
+                <img src="#" alt="" class="recipe-img">
+                <div class="recipe-img-placeholder"></div>
+                <div class="recipe-writer">
+                  작성자
+                </div>
+                <div class="recipe-title">
+                  레시피 제목
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="recipe-link">
+                <img src="#" alt="" class="recipe-img">
+                <div class="recipe-img-placeholder"></div>
+                <div class="recipe-writer">
+                  작성자
+                </div>
+                <div class="recipe-title">
+                  레시피 제목
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="recipe-link">
+                <img src="#" alt="" class="recipe-img">
+                <div class="recipe-img-placeholder"></div>
+                <div class="recipe-writer">
+                  작성자
+                </div>
+                <div class="recipe-title">
+                  레시피 제목
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div id="cow-brisket" class="all">
+          <ul>
+            <li>
+              <a href="#" class="recipe-link">
+                <img src="#" alt="" class="recipe-img">
+                <div class="recipe-img-placeholder"></div>
+                <div class="recipe-writer">
+                  작성자
+                </div>
+                <div class="recipe-title">
+                  레시피 제목
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="recipe-link">
+                <img src="#" alt="" class="recipe-img">
+                <div class="recipe-img-placeholder"></div>
+                <div class="recipe-writer">
+                  작성자
+                </div>
+                <div class="recipe-title">
+                  레시피 제목
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="recipe-link">
+                <img src="#" alt="" class="recipe-img">
+                <div class="recipe-img-placeholder"></div>
+                <div class="recipe-writer">
+                  작성자
+                </div>
+                <div class="recipe-title">
+                  레시피 제목
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div id="cow-butt" class="all">
+          <ul>
+            <li>
+              <a href="#" class="recipe-link">
+                <img src="#" alt="" class="recipe-img">
+                <div class="recipe-img-placeholder"></div>
+                <div class="recipe-writer">
+                  작성자
+                </div>
+                <div class="recipe-title">
+                  레시피 제목
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="recipe-link">
+                <img src="#" alt="" class="recipe-img">
+                <div class="recipe-img-placeholder"></div>
+                <div class="recipe-writer">
+                  작성자
+                </div>
+                <div class="recipe-title">
+                  레시피 제목
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="recipe-link">
+                <img src="#" alt="" class="recipe-img">
+                <div class="recipe-img-placeholder"></div>
+                <div class="recipe-writer">
+                  작성자
+                </div>
+                <div class="recipe-title">
+                  레시피 제목
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+        <div class="add-to-cart-section">
+          <img src="#" alt="">
+          <h1 class="item-title">
+            목살 100g
+          </h1>
+          <div class="now-price">
+            현재가격 <span class="price">1000원</span>
+          </div>
+          <div class="change">
+            어제보다 <span class="change-price">200원 비싸요</span>
+          </div>
+          <button class="add-to-cart-btn">
+            장바구니 담기
+          </button>
+        </div>
+        <button class="write-recipe">
+         글쓰기
+        </button>
+      </div>
+
     </div>
-<script>
+    <footer>
+      <div class="row">
+        <div class="col mt-3">
+          <ul>
+            <li class="title">meat meet</li>
+            <li>상호 : 미트미트 | 대표자명 : 홍길동 | <a href="#">개인정보처리방침</a></li>
+            <li>사업자등록번호 : 000-00-00000</li>
+            <li>연락처 : 00-000-0000</li>
+            <li>이메일 : meatmeet@gmail.com</li>
+            <li>주소 : 서울특별시 OO구 OO로O길</li>
+          </ul>
+        </div>
+        <div class="col pt-5">
+          <a href="#">
+            <img src="../image/logo_white.png" alt="meatmeet로고" class="mt-3">
+          </a>
+        </div>
+      </div>
+    </footer>
+
+  <script>
     var items = document.querySelectorAll(".item");
     var submenus = document.querySelectorAll(".submenu");
-    var recipeSections = document.querySelectorAll('.content > div');
+    var recipeSections = document.querySelectorAll('.recipes > div');
 
     items.forEach(function(item) {
-        item.addEventListener("click", function() {
-            var target = this.getAttribute("data-target");
+    item.addEventListener("click", function() {
+        var target = this.getAttribute("data-target");
 
-            submenus.forEach(function(submenu) {
-                if (submenu.id === target) {
-                    submenu.classList.remove("hide");
-                } else {
-                    submenu.classList.add("hide");
-                }
-            });
+        submenus.forEach(function(submenu) {
+            if (submenu.id === target) {
+                submenu.classList.remove("hide");
+            } else {
+                submenu.classList.add("hide");
+            }
+        });
 
-            recipeSections.forEach(function(section) {
-                section.classList.add('hide');
+        recipeSections.forEach(function(section) {
+            section.classList.add('hide');
 
-                if (target !== 'pig' && target !== 'cow' && section.id.includes(target)) {
-                    section.classList.remove('hide');
-                }
-            });
+            if (target === 'all' && section.classList.contains('all')) {
+                section.classList.remove('hide');
+            } else if (section.id.includes(target)) {
+                section.classList.remove('hide');
+            }
         });
     });
+  });
 
-    var submenuItems = document.querySelectorAll(".submenu li");
-    submenuItems.forEach(function(submenuItem) {
-        submenuItem.addEventListener("click", function() {
-            var target = this.getAttribute("data-target");
+  var submenuItems = document.querySelectorAll(".submenu li");
+  submenuItems.forEach(function(submenuItem) {
+      submenuItem.addEventListener("click", function() {
+          var target = this.getAttribute("data-target");
 
-            recipeSections.forEach(function(section) {
-                section.classList.add('hide');
+          recipeSections.forEach(function(section) {
+              section.classList.add('hide');
 
-                if (section.id === target) {
-                    section.classList.remove('hide');
-                }
-            });
-        });
-    });
-</script>
+              if (target === 'all' && section.classList.contains('all')) {
+                  section.classList.remove('hide');
+              } else if (section.id === target) {
+                  section.classList.remove('hide');
+              }
+          });
+      });
+  });
 
-    
-    
-    
-    
-    
-    
-    
+  </script>
 </body>
-
 </html>

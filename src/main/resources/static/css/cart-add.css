@@ -7,11 +7,6 @@
     font-style: normal;
 }
 
-.container {
-    display: flex;
-    justify-content: center;
-}
-
 div.center {
     display: flex;
     justify-content: center;
@@ -59,7 +54,7 @@ p.bold {
 
 p.order {
     font-size: 20px;
-    margin-left:20px;
+    margin-left: 20px;
 }
 
 p.order2 {
