@@ -22,10 +22,6 @@ form #date {
   font-size: large;
 }
 
-table {
-  margin-left: -100px;
-}
-
 .box button.order-button {
   margin-top: 10px;
   display: inline-block;
@@ -34,7 +30,7 @@ table {
   background-color: #ddd;
   border-radius: 5px;
   color: black;
-  width: 200px;
+  width: 207px;
 }
 
 .box button.order-button:hover {
