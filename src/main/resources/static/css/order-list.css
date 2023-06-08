@@ -1,0 +1,43 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+@font-face {
+  font-family: 'GeekbleMalang2WOFF2';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/GeekbleMalang2WOFF2.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+form {
+  margin-top: 200px;
+}
+
+form #name,
+#phone,
+#address,
+#request {
+  background-color: #ddd;
+}
+
+form #date {
+  font-size: large;
+}
+
+table {
+  margin-left: -100px;
+}
+
+.box button.order-button {
+  margin-top: 10px;
+  display: inline-block;
+  padding: 10px 60px;
+  border: 1px solid #ddd;
+  background-color: #ddd;
+  border-radius: 5px;
+  color: black;
+  width: 200px;
+}
+
+.box button.order-button:hover {
+  background-color: gray;
+  border: 1px solid gray;
+}

@@ -7,15 +7,55 @@
   font-style: normal;
 }
 
-h3 {
-  font-weight: bold;
-  margin-bottom: 30px;
+form {
+  width: 500px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  display: inline-block;
+  text-align: left;
+  flex-wrap: wrap;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: -100px;
+  margin-right: 50px;
+  /* max-height: 500px; */
 }
 
-form {
-  align-items: center;
+form hr {
+  width: 100%;
+}
+
+h3 {
+  font-weight: bold;
+  margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 form label {
   margin-bottom: 10px;
+  display: block;
+}
+
+form #name,
+#phone,
+#address,
+#request {
+  border: 1px solid #ccc;
+  width: 100%;
+  padding: 5px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+input[type="radio"] {
+  margin-right: 5px;
+  margin-left: 10px;
+}
+
+.center {
+  /* height: calc(100vh - 220px); */
+  overflow-y: auto;
+  overflow-x: auto;
+  padding: 20px 20px;
 }
