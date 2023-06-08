@@ -1,10 +1,5 @@
 @charset "UTF-8";
 
-html, body, h1, h2, h3, h4, h5, h6, ul, li, p, a {
-  margin: 0;
-  padding: 0;
-} 
-
 .container {
   font-family: 'Noto Sans KR', sans-serif;
   margin: 0 center;
@@ -25,6 +20,7 @@ html, body, h1, h2, h3, h4, h5, h6, ul, li, p, a {
 .count {
   margin-left: 5px;
 }
+
 .location {
   font-weight: bold;
   font-size: 16px;
@@ -67,6 +63,7 @@ html, body, h1, h2, h3, h4, h5, h6, ul, li, p, a {
   text-align: left;
   margin-top: 10px;
 }
+
 .ingredient {
   padding-top: 20px;
 }
@@ -119,16 +116,18 @@ html, body, h1, h2, h3, h4, h5, h6, ul, li, p, a {
   clear: both;
 }
 
-.comment .name{
+.comment .name {
   font-weight: bold;
   font-size: 16px;
   float: left;
   margin-right: 10px;
 }
+
 .comment .text {
   clear: both;
   padding-top: 10px;
 }
+
 .comment-add {
   padding: 20px 0 80px 0;
 
