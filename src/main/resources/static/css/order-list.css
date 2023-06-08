@@ -11,7 +11,10 @@ form {
   margin-top: 200px;
 }
 
-form #write {
+form #name,
+#phone,
+#address,
+#request {
   background-color: #ddd;
 }
 
