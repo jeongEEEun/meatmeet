@@ -7,7 +7,14 @@
   font-style: normal;
 }
 
-form #write {
+form {
+  margin-top: 200px;
+}
+
+form #name,
+#phone,
+#address,
+#request {
   background-color: #ddd;
 }
 

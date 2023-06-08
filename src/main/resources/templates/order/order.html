@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="/src/main/resources/static/css/header-footer.css" th:href="@{/css/header-footer.css}">
-	<link rel="stylesheet" href="/src/main/resources/static/css/bootstrap.min.css" th:href="@{/cssbootstrap.min.css}">
+	<link rel="stylesheet" href="/src/main/resources/static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
 	<link rel="stylesheet" href="/src/main/resources/static/css/cart.css" th:href="@{/css/cart.css}">
 	<link rel="stylesheet" href="/src/main/resources/static/css/cart-add.css" th:href="@{/css/cart-add.css}">
 	<link rel="stylesheet" href="/src/main/resources/static/css/order.css" th:href="@{/css/order.css}">
@@ -14,6 +14,7 @@
 </head>
 
 <body>
+	<!-- header start -->
 	<header>
 		<ul class="row px-0 pt-4">
 			<li class="col p-0 pe-1">
@@ -46,22 +47,24 @@
 			</div>
 		</ul>
 	</header>
+	<!-- header end -->
 	<hr>
 	<h1>주문</h1>
+	<!-- center start -->
 	<div class="center">
 		<form>
 			<h3>주문자 정보</h3>
 			<label for="name">이름</label>
-			<input type="text" id="write" name="name" placeholder="성함을 입력해주세요" required>
+			<input type="text" id="name" name="name" placeholder="성함을 입력해주세요" required>
 			<br>
 			<label for="phone">전화번호</label>
-			<input type="tel" id="write" name="phone" placeholder="전화번호를 입력해주세요" required>
+			<input type="tel" id="phone" name="phone" placeholder="전화번호를 입력해주세요" required>
 			<br>
 			<label for="address">주소</label>
-			<input type="address" id="write" name="address" placeholder="내용을 입력해주세요" required>
+			<input type="address" id="address" name="address" placeholder="내용을 입력해주세요" required>
 			<br>
 			<label for="request">요청사항</label>
-			<select name="request" id="write">
+			<select name="request" id="request">
 				<option value="1">배송 시 요청사항을 선택해 주세요</option>
 				<option value="2">문 앞에 놔주세요</option>
 				<option value="3">오실 때 연락주세요</option>
@@ -95,6 +98,8 @@
 			</div>
 		</div>
 	</div>
+	<!-- center end -->
+	<!-- footer start -->
 	<footer>
 		<div class="row">
 			<div class="col mt-3">
@@ -114,6 +119,7 @@
 			</div>
 		</div>
 	</footer>
+	<!-- footer end -->
 </body>
 
 </html>

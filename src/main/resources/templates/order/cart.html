@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="/src/main/resources/static/css/header-footer.css" th:href="@{/css/header-footer.css}">
-	<link rel="stylesheet" href="/src/main/resources/static/css/bootstrap.min.css" th:href="@{/cssbootstrap.min.css}">
+	<link rel="stylesheet" href="/src/main/resources/static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
 	<link rel="stylesheet" href="/src/main/resources/static/css/cart.css" th:href="@{/css/cart.css}">
 	<title>cart.html</title>
 </head>
 
 <body>
+	<!-- header start -->
 	<header>
 		<ul class="row px-0 pt-4">
 			<li class="col p-0 pe-1">
@@ -44,8 +45,10 @@
 			</div>
 		</ul>
 	</header>
+	<!-- header end -->
 	<hr>
 	<h1>장바구니</h1>
+	<!-- container start -->
 	<div class="container">
 		<div>
 			<a href="#" class="title">
@@ -61,6 +64,8 @@
 			<button class="home-button" onclick="">홈으로 가기</button>
 		</div>
 	</div>
+	<!-- container end -->
+	<!-- footer start -->
 	<footer>
 		<div class="row">
 			<div class="col mt-3">
@@ -80,6 +85,7 @@
 			</div>
 		</div>
 	</footer>
+	<!-- footer end -->
 </body>
 
 </html>
