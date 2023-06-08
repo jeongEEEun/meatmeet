@@ -17,10 +17,13 @@
 .remote-box .btn {
 	margin: 0 auto;
 	display: block;
-	/* width: 120px; */
 	background-color: #ff6666;
 	--bs-btn-active-bg: #ffb3b3;
-	--bs-btn-hover-bg: #ff3333;
+	border: none;
+}
+
+.remote-box .btn:hover {
+	background-color: #ff3333;
 	border: none;
 }
 

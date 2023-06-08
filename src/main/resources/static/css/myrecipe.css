@@ -1,0 +1,96 @@
+@charset "UTF-8";
+.container {
+    
+    width: 1000px;
+    min-height: 50vh;
+    margin: 30px auto;
+}
+.container h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    margin-top: 20px;
+}
+.content {
+    
+    height: auto;
+    position: relative;
+    
+}
+.content .recipe {
+    position: relative;
+    /* border: 1px solid #999999; */
+    height: 150px;
+}
+.img-placeholder {
+    position: absolute;
+    width: 20%;
+    height: 100%;
+    left: 0;
+    background-color: #999999;
+    display: inline-block;
+}
+.recipe-title {
+    position: absolute;
+    left: 25%;
+    top: 5%;
+    display: inline-block;
+    font-size: 18px;
+}
+.view {
+    display: inline-block;
+    position: absolute;
+    left: 25%;
+    bottom: 5%;
+    font-size: 14px;
+}
+.btns {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    width: 60px;
+    height: 100%;
+}
+.btn-edit {
+    border: 1px solid #000;
+    border-radius: 5px;
+    position: absolute;
+    right: 0;
+    top: 15%;
+    transition: border-color 0.3s;
+}
+
+.btn-edit:hover {
+    border-color: #ffb3b3;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.btn-edit:focus {
+    outline: none;
+    box-shadow: 0 0 4px #ffb3b3;
+}
+
+.btn-del {
+    border: 1px solid #ff6666;
+    border-radius: 5px;
+    position: absolute;
+    right: 0;
+    top: 60%;
+    background-color: #ff6666;
+    transition: background-color 0.3s;
+}
+
+.btn-del:hover {
+    background-color: #ff3333;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.btn-del:focus {
+    outline: none;
+    box-shadow: 0 0 4px #ff3333;
+}
+
+.content hr {
+    color: #ff6666;
+}
