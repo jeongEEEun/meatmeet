@@ -6,19 +6,24 @@
     font-weight: normal;
     font-style: normal;
 }
-
+.center {
+    margin: 0 center;
+    max-width: 1000px;
+  }
+  
 div.center {
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-    height: 50vh;
+    height: 70vh;
     margin-left: auto;
     margin-right: auto;
 }
 
 table {
     margin-right: 50px;
+    margin-top: -30vh;
 }
 
 td.bold {
@@ -40,6 +45,7 @@ table td {
     display: flex;
     flex-wrap: wrap;
     margin-left: 40px;
+    margin-top: -20vh;
 }
 
 p.bold {

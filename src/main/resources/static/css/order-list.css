@@ -8,7 +8,7 @@
 }
 
 form {
-  margin-top: 200px;
+  margin: auto;
 }
 
 form #name,
@@ -20,6 +20,11 @@ form #name,
 
 form #date {
   font-size: large;
+}
+
+table {
+  margin: auto;
+  margin-bottom: 20px;
 }
 
 .box button.order-button {

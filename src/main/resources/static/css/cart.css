@@ -7,8 +7,13 @@
   font-style: normal;
 }
 
+.container {
+  margin: 0 center;
+  max-width: 1000px;
+}
+
 hr {
-  width: 80%;
+  width: 60%;
   margin: auto;
   align-items: center;
   border-top: 2px solid black;
