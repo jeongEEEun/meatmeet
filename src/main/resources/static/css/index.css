@@ -30,6 +30,7 @@
 /* TOOLTIP BOX - 축산물 부위에 호버 시 표시되는 툴팁 */
 .price-tooltip {
 	text-align: center;
+	padding: 20px 0;
 }
 
 .price-tooltip b {
@@ -69,6 +70,7 @@ div .title-box .title {
 
 div .title-box .sub-title {
 	color: #fff;
+	font-size: 14px;
 }
 
 div .wrap {
@@ -79,6 +81,10 @@ div .wrap {
 div .wrap .box {
 	text-align: center;
 	padding: 0 auto;
+}
+
+div .wrap .box p {
+	color: #888;
 }
 
 div .wrap .chicken-egg-milk {
