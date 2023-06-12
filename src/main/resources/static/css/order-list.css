@@ -8,7 +8,7 @@
 }
 
 form {
-  margin-top: 200px;
+  margin: auto;
 }
 
 form #name,
@@ -23,7 +23,8 @@ form #date {
 }
 
 table {
-  margin-left: -100px;
+  margin: auto;
+  margin-bottom: 20px;
 }
 
 .box button.order-button {
@@ -34,7 +35,7 @@ table {
   background-color: #ddd;
   border-radius: 5px;
   color: black;
-  width: 200px;
+  width: 207px;
 }
 
 .box button.order-button:hover {

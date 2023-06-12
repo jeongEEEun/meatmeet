@@ -5,15 +5,18 @@
   font-weight: normal;
   font-style: normal;
 }
+
 * {
 	font-family: 'Noto Sans KR', sans-serif;
 	font-size: 16px;
 }
+
 .title {
 	font-family: 'GeekbleMalang2WOFF2';
 	font-weight: 100;
 	font-size: 24px;
 }
+
 header {
 	font-family: 'Noto Sans KR', sans-serif;
 	margin: 0 auto;
@@ -21,13 +24,16 @@ header {
 	padding-top: 30px;
 	max-width: 1000px;
 }
+
 /* HEADER */
 header .logo {
 	height: 35px;
 }
+
 header .icon {
 	height: 25px;
 }
+
 header ul li {
 	list-style: none;
 	display: inline-block;
@@ -35,6 +41,7 @@ header ul li {
 	padding: 0;
 	margin: 0
 }
+
 header ul li a {
 	display: inline-block;
 	text-decoration: none;
@@ -42,15 +49,42 @@ header ul li a {
 	font-weight: bold;
 	font-size: 20px;
 }
+
 header ul div {
 	text-align: right;
 }
+
 header ul div li a {
 	float: right;
 }
+
 header ul li a:hover {
 	color: #ff6666;
 	transition: 0.2s;
+}
+
+header ul li.member {
+	margin-top: 2px;
+}
+
+header ul li.member .member-name {
+	pointer-events: none;
+	font-size: 16px;
+}
+
+header ul li .logout-btn {
+	height: 30px;
+	padding: 5px;
+	line-height: 15px;
+	font-size: 16px;
+	background-color: #fff;
+	border-color: #999;
+	color: #999;
+}
+
+header ul li .logout-btn:hover {
+  background-color: #ff6666;
+  border-color: #ff6666;
 }
 
 /* footer */
@@ -58,28 +92,32 @@ footer {
 	background-color: #ff6666;
 	width: 100%;
 	height: 250px;
-	/* position: absolute; */
 	bottom: 0;
 	left: 0;
 }
+
 footer div:first-child {
 	max-width: 1000px;
 	margin: 0 auto;
 }
+
 footer div ul {
 	display: block;
 	width: 500px;
 	margin: 0;
 }
+
 footer div ul li {
 	color: #fff;
 	font-size: 14px;
 	list-style: none;
 }
+
 footer div ul li a {
 	text-decoration: none;
 	color: #fff;
 }
+
 footer div img {
 	height: 80px;
 	float: right;
