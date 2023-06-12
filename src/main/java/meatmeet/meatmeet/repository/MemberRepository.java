@@ -60,4 +60,5 @@ public class MemberRepository {
 		
 		return findByMemberId(member.getMemberId());
 	}
+	
 }
