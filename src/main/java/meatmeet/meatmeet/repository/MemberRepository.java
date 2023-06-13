@@ -103,4 +103,20 @@ public class MemberRepository {
 		String sql = "select * from recipe where member_id = ?"; 
 		return jdbcTemplate.query(sql, recipeRowMapper, memberId);
 	}
+	
+	public Optional<Recipe> findByRecipeId(Long recipeId) {
+		String sql = "select * from recipe where recipe_id = ?";
+		return jdbcTemplate.query(sql, recipeRowMapper,recipeId).stream().findFirst();
+	}
+	
+	public Optional<Recipe> updateRecipe(Recipe recipe) {
+		String sql = "update recipe set title = ?, ingre = ?, sauce = ?, step = ? where recipe_id = ?";
+		jdbcTemplate.update(sql, recipe.getTitle(), recipe.getIngre(), recipe.getSauce(), recipe.getStep(), recipe.getRecipeId());
+		return findByRecipeId(recipe.getRecipeId());
+	}
+	
+	public void deleteRecipe(Long recipeId) {
+		String sql = "delete from recipe where recipe_id = ?";
+		jdbcTemplate.update(sql, recipeId);
+	}
 }

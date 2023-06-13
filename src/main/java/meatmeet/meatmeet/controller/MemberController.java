@@ -64,7 +64,6 @@ public class MemberController {
 		
 		log.info("[MemberContoller - signIn()] 로그인 >> " + member.getMemberId());
 		session.setAttribute("member", loginMember.get());
-		
 		return "redirect:/";
 	}
 	
@@ -104,8 +103,23 @@ public class MemberController {
 	public String recipeEditForm(@PathVariable String memberId, @PathVariable Long recipeId, @SessionAttribute Member member, Model model) {
 		Optional<Recipe> findRecipe = memberService.findByRecipeId(memberId, recipeId);
 		
-		model.addAttribute("recipe", findRecipe.get());
+		if(findRecipe.isPresent()) {
+			model.addAttribute("recipe", findRecipe.get());
+		}
 		
 		return "recipe/edit";
+	}
+	
+	@PostMapping("/recipe/{memberId}/{recipeId}/edit")
+	public String recipeEdit(@PathVariable String memberId, @PathVariable Long recipeId, @SessionAttribute Member member, Recipe recipe, RedirectAttributes redirectAttributes) {
+		Optional<Recipe> updateRecipe = memberService.updateRecipe(recipe);
+		redirectAttributes.addAttribute("recipeId", updateRecipe.get().getRecipeId());
+		return "redirect:/recipe/{recipeId}";
+	}
+	
+	@GetMapping("/recipe/{memberId}/{recipeId}/delete")
+	public String recipeDelete(@PathVariable String memberId, @PathVariable Long recipeId, @SessionAttribute Member member) {
+		memberService.deleteRecipe(recipeId);
+		return "redirect:/myrecipe/" + memberId;
 	}
 }
