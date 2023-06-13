@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
@@ -23,18 +24,34 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @GetMapping("/order")
-    public String order(@SessionAttribute(required = false) Member member, Model model) {
-        model.addAttribute("member", member);
-        model.addAttribute("order", new Order());
-        return "order";
-    }
+//    @GetMapping("/order/{memberId}")
+//    public String order(@PathVariable String memberId, Model model) {
+//        Member member = orderService.getMemberById(memberId);
+//
+//        model.addAttribute("member", member);
+//        model.addAttribute("order", new Order());
+//
+//        return "order";
+//    }
+//
+//    @PostMapping("/order")
+//    public String createOrder(@ModelAttribute Order order, @SessionAttribute Member member) {
+//        orderService.createOrder(order);
+//        return "redirect:/order/" + member.getId();
+//    }
 
-    @PostMapping("/order")
-    public String createOrder(@ModelAttribute Order order) {
-        orderService.createOrder(order);
-        return "redirect:/order";
-    }
+//    @GetMapping("/order")
+//    public String order(@SessionAttribute(required = false) Member member, Model model) {
+////        model.addAttribute("member", member);
+////        model.addAttribute("order", new Order());
+//    	return "order";
+//    }
+
+//    @PostMapping("/order")
+//    public String createOrder(@ModelAttribute Order order) {
+//        orderService.createOrder(order);
+//        return "redirect:/order";
+//    }
 
 //    @GetMapping("/order-list")
 //    public String showOrderListPage(Model model) {

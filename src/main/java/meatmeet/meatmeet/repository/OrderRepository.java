@@ -58,5 +58,9 @@ public class OrderRepository {
         String sql = "DELETE FROM orders WHERE order_id = ?";
         jdbcTemplate.update(sql, orderId);
     }
-
+    
+    public void cancelOrder(Long orderId) {
+        String sql = "UPDATE orders SET cancelled = true WHERE order_id = ?";
+        jdbcTemplate.update(sql, orderId);
+    }
 }

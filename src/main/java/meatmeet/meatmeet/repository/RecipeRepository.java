@@ -36,7 +36,6 @@ public class RecipeRepository {
 		return recipe;
 	};
 	
-	
 	public List<Recipe> findAll() {
 		return jdbcTemplate.query("select * from recipe", recipeRowMapper);
 	}
@@ -52,6 +51,4 @@ public class RecipeRepository {
 		List<Recipe> result = jdbcTemplate.query(sql, recipeRowMapper, "%"+category2+"%");
 		return result.stream().findAny();
 	}
-	
-	
 }
