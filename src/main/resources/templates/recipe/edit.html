@@ -58,7 +58,7 @@
   <div class="container">
     <hr>
     <div class="category">
-      <form action="#">
+      <form action="#" th:action="@{/recipe/{memberId}/{recipeId}/edit(memberId=${memberId}, recipeId=${recipe.recipeId})}" method="post">
         <div class="cateory-select">
           <label for="category-select">카테고리</label>
 			<select class="type" name="category1" id="type" onchange="handleCategoryChange()" th:value="${recipe.category1}">
@@ -109,22 +109,22 @@
         <div class="ingredient">
           <label for="ingre">재료</label>
           <p><textarea name="ingre" id="ingre" cols="50" rows="5"
-              placeholder="필요한 재료와 무게/수량을 적어주세요. 예) 채끝 등심 400g, 미니 파프리카 3~4개" th:value="${recipe.ingre}"></textarea></p>
+              placeholder="필요한 재료와 무게/수량을 적어주세요. 예) 채끝 등심 400g, 미니 파프리카 3~4개" th:text="${recipe.ingre}"></textarea></p>
         </div>
         <div class="source">
           <label for="sauce">양념</label>
           <p><textarea name="sauce" id="sauce" cols="50" rows="7"
-              placeholder="필요한 양념과 양을 적어주세요. 예) 소금 약간, 간장 1스푼" th:value="${recipe.sauce}"></textarea></p>
+              placeholder="필요한 양념과 양을 적어주세요. 예) 소금 약간, 간장 1스푼" th:text="${recipe.sauce}"></textarea></p>
         </div>
         <hr>
         <div class="method">
           <label for="step">만드는 법</label>
           <p><textarea name="step" id="step" cols="50" rows="10"
-              placeholder="요리 소개와 정보, 만드는 과정과 요리 팁을 자유롭게 적어주세요."th:value="${recipe.step}"></textarea></p>
+              placeholder="요리 소개와 정보, 만드는 과정과 요리 팁을 자유롭게 적어주세요."th:text="${recipe.step}"></textarea></p>
         </div>
         <div class="file">
           <label for="file">파일 첨부</label>
-          <p><input type="file" placeholder="음식 사진을 첨부해주세요." th:value="${recipe.imgPath}"></p>
+          <p><input type="file" placeholder="음식 사진을 첨부해주세요." name="imgFile"></p>
         </div>
         <button class="delete" type="submit">삭제</button>
         <div class="button">

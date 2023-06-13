@@ -89,4 +89,12 @@ public class MemberService {
 		List<Recipe> recipe = memberRepository.findRecipeByMemberId(memberId);
 		return recipe.stream().filter(r -> r.getRecipeId() == recipeId).findFirst();
 	}
+	
+	public Optional<Recipe> updateRecipe(Recipe recipe) {
+		return memberRepository.updateRecipe(recipe);
+	}
+	
+	public void deleteRecipe(Long recipeId) {
+		memberRepository.deleteRecipe(recipeId);
+	}
 }

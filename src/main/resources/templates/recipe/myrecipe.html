@@ -59,7 +59,8 @@
                 <div class="btns">
                     <button class="btn-edit"
                         th:onclick="|location.href='@{/recipe/{memberId}/{recipeId}/edit(memberId=${memberId}, recipeId=${recipe.recipeId})}'|">수정</button>
-                    <button class="btn-del">삭제</button>
+                    <button class="btn-del"
+                        th:onclick="|location.href='@{/recipe/{memberId}/{recipeId}/delete(memberId=${memberId}, recipeId=${recipe.recipeId})}'|">삭제</button>
                 </div>
             </div>
         </div>
