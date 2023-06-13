@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import lombok.extern.slf4j.Slf4j;
 import meatmeet.meatmeet.domain.Member;
+import meatmeet.meatmeet.domain.Recipe;
 
 @SpringBootTest
 @Slf4j
@@ -33,5 +34,18 @@ class MemberRepositoryTest {
 		Optional<Member> result = memberRepository.saveMember(member);
 		
 		assertThat(result).isNotEmpty();
+	}
+	
+	@Test
+	void saveRecipe() {
+		Member member = new Member("테스트", "a@a.com", "test", "1111");
+		Optional<Member> savedMember = memberRepository.saveMember(member);
+		Recipe recipe = new Recipe(savedMember.get().getMemberId(), "돼지", "목심", "제목", "재료", "양념", "만드는법");
+		recipe.setImgName("img.jpg");
+		recipe.setImgPath("img/img.jpg");
+		
+		Long result = memberRepository.saveRecipe(recipe);
+		
+		assertThat(result).isEqualTo(1);
 	}
 }

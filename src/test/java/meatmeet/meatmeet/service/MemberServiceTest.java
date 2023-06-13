@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import meatmeet.meatmeet.domain.Member;
+import meatmeet.meatmeet.domain.Recipe;
 
 @SpringBootTest
 class MemberServiceTest {
@@ -24,5 +25,4 @@ class MemberServiceTest {
 		
 		assertThat(result).isEmpty();
 	}
-
 }
