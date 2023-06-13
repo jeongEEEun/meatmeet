@@ -1,14 +1,19 @@
 package meatmeet.meatmeet.repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
+import meatmeet.meatmeet.domain.Cart;
 import meatmeet.meatmeet.domain.Recipe;
 
 @Repository
@@ -36,6 +41,17 @@ public class RecipeRepository {
 		return recipe;
 	};
 	
+	private RowMapper<Cart> cartRowMapper = (rs, rowNum) -> {
+		Cart cart = new Cart();
+		
+		cart.setItemId(rs.getInt("item_id"));
+		cart.setMemberId(rs.getString("member_id"));
+		cart.setQuantity(rs.getInt("quantity"));
+		cart.setTodayPrice(rs.getInt("today_price"));
+		cart.setYesterdayPrice(rs.getInt("yesterday_price"));
+		return cart;
+		
+	};
 	
 	public List<Recipe> findAll() {
 		return jdbcTemplate.query("select * from recipe", recipeRowMapper);
@@ -51,5 +67,16 @@ public class RecipeRepository {
 		return jdbcTemplate.query(sql, recipeRowMapper, "%"+category2+"%");
 	}
 	
-	
+	public int cartAdd(Cart cart) {
+		SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate).withTableName("cart").usingGeneratedKeyColumns("item_id");
+		Map<String, Object> parameter = new HashMap<>();
+		parameter.put("member_id", cart.getMemberId());
+		parameter.put("quantity", cart.getQuantity());
+		parameter.put("today_price", cart.getTodayPrice());
+		parameter.put("yesterday_price", cart.getYesterdayPrice());
+		
+		Number returnKey = jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameter));
+		cart.setItemId(returnKey.intValue());
+		return cart.getItemId();
+	}
 }
