@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class recipeDomain {
+public class Recipe {
 	private int recipe_id;
 	private String member_id;
 	private String category1;

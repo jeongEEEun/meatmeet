@@ -2,10 +2,13 @@ package meatmeet.meatmeet.service;
 
 import org.springframework.stereotype.Service;
 
-import lombok.RequiredArgsConstructor;
+import meatmeet.meatmeet.repository.RecipeRepository;
 
 @Service
-@RequiredArgsConstructor
-public class recipeService {
-
+public class RecipeService {
+	private final RecipeRepository recipeRepository;
+	
+	public RecipeService(RecipeRepository recipeRepository) {
+		this.recipeRepository = recipeRepository;
+	}
 }
