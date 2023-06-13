@@ -76,10 +76,13 @@ nav .submenu ul li:hover {
     justify-content: space-between;
     flex-wrap: wrap;
     position: relative;
+    float: right;
 }
 
 .content.recipes {
     width: 70%;
+    float: right;
+    
 }
 
 .content.recipes ul {
@@ -94,7 +97,7 @@ nav .submenu ul li:hover {
     border: 1px solid #ffb3b3;
     display: inline-block;
     background-color: #ffb3b3;
-    padding: ;
+    padding: 0;
 }
 
 .content li a {

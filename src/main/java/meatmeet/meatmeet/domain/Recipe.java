@@ -13,7 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Recipe {
-	private long recipeId;
+	private Long recipeId;
 	
 	@NonNull
 	private String memberId;

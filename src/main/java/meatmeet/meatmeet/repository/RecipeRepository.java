@@ -22,7 +22,7 @@ public class RecipeRepository {
 	private RowMapper<Recipe> recipeRowMapper = (rs, rowNum) -> {
 		Recipe recipe = new Recipe();
 		
-		recipe.setRecipeId(rs.getInt("recipe_id"));
+		recipe.setRecipeId(rs.getLong("recipe_id"));
 		recipe.setMemberId(rs.getString("member_id"));
 		recipe.setCategory1(rs.getString("category1"));
 		recipe.setCategory2(rs.getString("category2"));
@@ -41,16 +41,14 @@ public class RecipeRepository {
 		return jdbcTemplate.query("select * from recipe", recipeRowMapper);
 	}
 	
-	public Optional<Recipe> findType(String category1) {
+	public List<Recipe> findType(String category1) {
 		String sql = "select * from recipe where category1 like ?";
-		List<Recipe> result = jdbcTemplate.query(sql, recipeRowMapper, "%"+category1+"%");
-		return result.stream().findAny();
+		return jdbcTemplate.query(sql, recipeRowMapper, "%"+category1+"%");
 	}
 	
-	public Optional<Recipe> findPart(String category2) {
+	public List<Recipe> findPart(String category2) {
 		String sql = "select * from recipe where category2 like ?";
-		List<Recipe> result = jdbcTemplate.query(sql, recipeRowMapper, "%"+category2+"%");
-		return result.stream().findAny();
+		return jdbcTemplate.query(sql, recipeRowMapper, "%"+category2+"%");
 	}
 	
 	
