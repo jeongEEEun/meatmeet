@@ -1,5 +1,6 @@
 package meatmeet.meatmeet.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -55,14 +56,14 @@ public class MemberController {
 	@PostMapping("/sign-in")
 	public String signIn(Member member, HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		Optional<Member> result = memberService.login(member); 
+		Optional<Member> loginMember = memberService.login(member); 
 		
-		if(result.isEmpty()) {
+		if(loginMember.isEmpty()) {
 			return "redirect:/sign-in";
 		}
 		
 		log.info("[MemberContoller - signIn()] 로그인 >> " + member.getMemberId());
-		session.setAttribute("member", result.get());
+		session.setAttribute("member", loginMember.get());
 		
 		return "redirect:/";
 	}
@@ -87,5 +88,24 @@ public class MemberController {
 		Long recipeId = memberService.saveRecipe(recipe, imgFile);
 		redirectAttributes.addAttribute("recipeId", recipeId);
 		return "redirect:/recipe/{recipeId}";
+	}
+	
+	@GetMapping("/myrecipe/{memberId}")
+	public String myRecipe(@PathVariable String memberId, @SessionAttribute Member member, Model model) {
+		List<Recipe> myRecipe = memberService.findRecipeByMemberId(memberId);
+		
+		model.addAttribute("myRecipe", myRecipe);
+		model.addAttribute("memberId", memberId);
+		
+		return "recipe/myrecipe";
+	}
+	
+	@GetMapping("/recipe/{memberId}/{recipeId}/edit")
+	public String recipeEditForm(@PathVariable String memberId, @PathVariable Long recipeId, @SessionAttribute Member member, Model model) {
+		Optional<Recipe> findRecipe = memberService.findByRecipeId(memberId, recipeId);
+		
+		model.addAttribute("recipe", findRecipe.get());
+		
+		return "recipe/edit";
 	}
 }

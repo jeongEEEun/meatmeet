@@ -1,6 +1,7 @@
 package meatmeet.meatmeet.service;
 
 import java.io.File;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -78,5 +79,14 @@ public class MemberService {
 		
 		// recipe 테이블에 저장 후 리턴받은 recipeId 리턴
 		return memberRepository.saveRecipe(recipe);
+	}
+	
+	public List<Recipe> findRecipeByMemberId(String memberId) {
+		return memberRepository.findRecipeByMemberId(memberId);
+	}
+	
+	public Optional<Recipe> findByRecipeId(String memberId, Long recipeId) {
+		List<Recipe> recipe = memberRepository.findRecipeByMemberId(memberId);
+		return recipe.stream().filter(r -> r.getRecipeId() == recipeId).findFirst();
 	}
 }
