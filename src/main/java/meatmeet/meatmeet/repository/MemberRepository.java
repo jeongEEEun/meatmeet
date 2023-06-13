@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import lombok.extern.slf4j.Slf4j;
 import meatmeet.meatmeet.domain.Member;
+import meatmeet.meatmeet.domain.Recipe;
 
 @Repository
 @Slf4j
@@ -61,4 +62,26 @@ public class MemberRepository {
 		return findByMemberId(member.getMemberId());
 	}
 	
+	public Long saveRecipe(Recipe recipe) {
+		SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
+				.withTableName("recipe")
+				.usingGeneratedKeyColumns("recipe_id");
+//				.usingColumns("member_id", "category1", "category2", "title", "ingre", "sauce", "step", "img_name", "img_path");
+		
+		Map<String, Object> parameter = new HashMap<>();
+		parameter.put("member_id", recipe.getMemberId());
+		parameter.put("category1", recipe.getCategory1());
+		parameter.put("category2", recipe.getCategory2());
+		parameter.put("title", recipe.getTitle());
+		parameter.put("ingre", recipe.getIngre());
+		parameter.put("sauce", recipe.getSauce());
+		parameter.put("step", recipe.getStep());
+		parameter.put("img_name", recipe.getImgName());
+		parameter.put("img_path", recipe.getImgPath());
+		
+		Number returnKey = jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameter));
+		recipe.setRecipeId(returnKey.longValue());
+		
+		return recipe.getRecipeId();
+	}
 }

@@ -11,10 +11,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.extern.slf4j.Slf4j;
 import meatmeet.meatmeet.domain.Member;
+import meatmeet.meatmeet.domain.Recipe;
 import meatmeet.meatmeet.service.MemberService;
 
 @Controller
@@ -71,9 +75,17 @@ public class MemberController {
 	}
 	
 	@GetMapping("/recipe/{memberId}/new")
-	public String newRecipeForm(@PathVariable String memberId, @SessionAttribute(required = false) Member member) {
-		
+	public String newRecipeForm(@PathVariable String memberId, @SessionAttribute Member member) {
 		return "recipe/new";
 	}
 	
+	@PostMapping("/recipe/{memberId}/new")
+	public String newRecipe(@PathVariable String memberId, @SessionAttribute Member member, 
+			@RequestParam MultipartFile imgFile, Recipe recipe, 
+			RedirectAttributes redirectAttributes) throws Exception {
+		
+		Long recipeId = memberService.saveRecipe(recipe, imgFile);
+		redirectAttributes.addAttribute("recipeId", recipeId);
+		return "redirect:/recipe/{recipeId}";
+	}
 }
