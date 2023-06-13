@@ -8,14 +8,14 @@ import lombok.Setter;
 @Setter
 @RequiredArgsConstructor
 public class Recipe {
-	private int recipe_id;
-	private String member_id;
+	private int recipeId;
+	private String memberId;
 	private String category1;
 	private String category2;
 	private String title;
 	private String ingre;
 	private String sauce;
 	private String step;
-	private String img_name;
-	private String img_path;
+	private String imgName;
+	private String imgPath;
 }
