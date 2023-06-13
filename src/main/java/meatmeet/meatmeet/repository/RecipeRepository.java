@@ -22,16 +22,16 @@ public class RecipeRepository {
 	private RowMapper<Recipe> recipeRowMapper = (rs, rowNum) -> {
 		Recipe recipe = new Recipe();
 		
-		recipe.setRecipe_id(rs.getInt("recipe_id"));
-		recipe.setMember_id(rs.getString("member_id"));
+		recipe.setRecipeId(rs.getInt("recipe_id"));
+		recipe.setMemberId(rs.getString("member_id"));
 		recipe.setCategory1(rs.getString("category1"));
 		recipe.setCategory2(rs.getString("category2"));
 		recipe.setTitle(rs.getString("title"));
 		recipe.setIngre(rs.getString("ingre"));
 		recipe.setSauce(rs.getString("sauce"));
 		recipe.setStep(rs.getString("step"));
-		recipe.setImg_name(rs.getString("img_name"));
-		recipe.setImg_path(rs.getString("img_path"));
+		recipe.setImgName(rs.getString("img_name"));
+		recipe.setImgPath(rs.getString("img_path"));
 		
 		return recipe;
 	};
