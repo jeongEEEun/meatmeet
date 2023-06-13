@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import meatmeet.meatmeet.domain.Cart;
 import meatmeet.meatmeet.domain.Recipe;
 import meatmeet.meatmeet.repository.RecipeRepository;
 
@@ -25,6 +26,10 @@ public class RecipeService {
 
 	public List<Recipe> findPart(String category2) {
 		return recipeRepository.findPart(category2);
+	}
+	
+	public int cartAdd(Cart cart) {
+		return recipeRepository.cartAdd(cart);
 	}
 	
 }
