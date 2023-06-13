@@ -68,10 +68,11 @@
 				<td>- 1 +</td>
 				<td>500원</td>
 			</tr>
-			<tr th:each="product : ${products}">
-				<td th:text="${product.name}"></td>
-				<td th:text="${product.quantity}"></td>
-				<td th:text="${product.price}"></td>
+
+			<tr th:each="item : ${itemNameList}">
+				<td th:text="${item.name}"></td>
+				<td th:text="${item.quantity}"></td>
+				<td th:text="${item.todayPrice}"></td>
 			</tr>
 		</table>
 		<div class="box">

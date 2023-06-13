@@ -1,3 +1,4 @@
+/*
 package meatmeet.meatmeet.service;
 
 import org.springframework.stereotype.Service;
@@ -12,3 +13,4 @@ public class RecipeService {
 		this.recipeRepository = recipeRepository;
 	}
 }
+*/

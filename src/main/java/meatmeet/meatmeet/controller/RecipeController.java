@@ -1,3 +1,4 @@
+/*
 package meatmeet.meatmeet.controller;
 
 import org.springframework.stereotype.Controller;
@@ -10,10 +11,7 @@ import meatmeet.meatmeet.service.RecipeService;
 
 @Controller
 public class RecipeController {
-	private final RecipeService recipeService;
-	
 	public RecipeController(RecipeService recipeService) {
-		this.recipeService = recipeService;
 	}
 	
 	@GetMapping("/recipe")
@@ -23,3 +21,4 @@ public class RecipeController {
 		
 	}
 }
+*/

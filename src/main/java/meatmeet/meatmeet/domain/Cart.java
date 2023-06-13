@@ -13,6 +13,5 @@ public class Cart {
     private String memberId;
     private int itemId;
     private int quantity;
-    private int todayPrice;
-    private int yesterdayPrice;
+
 }
