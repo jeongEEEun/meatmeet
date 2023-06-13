@@ -66,7 +66,6 @@ public class MemberRepository {
 		SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
 				.withTableName("recipe")
 				.usingGeneratedKeyColumns("recipe_id");
-//				.usingColumns("member_id", "category1", "category2", "title", "ingre", "sauce", "step", "img_name", "img_path");
 		
 		Map<String, Object> parameter = new HashMap<>();
 		parameter.put("member_id", recipe.getMemberId());
