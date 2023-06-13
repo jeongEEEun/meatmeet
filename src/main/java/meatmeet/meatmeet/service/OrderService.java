@@ -15,6 +15,10 @@ public class OrderService {
         this.orderRepository = orderRepository;
     }
 
+//    public List<Order> getAllOrders() {
+//        return orderRepository.findAll();
+//    }
+
     public List<Order> getOrdersByOrderName(String orderName) {
         return orderRepository.findByOrderName(orderName);
     }
@@ -29,15 +33,13 @@ public class OrderService {
         return orderRepository.findById(orderId);
     }
 
-    public void processPayment(Long orderId, String paymentMethod) {
-        // 결제 처리 로직 구현
-        Order order = orderRepository.findById(orderId);
-        order.setPayment(paymentMethod);
-        orderRepository.save(order);
-    }
-
     public void cancelOrder(Long orderId) {
-        orderRepository.deleteById(orderId);
+        // 주문 취소 로직 구현
+        Order order = orderRepository.findById(orderId);
+        if (order != null) {
+            // 주문 취소 상태로 변경
+            order.setCancelled(true);
+            orderRepository.save(order);
+        }
     }
-
 }

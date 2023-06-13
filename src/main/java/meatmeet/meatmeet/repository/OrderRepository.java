@@ -29,9 +29,19 @@ public class OrderRepository {
         return order;
     };
     
+    public List<Order> getAllOrders() {
+        String sql = "SELECT * FROM orders";
+        return jdbcTemplate.query(sql, orderRowMapper);
+    }
+    
     public List<Order> findByOrderName(String orderName) {
         String sql = "SELECT * FROM orders WHERE order_name = ?";
         return jdbcTemplate.query(sql, orderRowMapper, orderName);
+    }
+    
+    public void updateOrder(Order order) {
+        String sql = "UPDATE orders SET order_name = ?, order_phone = ?, order_address = ?, order_request = ? WHERE order_id = ?";
+        jdbcTemplate.update(sql, order.getOrderName(), order.getOrderPhone(), order.getOrderAddress(), order.getOrderRequest());
     }
 
     public void save(Order order) {
@@ -48,4 +58,5 @@ public class OrderRepository {
         String sql = "DELETE FROM orders WHERE order_id = ?";
         jdbcTemplate.update(sql, orderId);
     }
+
 }
