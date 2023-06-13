@@ -23,11 +23,11 @@ public class OrderController {
 		this.orderService = orderService;
 	}
 	
-	@GetMapping
-	public String index(@SessionAttribute(required = false) Member member, Model model) {
-		model.addAttribute("member", member);
-		return "order";
-	}
+//	@GetMapping
+//	public String index(@SessionAttribute(required = false) Member member, Model model) {
+//		model.addAttribute("member", member);
+//		return "order";
+//	}
 	
 	@GetMapping("/order")
 	public String showOrderPage() {
