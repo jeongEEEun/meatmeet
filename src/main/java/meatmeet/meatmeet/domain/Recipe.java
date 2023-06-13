@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @RequiredArgsConstructor
 public class Recipe {
-	private int recipeId;
+	private long recipeId;
 	private String memberId;
 	private String category1;
 	private String category2;
