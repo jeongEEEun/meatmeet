@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import javax.sql.DataSource;
 
+import org.springframework.data.repository.query.ReturnedType;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Repository;
 
 import lombok.extern.slf4j.Slf4j;
 import meatmeet.meatmeet.domain.Member;
+import meatmeet.meatmeet.domain.Recipe;
 
 @Repository
 @Slf4j
@@ -36,15 +38,29 @@ public class MemberRepository {
 		return member;
 	};
 	
-	// 회원 id로 조회
+	private RowMapper<Recipe> recipeRowMapper = (rs, rowNum) -> {
+		Recipe recipe = new Recipe();
+		
+		recipe.setRecipeId(rs.getLong("recipe_id"));
+		recipe.setMemberId(rs.getString("member_id"));
+		recipe.setCategory1(rs.getString("category1"));
+		recipe.setCategory1(rs.getString("category2"));
+		recipe.setTitle(rs.getString("title"));
+		recipe.setIngre(rs.getString("ingre"));
+		recipe.setSauce(rs.getString("sauce"));
+		recipe.setStep(rs.getString("step"));
+		recipe.setImgName(rs.getString("img_name"));
+		recipe.setImgPath(rs.getString("img_path"));
+		
+		return recipe;
+	};
+	
 	public Optional<Member> findByMemberId(String memberId) {
 		String sql = "select * from member where member_id = ?";
 		List<Member> result = jdbcTemplate.query(sql, memberRowMapper, memberId);
-		
 		return result.stream().findFirst();
 	}
 	
-	// 회원가입(정보 저장)
 	public Optional<Member> saveMember(Member member) {
 		SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
 				.withTableName("member")
@@ -61,4 +77,30 @@ public class MemberRepository {
 		return findByMemberId(member.getMemberId());
 	}
 	
+	public Long saveRecipe(Recipe recipe) {
+		SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
+				.withTableName("recipe")
+				.usingGeneratedKeyColumns("recipe_id");
+		
+		Map<String, Object> parameter = new HashMap<>();
+		parameter.put("member_id", recipe.getMemberId());
+		parameter.put("category1", recipe.getCategory1());
+		parameter.put("category2", recipe.getCategory2());
+		parameter.put("title", recipe.getTitle());
+		parameter.put("ingre", recipe.getIngre());
+		parameter.put("sauce", recipe.getSauce());
+		parameter.put("step", recipe.getStep());
+		parameter.put("img_name", recipe.getImgName());
+		parameter.put("img_path", recipe.getImgPath());
+		
+		Number returnKey = jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameter));
+		recipe.setRecipeId(returnKey.longValue());
+		
+		return recipe.getRecipeId();
+	}
+	
+	public List<Recipe> findRecipeByMemberId(String memberId) {
+		String sql = "select * from recipe where member_id = ?"; 
+		return jdbcTemplate.query(sql, recipeRowMapper, memberId);
+	}
 }

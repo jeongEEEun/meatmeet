@@ -80,7 +80,8 @@
             updateOrderNumber();
           };
         </script>
-        <p><span id="date"></span> 주문번호 <span id="orderNumber"></span></p>
+        <span id="date" th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"></span>
+        <!-- <p><span id="date"></span> 주문번호 <span id="orderNumber"></span></p> -->
         <h3>주문자 정보</h3>
         <label for="name">이름</label>
         <input type="text" id="name" name="name" placeholder="성함을 입력해주세요" required disabled>
@@ -116,11 +117,11 @@
           <td>- 1 +</td>
           <td>500원</td>
         </tr>
-        <tr th:each="product : ${products}">
-          <td th:text="${product.name}"></td>
-          <td th:text="${product.quantity}"></td>
-          <td th:text="${product.price}"></td>
-        </tr>
+		<tr th:each="order : ${orders}">
+		  <td th:text="${order.productName}"></td>
+		  <td th:text="${order.quantity}"></td>
+		  <td th:text="${order.price}"></td>
+		</tr>
       </table>
     </div>
     <div class="box">
