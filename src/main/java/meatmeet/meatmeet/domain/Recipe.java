@@ -30,6 +30,8 @@ public class Recipe {
 	@NonNull
 	private String step;
 	
+	private int view;
+	
 	private String imgName;
 	private String imgPath;
 }

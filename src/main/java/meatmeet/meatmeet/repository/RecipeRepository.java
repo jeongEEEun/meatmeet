@@ -35,6 +35,7 @@ public class RecipeRepository {
 		recipe.setIngre(rs.getString("ingre"));
 		recipe.setSauce(rs.getString("sauce"));
 		recipe.setStep(rs.getString("step"));
+		recipe.setView(rs.getInt("view"));
 		recipe.setImgName(rs.getString("img_name"));
 		recipe.setImgPath(rs.getString("img_path"));
 		
@@ -65,6 +66,11 @@ public class RecipeRepository {
 	public List<Recipe> findPart(String category2) {
 		String sql = "select * from recipe where category2 like ?";
 		return jdbcTemplate.query(sql, recipeRowMapper, "%"+category2+"%");
+	}
+	
+	public int updateCnt(Long recipeId) {
+		String sql = "update recipe set view = view + 1 where recipe_id = ?";
+		return jdbcTemplate.update(sql, recipeId);
 	}
 	
 	public int cartAdd(Cart cart) {
