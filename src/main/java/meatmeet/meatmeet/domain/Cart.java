@@ -12,7 +12,7 @@ import lombok.Setter;
 public class Cart {
     private String memberId;
     private int itemId;
+    private String itemName;
+    private int price;
     private int quantity;
-    private int todayPrice;
-    private int yesterdayPrice;
 }
