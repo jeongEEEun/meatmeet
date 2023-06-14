@@ -75,7 +75,8 @@ public class MemberController {
 	}
 	
 	@GetMapping("/recipe/{memberId}/new")
-	public String newRecipeForm(@PathVariable String memberId, @SessionAttribute Member member) {
+	public String newRecipeForm(@PathVariable String memberId, @SessionAttribute Member member, Model model) {
+		model.addAttribute("member", member);
 		return "recipe/new";
 	}
 	
@@ -93,8 +94,8 @@ public class MemberController {
 	public String myRecipe(@PathVariable String memberId, @SessionAttribute Member member, Model model) {
 		List<Recipe> myRecipe = memberService.findRecipeByMemberId(memberId);
 		
+		model.addAttribute("member", member);
 		model.addAttribute("myRecipe", myRecipe);
-		model.addAttribute("memberId", memberId);
 		
 		return "recipe/myrecipe";
 	}
