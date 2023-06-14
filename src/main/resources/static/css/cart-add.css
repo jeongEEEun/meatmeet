@@ -50,10 +50,9 @@ table td {
 
 p.bold {
     font-weight: bold;
-    font-size: 25px;
+    font-size: 18px;
     margin-left: auto;
     margin-right: auto;
-    /* margin: auto; */
 }
 
 .box hr {
@@ -81,12 +80,30 @@ p.special {
     color: #ff6666;
 }
 
-.box button.order-button {
-    display: inline-block;
-    padding: 10px 60px;
-    border: 1px solid #ff6666;
+.btn-primary {
+    width: 210px;
+    height: 40px;
     background-color: #ff6666;
-    border-radius: 5px;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #ff3333;
+    border: none;
+}
+
+.btn-secondary {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 10px;
+    background-color: #fff;
+    border-color: #ff6666;
+    color: #ff3333;
+}
+
+.btn-secondary:hover {
+    background-color: #ff6666;
+    border-color: #ff6666;
     color: #fff;
-    width: 207px;
 }

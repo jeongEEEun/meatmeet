@@ -13,42 +13,38 @@
 </head>
 
 <body>
-  <!-- header start -->
-  <header>
+  <!-- header start : 로그인 X -->
+  <header th:if="${member} == null">
     <ul class="row px-0 pt-4">
       <li class="col p-0 pe-1">
-        <a href="#">
-          <img src="../img/logo2.png" alt="meatmeet 로고" class="logo">
+        <a href="/">
+          <img src="/img/logo2.png" alt="meatmeet 로고" class="logo">
         </a>
       </li>
       <li class="col p-0">
         <a href="/recipe" class="ms-5 title">레시피</a>
       </li>
-      <li class="col p-0">
-        <a href="#" class="title">나의 레시피</a>
-      </li>
       <div class="col-5 m-0 p-0">
         <li class="me-5">
           <a href="/sign-in" class="title">
-            <img src="../img/icon_login.png" alt="로그인 아이콘" class="icon">
+            <img src="/img/icon_login.png" alt="로그인 아이콘" class="icon">
             로그인
           </a>
         </li>
         <li>
-          <a href="sign-up" class="title">회원가입</a>
+          <a href="/sign-up" class="title">회원가입</a>
         </li>
       </div>
     </ul>
-    <hr>
   </header>
-  <!-- header end -->
+  <!-- header end : 로그인 X -->
 
   <!-- container start -->
   <div class="container signin pt-5">
     <h2 class="mt-5 mb-5">로그인</h2>
     <div class="row">
       <div class="col-2">
-        <img src="../img/signin-line-left.png" alt="" class="box-line">
+        <img src="/img/signin-line-left.png" alt="" class="box-line">
       </div>
       <div class="col-8 box">
         <form method="post" th:action="@{/sign-in}">
@@ -65,7 +61,7 @@
         </form>
       </div>
       <div class="col-2">
-        <img src="../img/signin-line-right.png" alt="" class="box-line">
+        <img src="/img/signin-line-right.png" alt="" class="box-line">
       </div>
     </div>
   </div>
@@ -86,7 +82,7 @@
       </div>
       <div class="col pt-5">
         <a href="#">
-          <img src="../img/logo_white.png" alt="meatmeet로고" class="mt-3">
+          <img src="/img/logo_white.png" alt="meatmeet로고" class="mt-3">
         </a>
       </div>
     </div>

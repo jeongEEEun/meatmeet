@@ -20,19 +20,16 @@
 		<ul class="row px-0 pt-4">
 			<li class="col p-0 pe-1">
 				<a href="/">
-					<img src="../img/logo2.png" alt="meatmeet 로고" class="logo">
+					<img src="/img/logo2.png" alt="meatmeet 로고" class="logo">
 				</a>
 			</li>
 			<li class="col p-0">
 				<a href="/recipe" class="ms-5 title">레시피</a>
 			</li>
-			<li class="col p-0">
-				<a href="#" class="title">나의 레시피</a>
-			</li>
 			<div class="col-5 m-0 p-0">
 				<li class="me-5">
 					<a href="/sign-in" class="title">
-						<img src="../img/icon_login.png" alt="로그인 아이콘" class="icon">
+						<img src="/img/icon_login.png" alt="로그인 아이콘" class="icon">
 						로그인
 					</a>
 				</li>
@@ -59,7 +56,7 @@
 				<a href="/myrecipe" th:href="@{/myrecipe/{memberId}(memberId=${member.memberId})}" class="title">나의 레시피</a>
 			</li>
 			<li class="col p-0">
-				<a href="/order" th:href="@{/order/{memberId}(memberId=${member.memberId})}" class="title">
+				<a href="/order-list" th:href="@{/order/{memberId}(memberId=${member.memberId})}" class="title">
 					<img src="img/order.png" alt="주문내역 아이콘" class="icon">
 					주문내역
 				</a>
@@ -70,7 +67,7 @@
 					장바구니</a>
 			</li>
 			<li class="col p-0 row member">
-				<span href="#" class="col member-name" th:text="${member.memberName}">사용자명</span>
+				<span class="col member-name" th:text="${member.memberName}">사용자명</span>
 				<button class="btn btn-primary col logout-btn" onclick="location.href='/sign-out'">로그아웃</button>
 			</li>
 		</ul>

@@ -1,52 +1,58 @@
 package meatmeet.meatmeet.repository;
 
+import java.util.List;
+import java.util.Optional;
+
+import javax.sql.DataSource;
+
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import lombok.extern.slf4j.Slf4j;
+import meatmeet.meatmeet.domain.Cart;
+import meatmeet.meatmeet.domain.Item;
+
 @Repository
+@Slf4j
 public class CartRepository {
     private final JdbcTemplate jdbcTemplate;
 
-    public CartRepository(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    public CartRepository(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
-
-    /**
-     * 장바구니 아이템의 아이템 이름을 조회합니다.
-     *
-     * @param itemId 아이템 ID
-     * @return 아이템 이름
-     */
-    public String getItemName(int itemId) {
-        String sql = "SELECT item_name FROM item WHERE item_id = ?";
-        return jdbcTemplate.queryForObject(sql, String.class, itemId);
+    
+    RowMapper<Cart> cartRowMapper = (rs, rowNum) -> {
+    	Cart cart = new Cart();
+    	
+    	cart.setMemberId(rs.getString("member_id"));
+    	cart.setItemId(rs.getInt("item_id"));
+    	cart.setQuantity(rs.getInt("quantity"));
+    	
+    	return cart;
+    };
+    
+    RowMapper<Item> itemRowMapper = (rs, rowNum) -> {
+    	Item item = new Item();
+    	
+    	item.setItemId(rs.getInt("item_id"));
+    	item.setItemName(rs.getString("item_name"));
+    	item.setTodayPrice(rs.getInt("today_price"));
+    	item.setYesterdayPrice(rs.getInt("yesterday_price"));
+    	item.setItemUnit(rs.getString("item_unit"));
+    	
+    	return item;
+    };
+    
+    public List<Cart> findCartByMemberId(String memberId) {
+    	String sql = "select * from cart where member_id = ?";
+    	List<Cart> result = jdbcTemplate.query(sql, cartRowMapper, memberId);
+    	return result;
     }
-
-    /**
-     * 장바구니 아이템의 가격을 조회합니다.
-     *
-     * @param itemId 아이템 ID
-     * @return 가격
-     */
-    public int getItemPrice(int itemId) {
-        String sql = "SELECT today_price FROM item WHERE item_id = ?";
-        return jdbcTemplate.queryForObject(sql, Integer.class, itemId);
-    }
-    /**
-     * 장바구니에서 아이템을 삭제합니다.
-     */
-    public void removeFromCart(String memberId, int itemId) {
-        String sql = "DELETE FROM cart WHERE member_id = ? AND item_id = ?";
-        jdbcTemplate.update(sql, memberId, itemId);
-    }
-
-    /**
-     * 장바구니에 담긴 아이템의 총 수량을 조회합니다.
-     */
-    public int getTotalQuantityInCart(String memberId) {
-        String sql = "SELECT SUM(quantity) FROM cart WHERE member_id = ?";
-        return jdbcTemplate.queryForObject(sql, Integer.class, memberId);
+    
+    public Optional<Item> findByItemId(int itemId) {
+    	String sql = "select * from item where item_id = ?";
+    	Optional<Item> item = jdbcTemplate.query(sql, itemRowMapper, itemId).stream().findAny();
+    	return item;
     }
 }
-
-
