@@ -2,6 +2,7 @@ package meatmeet.meatmeet.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,11 +18,30 @@ import meatmeet.meatmeet.service.OrderService;
 
 @Controller
 public class OrderController {
-	private final OrderService orderService;
-	
-	public OrderController(OrderService orderService) {
-		this.orderService = orderService;
-	}
+    @Autowired
+    private OrderService orderService;
+    
+    @GetMapping("/order")
+    public String orderForm(Model model) {
+        // 주문 페이지를 렌더링하는 로직을 구현합니다.
+        model.addAttribute("order", new Order());
+        return "order";
+    }
+    
+//    @PostMapping("/order")
+//    public String submitOrder(@ModelAttribute("order") Order order) {
+//        // 주문 내역을 저장하고 처리하는 로직을 구현합니다.
+//        orderService.addOrder(order);
+//        return "redirect:/orderList";
+//    }
+//    
+//    @GetMapping("/orderList")
+//    public String orderList(Model model) {
+//        // 주문 내역을 조회하여 주문 목록 페이지를 렌더링하는 로직을 구현합니다.
+//        List<Order> orderList = orderService.getOrderList();
+//        model.addAttribute("orderList", orderList);
+//        return "orderList";
+//    }
 	
 //	@GetMapping
 //	public String index(@SessionAttribute(required = false) Member member, Model model) {

@@ -13,4 +13,6 @@ public class Order {
     private String orderAddress;
     private String orderRequest;
     private String payment;
+    private int quantity;
+    private int price;
 }
