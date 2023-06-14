@@ -13,7 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Recipe {
-	private Long recipeId;
+	private long recipeId;
 	
 	@NonNull
 	private String memberId;
@@ -29,6 +29,8 @@ public class Recipe {
 	private String sauce;
 	@NonNull
 	private String step;
+	
+	private int view;
 	
 	private String imgName;
 	private String imgPath;

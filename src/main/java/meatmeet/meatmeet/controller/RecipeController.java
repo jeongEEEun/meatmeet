@@ -41,5 +41,10 @@ public class RecipeController {
 		return "recipe/detail";
 	}
 	
+	@GetMapping("/cart/{memberId}/{itemId}")
+	public String cartAdd(@PathVariable String memberId, @PathVariable int itemId, @SessionAttribute Member member) {
+		return "redirect:/recipe/{category1}/{category2}";
+	}
+	
 }
 */
