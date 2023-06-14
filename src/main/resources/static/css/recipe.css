@@ -76,13 +76,10 @@ nav .submenu ul li:hover {
     justify-content: space-between;
     flex-wrap: wrap;
     position: relative;
-    float: right;
 }
 
 .content.recipes {
     width: 70%;
-    float: right;
-    
 }
 
 .content.recipes ul {
