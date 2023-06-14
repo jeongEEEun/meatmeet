@@ -27,17 +27,16 @@ public class CartController {
 	@GetMapping("/cart/{memberId}")
 	public String showCart(@PathVariable String memberId, @SessionAttribute Member member ,Model model) {
 		List<Cart> cartItems = cartService.findCartByMemberId(memberId);
-		int totalPrice = cartService.totalPrice(memberId);
-		int totalQuantity = cartService.totalQuantity(memberId);
+		int itemPrice = cartService.totalPrice(memberId);
 		
-		log.info("[controller] 장바구니 >> " + cartItems.size());
-		log.info("[controller] 합계금액 >> " + totalPrice);
-		log.info("[controller] 담은개수 >> " + totalQuantity);
+		for(Cart c: cartItems) {
+			log.info("itemId >> " + c.getItemId());
+		}
 		
 		model.addAttribute("member", member);
 		model.addAttribute("cartItems", cartItems);
-		model.addAttribute("totalPrice", totalPrice);
-		model.addAttribute("totlaQuantity", totalQuantity);
+		model.addAttribute("itemPrice", itemPrice + "원");
+		model.addAttribute("totalPrice", itemPrice + 3000 + "원");
 		
 		return "order/cart";
 	}
