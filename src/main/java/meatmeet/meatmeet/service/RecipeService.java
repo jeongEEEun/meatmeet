@@ -1,10 +1,12 @@
 package meatmeet.meatmeet.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import meatmeet.meatmeet.domain.Cart;
+import meatmeet.meatmeet.domain.Item;
 import meatmeet.meatmeet.domain.Recipe;
 import meatmeet.meatmeet.repository.RecipeRepository;
 
@@ -28,8 +30,19 @@ public class RecipeService {
 		return recipeRepository.findPart(category2);
 	}
 	
-	public int cartAdd(Cart cart) {
-		return recipeRepository.cartAdd(cart);
+	public int updateCnt(Long recipeId) {
+		return recipeRepository.updateCnt(recipeId);
+	}
+//	
+//	public Cart cartAdd(Cart cart) {
+//		
+//		return recipeRepository.cartAdd(cart);
+//	}
+//
+	public Optional<Item> findItemById(int itemId) {
+		return recipeRepository.findItemById(itemId);
+	}
+	public void cartAdd(Cart cart) {
 	}
 	
 }

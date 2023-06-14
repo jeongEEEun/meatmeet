@@ -1,14 +1,19 @@
 package meatmeet.meatmeet.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.extern.slf4j.Slf4j;
+import meatmeet.meatmeet.domain.Cart;
+import meatmeet.meatmeet.domain.Item;
 import meatmeet.meatmeet.domain.Member;
 import meatmeet.meatmeet.domain.Recipe;
 import meatmeet.meatmeet.service.RecipeService;
@@ -30,22 +35,30 @@ public class RecipeController {
 		return "recipe/recipe";
 	}
 	
-	@GetMapping("/recipe/{category1}/{category2}") 
-	public String recipePart(@PathVariable String category1, @PathVariable String category2, @SessionAttribute(required = false) Member member, Model model) {
-		List<Recipe> recipe = recipeService.findPart(category2);
-		model.addAttribute("member", member);
-		model.addAttribute("recipe", recipe);
-		return "recipe/category";
-	}
-	
 	@GetMapping("/recipe/{recipeId}") 
 	public String detail(@PathVariable Long recipeId, @SessionAttribute(required = false) Member member, Model model){
+		model.addAttribute("recipeId", recipeId);
+		recipeService.updateCnt(recipeId);
 		return "recipe/detail";
 	}
 	
 	@GetMapping("/cart/{memberId}/{itemId}")
 	public String cartAdd(@PathVariable String memberId, @PathVariable int itemId, @SessionAttribute Member member) {
-		return "redirect:/recipe/{category1}/{category2}";
+		Cart cart = new Cart();
+		cart.setMemberId(memberId);
+		cart.setItemId(itemId);
+		Optional<Item> optionalItem = recipeService.findItemById(itemId);
+	    if (optionalItem.isPresent()) {
+	        Item item = optionalItem.get();
+	        cart.setPrice(item.getTodayPrice()); // Set the price based on item's todayPrice or any relevant field
+	    }
+		recipeService.cartAdd(cart);
+		return "redirect:/recipe";
+	}
+	
+	@PostMapping("/recipe/{recipeId}/comment")
+	public String comment(@PathVariable int recipeId, @SessionAttribute Member member, RedirectAttributes redirectAttributes) {
+		return "redirect:/recipe/{recipeId}";
 	}
 	
 }

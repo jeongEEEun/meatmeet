@@ -105,7 +105,7 @@ public class MemberRepository {
 	}
 	
 	public Optional<Recipe> findByRecipeId(Long recipeId) {
-		String sql = "select * from recipe where recipe_id = ?";
+		String sql = "select * from item where item_id = ?";
 		return jdbcTemplate.query(sql, recipeRowMapper,recipeId).stream().findFirst();
 	}
 	
