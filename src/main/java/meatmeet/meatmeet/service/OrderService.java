@@ -26,8 +26,6 @@ public class OrderService {
         return orderRepository.findByMemberId(memberId);
     }
 
-
-<<<<<<< HEAD
 //    public void processPayment(Long orderId, String paymentMethod) {
 //        // 결제 처리 로직 구현
 //        Optional<Order> optionalOrder = orderRepository.findByOrderId(orderId);
@@ -51,10 +49,8 @@ public class OrderService {
 //    public void cancelOrder(Long orderId) {
 //        orderRepository.deleteById(orderId);
 //    }
-=======
+
     public void cancelOrder(Long orderId) {
         orderRepository.deleteById(orderId);
     }
-
->>>>>>> 7df70b3d936f78d073ce542632fd06502a1d96a6
 }
