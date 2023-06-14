@@ -1,6 +1,7 @@
 package meatmeet.meatmeet.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -15,28 +16,38 @@ public class OrderService {
         this.orderRepository = orderRepository;
     }
 
-    public List<Order> getOrdersByOrderName(String orderName) {
-        return orderRepository.findByOrderName(orderName);
-    }
-
-    public void createOrder(Order order) {
+    public Optional<Order> saveOrder(Order order) {
         // 주문 생성 로직 구현
-        orderRepository.save(order);
+        return orderRepository.save(order);
     }
 
-    public Order getOrderById(Long orderId) {
+    public List<Order> getOrderById(String memberId) {
         // 주문 조회 로직 구현
-        return orderRepository.findById(orderId);
+        return orderRepository.findByMemberId(memberId);
     }
 
-    public void processPayment(Long orderId, String paymentMethod) {
-        // 결제 처리 로직 구현
-        Order order = orderRepository.findById(orderId);
-        order.setPayment(paymentMethod);
-        orderRepository.save(order);
-    }
 
-    public void cancelOrder(Long orderId) {
-        orderRepository.deleteById(orderId);
-    }
+//    public void processPayment(Long orderId, String paymentMethod) {
+//        // 결제 처리 로직 구현
+//        Optional<Order> optionalOrder = orderRepository.findByOrderId(orderId);
+//        if (optionalOrder.isPresent()) {
+//            Order order = optionalOrder.get();
+//            order.setPayment(paymentMethod);
+//            orderRepository.save(order);
+//        } else {
+//            // 주문을 찾을 수 없는 경우 예외 처리 로직 작성
+//            // 예: throw new OrderNotFoundException("주문을 찾을 수 없습니다.");
+//        }
+//    }
+    
+//    public void processPayment(Long orderId, String paymentMethod) {
+//        // 결제 처리 로직 구현
+//        Order order = orderRepository.findById(orderId);
+//        order.setPayment(paymentMethod);
+//        orderRepository.save(order);
+//    }
+//
+//    public void cancelOrder(Long orderId) {
+//        orderRepository.deleteById(orderId);
+//    }
 }

@@ -6,13 +6,15 @@ import lombok.Setter;
 
 @Setter
 @Getter
-@RequiredArgsConstructor
 public class Order {
-    private String orderName;
-    private String orderPhone;
-    private String orderAddress;
-    private String orderRequest;
-    private String payment;
-    private int quantity;
-    private int price;
+	private int orderId;
+	private String memberId;
+	private int itemId;
+	private String userName;
+	private String phone;
+	private String address;
+	private String request;
+	private int price;
+	private String orderDate;
+	private String quantity;
 }
