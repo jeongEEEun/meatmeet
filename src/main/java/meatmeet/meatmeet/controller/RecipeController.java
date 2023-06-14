@@ -30,13 +30,13 @@ public class RecipeController {
 		return "recipe/recipe";
 	}
 	
-//	@GetMapping("/recipe/{category1}/{category2}") 
-//	public String recipePart(@PathVariable String category1, @PathVariable String category2, @SessionAttribute(required = false) Member member, Model model) {
-//		List<Recipe> recipe = recipeService.findPart(category2);
-//		model.addAttribute("member", member);
-//		model.addAttribute("recipe", recipe);
-//		return "recipe/category";
-//	}
+	@GetMapping("/recipe/{category1}/{category2}") 
+	public String recipePart(@PathVariable String category1, @PathVariable String category2, @SessionAttribute(required = false) Member member, Model model) {
+		List<Recipe> recipe = recipeService.findPart(category2);
+		model.addAttribute("member", member);
+		model.addAttribute("recipe", recipe);
+		return "recipe/category";
+	}
 	
 	@GetMapping("/recipe/{recipeId}") 
 	public String detail(@PathVariable Long recipeId, @SessionAttribute(required = false) Member member, Model model){

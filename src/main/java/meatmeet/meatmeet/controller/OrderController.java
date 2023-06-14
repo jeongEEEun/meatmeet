@@ -2,7 +2,6 @@ package meatmeet.meatmeet.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +19,7 @@ import meatmeet.meatmeet.service.OrderService;
 
 @Controller
 public class OrderController {
+<<<<<<< HEAD
     @Autowired
     private OrderService orderService;
     
@@ -44,6 +44,13 @@ public class OrderController {
         model.addAttribute("orderList", orderList);
         return "order/order-list";
     }
+=======
+	private final OrderService orderService;
+	
+	public OrderController(OrderService orderService) {
+		this.orderService = orderService;
+	}
+>>>>>>> 7df70b3d936f78d073ce542632fd06502a1d96a6
 	
 //	@GetMapping
 //	public String index(@SessionAttribute(required = false) Member member, Model model) {
