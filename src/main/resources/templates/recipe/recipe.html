@@ -136,8 +136,8 @@
 					</a></li>
 				</ul>
 			</div>
-			<div class="add-to-cart-section">
-				<div >
+			<div class="add-to-cart-section" th:each="item : ${items}" th:if="${item.itemName == category2}">
+				<div>
 					<img src="#" alt="">
 					<h1 class="item-title" th:text="${item.itemName}">
 						목살 <span th:text="${item.itemUnit}">100g</span>
