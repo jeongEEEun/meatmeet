@@ -6,14 +6,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>레시피 목록</title>
-<link th:href="@{css/reset.css}"
-	href="css/reset.css" rel="stylesheet">
-<link th:href="@{css/header-footer.css}"
-	href="css/header-footer.css" rel="stylesheet">
-<link th:href="@{css/bootstrap.min.css}"
-	href="css/bootstrap.min.css" rel="stylesheet">
-<link th:href="@{css/recipe.css}"
-	href="css/recipe.css" rel="stylesheet">
+<link th:href="@{css/reset.css}" href="css/reset.css" rel="stylesheet">
+<link th:href="@{css/header-footer.css}" href="css/header-footer.css"
+	rel="stylesheet">
+<link th:href="@{css/bootstrap.min.css}" href="css/bootstrap.min.css"
+	rel="stylesheet">
+<link th:href="@{css/recipe.css}" href="css/recipe.css" rel="stylesheet">
 
 
 </head>
@@ -23,14 +21,13 @@
 	<header th:if="${member} == null">
 		<ul class="row px-0 pt-4">
 			<li class="col p-0 pe-1"><a href="/"> <img
-					src="../img/logo2.png" alt="meatmeet 로고" class="logo">
+					src="/img/logo2.png" alt="meatmeet 로고" class="logo">
 			</a></li>
 			<li class="col p-0"><a href="/recipe" class="ms-5 title">레시피</a>
 			</li>
-			<li class="col p-0"><a href="#" class="title">나의 레시피</a></li>
 			<div class="col-5 m-0 p-0">
 				<li class="me-5"><a href="/sign-in" class="title"> <img
-						src="../img/icon_login.png" alt="로그인 아이콘" class="icon"> 로그인
+						src="/img/icon_login.png" alt="로그인 아이콘" class="icon"> 로그인
 				</a></li>
 				<li><a href="/sign-up" class="title">회원가입</a></li>
 			</div>
@@ -81,48 +78,85 @@
 			</ul>
 			<div class="submenu hide" id="pork">
 				<ul>
-					<li data-target="neck">목심</li>
-					<li data-target="rib">갈비</li>
-					<li data-target="belly">삼겹살</li>
-					<li data-target="forelegs">앞다리</li>
+					<li data-target="neck" data-item-name="목심">목심</li>
+					<li data-target="rib" data-item-name="갈비">갈비</li>
+					<li data-target="belly" data-item-name="삼겹살">삼겹살</li>
+					<li data-target="forelegs" data-item-name="앞다리">앞다리</li>
 				</ul>
 			</div>
 			<div class="submenu hide" id="beef">
 				<ul>
-					<li data-target="sirloin">등심</li>
-					<li data-target="tenderloin">안심</li>
-					<li data-target="rib">갈비</li>
-					<li data-target="brisket">양지</li>
-					<li data-target="butt">설도</li>
+					<li data-target="sirloin" data-item-name="등심">등심</li>
+					<li data-target="tenderloin" data-item-name="안심">안심</li>
+					<li data-target="rib" data-item-name="갈비">갈비</li>
+					<li data-target="brisket" data-item-name="양지">양지</li>
+					<li data-target="butt" data-item-name="설도">설도</li>
 				</ul>
 			</div>
 		</nav>
 
 		<div class="content">
 			<div class="recipes">
-				<ul th:each="recipe : ${recipes}">
-					<li id="list" th:classappend="${recipe.category1}"><a
+				<ul class="recipe-list">
+					<li id="list" th:classappend="${recipe.category1}"
+						th:each="recipe : ${recipes}"><a
 						th:href="@{/recipe/{recipeId}(recipeId=${recipe.recipeId})}"
-						class="recipe-link"> <img th:src="${recipe.imgPath}" alt="이미지"
-							th:if="${recipe.imgPath != null}" class="recipe-img">
-							<div class="recipe-img-placeholder"></div>
-							<div th:text=${recipe.memberId} class="recipe-writer">작성자</div>
-							<div th:text=${recipe.title} class="recipe-title">레시피 제목</div>
-							<div th:text=${recipe.view} class="recipe-view">조회수</div>
+						class="recipe-link">
+							<div class="recipe-img-placeholder">
+								<img th:src="@{${recipe.imgPath}}" alt="이미지"
+									th:if="${recipe.imgPath != null}" class="recipe-img">
+							</div>
+							<div class="recipe-writer">
+								작성자 <span th:text=${recipe.memberId}></span>
+							</div>
+							<div class="recipe-title">
+								<span th:text=${recipe.title}></span>
+							</div>
+							<div class="recipe-view">
+								조회수 <span th:text=${recipe.view}></span>
+							</div>
+					</a></li>
+					<li th:if="${recipe.category2 != null}" id="list"
+						th:classappend="${recipe.category2}" th:each="recipe : ${recipes}"><a
+						th:href="@{/recipe/{recipeId}(recipeId=${recipe.recipeId})}"
+						class="recipe-link">
+							<div class="recipe-img-placeholder">
+								<img th:src="${recipe.imgPath}" alt="이미지"
+									th:if="${recipe.imgPath != null}" class="recipe-img">
+							</div>
+							<div class="recipe-writer">
+								작성자 <span th:text=${recipe.memberId}></span>
+							</div>
+							<div class="recipe-title">
+								<span th:text=${recipe.title}></span>
+							</div>
+							<div class="recipe-view">
+								조회수 <span th:text=${recipe.view}></span>
+							</div>
 					</a></li>
 				</ul>
 			</div>
 			<div class="add-to-cart-section">
-				<img src="#" alt="">
-				<h1 class="item-title">목살 100g</h1>
-				<div class="now-price">
-					현재가격 <span class="price">1000원</span>
+				<div >
+					<img src="#" alt="">
+					<h1 class="item-title" th:text="${item.itemName}">
+						목살 <span th:text="${item.itemUnit}">100g</span>
+					</h1>
+					<div class="now-price">
+						현재가격 <span class="price" th:text="${item.todayPrice}">1000</span>원
+					</div>
+					<div class="change">
+						어제보다 <span class="change-price"
+							th:text="${item.todayPrice - item.yesterdayPrice}">200</span>원
+						비싸요
+					</div>
+					<button class="add-to-cart-btn" th:if="${member != null}"
+						data-memberId="${member.memberId}" data-itemId="${item.itemId}"
+						th:onclick="|location.href='@{/cart/{memberId}/{itemId}(memberId=${member.memberId}, itemId=${item.itemId})}'|">장바구니
+						담기</button>
 				</div>
-				<div class="change">
-					어제보다 <span class="change-price">200원 비싸요</span>
-				</div>
-				<button class="add-to-cart-btn" th:onclick="|location.href='@{/cart/{memberId}/{itemId}(memberId=${memberId}, itemId=${itemId})}'|">장바구니 담기</button>
 			</div>
+
 			<button class="write-recipe" href="#">글쓰기</button>
 		</div>
 	</div>
@@ -142,8 +176,8 @@
 				</ul>
 			</div>
 			<div class="col pt-5">
-				<a href="#"> <img src="img/logo_white.png"
-					alt="meatmeet로고" class="mt-3">
+				<a href="#"> <img src="img/logo_white.png" alt="meatmeet로고"
+					class="mt-3">
 				</a>
 			</div>
 		</div>
@@ -159,7 +193,8 @@
 			item.addEventListener("click", function() {
 				var target = this.getAttribute("data-target");
 
-				recipes.forEach(function(recipe) {
+				recipes
+						.forEach(function(recipe) {
 							var recipeCategory = recipe.getAttribute("class");
 							if (target === "all"
 									|| recipeCategory.indexOf(target) > -1) {
@@ -207,6 +242,7 @@
 						parentMenu.classList.remove("hide");
 					}
 				});
+
 			});
 		});
 	</script>

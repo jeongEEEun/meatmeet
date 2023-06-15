@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import lombok.extern.slf4j.Slf4j;
 import meatmeet.meatmeet.domain.Cart;
+import meatmeet.meatmeet.domain.Comment;
 import meatmeet.meatmeet.domain.Item;
 import meatmeet.meatmeet.domain.Recipe;
 
@@ -47,21 +48,27 @@ public class RecipeRepository {
 		Cart cart = new Cart();
 		cart.setItemId(rs.getInt("item_id"));
 		cart.setMemberId(rs.getString("member_id"));
-		cart.setItemName(rs.getString("item_name"));
 		cart.setQuantity(rs.getInt("quantity"));
 		return cart;
-
 	};
 
 	private RowMapper<Item> itemRowMapper = (rs, rowNum) -> {
 		Item item = new Item();
 		item.setItemId(rs.getInt("item_id"));
-		item.setTodayPrice(rs.getInt("todayPrice"));
-		item.setYesterdayPrice(rs.getInt("yesterdayPrice"));
-		item.setItemName(rs.getString("itemName"));
-		item.setItemUnit(rs.getString("itemUnit"));
+		item.setTodayPrice(rs.getInt("today_price"));
+		item.setYesterdayPrice(rs.getInt("yesterday_price"));
+		item.setItemName(rs.getString("item_name"));
+		item.setItemUnit(rs.getString("item_unit"));
 		return item;
 
+	};
+
+	private RowMapper<Comment> commentRowMapper = (rs, rowNum) -> {
+		Comment comment = new Comment();
+		comment.setRecipeId(rs.getLong("recipe_id"));
+		comment.setMemberId(rs.getString("member_id"));
+		comment.setComment(rs.getString("comment"));
+		return comment;
 	};
 
 	public List<Recipe> findAll() {
@@ -78,33 +85,46 @@ public class RecipeRepository {
 		return jdbcTemplate.query(sql, recipeRowMapper, "%" + category2 + "%");
 	}
 
+	public Optional<Recipe> findRecipeById(Long recipeId) {
+		String sql = "select * from recipe where recipe_id = ?";
+		return jdbcTemplate.query(sql, recipeRowMapper, recipeId).stream().findFirst();
+	}
+
 	public int updateCnt(Long recipeId) {
-		String sql = "update recipe set view = view + 1 where recipe_id = ?";
+		String sql = "update recipe set view = COALESCE(view, 0) + 1 where recipe_id = ?";
 		return jdbcTemplate.update(sql, recipeId);
 	}
 
-//	public Cart cartAdd(Cart cart) {
-//		SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate).withTableName("cart").usingColumns("memberId",
-//				"itemId", "itemName", "price", "quantity");
-//		Map<String, Object> parameter = new HashMap<>();
-//		parameter.put("memberId", cart.getMemberId());
-//		parameter.put("itemId", cart.getItemId());
-//		parameter.put("itemName", cart.getItemName());
-//		parameter.put("price", cart.getPrice());
-//		parameter.put("quantity", cart.getQuantity());
-//		Number key = jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameter));
-//
-//		cart.setItemId(key.intValue());
-//		return cart;
-//	}
-//
 	public Optional<Item> findItemById(int itemId) {
 		List<Item> result = jdbcTemplate.query("select * from item where item_id = ?", itemRowMapper, itemId);
 		return result.stream().findFirst();
 	}
 
 	public void cartAdd(Cart cart) {
-		String sql = "INSERT INTO cart (member_id, item_id, quantity) VALUES (?, ?, ?)";
-		jdbcTemplate.update(sql, cart.getMemberId(), cart.getItemId(), cart.getQuantity());
+		String sql = "insert into cart (member_id, item_id, quantity) values (?, ?, ?)";
+		int quantity = cart.getQuantity() > 0 ? cart.getQuantity() : 1;
+		jdbcTemplate.update(sql, cart.getMemberId(), cart.getItemId(), quantity);
+	}
+
+	public List<Item> findItemAll() {
+		String sql = "select * from item";
+		return jdbcTemplate.query(sql, itemRowMapper);
+	}
+
+	public boolean itemExist(String memberId, int itemId) {
+		String sql = "select count(*) from cart where member_id = ? and item_id = ?";
+		int count = jdbcTemplate.queryForObject(sql, Integer.class, memberId, itemId);
+		return count > 0;
+	}
+
+	public Comment saveComment(Comment comment) {
+		String sql = "insert into comment (recipe_id, member_id, comment) values (?, ?, ?)";
+		jdbcTemplate.update(sql, comment.getRecipeId(), comment.getMemberId(), comment.getComment());
+		return comment;
+	}
+	
+	public List<Comment> findCommentByRecipeId(Long recipeId) {
+		String sql = "select * from comment where recipe_id = ?";
+		return jdbcTemplate.query(sql, commentRowMapper);
 	}
 }

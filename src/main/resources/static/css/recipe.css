@@ -94,7 +94,6 @@ nav .submenu ul li:hover {
     border: 1px solid #ffb3b3;
     display: inline-block;
     background-color: #ffb3b3;
-    padding: ;
 }
 
 .content li a {
@@ -110,6 +109,11 @@ nav .submenu ul li:hover {
     background-color: #ffffff;
     position: relative;
     top: 0;
+}
+.recipe-view {
+	text-align: left;
+	padding: 5px;
+	font-size: 12px
 }
 
 .recipe-writer {

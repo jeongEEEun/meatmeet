@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import meatmeet.meatmeet.domain.Cart;
+import meatmeet.meatmeet.domain.Comment;
 import meatmeet.meatmeet.domain.Item;
 import meatmeet.meatmeet.domain.Recipe;
 import meatmeet.meatmeet.repository.RecipeRepository;
@@ -30,19 +31,38 @@ public class RecipeService {
 		return recipeRepository.findPart(category2);
 	}
 	
+	public Optional<Recipe> findRecipeById(String memberId, Long recipeId) {
+		return recipeRepository.findRecipeById(recipeId);
+	}
+	
 	public int updateCnt(Long recipeId) {
 		return recipeRepository.updateCnt(recipeId);
 	}
-//	
-//	public Cart cartAdd(Cart cart) {
-//		
-//		return recipeRepository.cartAdd(cart);
-//	}
-//
+
 	public Optional<Item> findItemById(int itemId) {
 		return recipeRepository.findItemById(itemId);
 	}
-	public void cartAdd(Cart cart) {
+	
+	public List<Item> findItemAll() {
+		return recipeRepository.findItemAll();
 	}
 	
+	public void cartAdd(Cart cart) {
+	    if (cart.getQuantity() <= 0) {
+	        cart.setQuantity(1);
+	    }
+	    recipeRepository.cartAdd(cart);
+	}
+	
+	public boolean itemExist(String memberId, int itemId) {
+		return recipeRepository.itemExist(memberId, itemId);
+	}
+	
+	public Comment saveComment(Comment comment) {
+		return recipeRepository.saveComment(comment);
+	}
+	
+	public List<Comment> findCommentByRecipeId(Long reicpeId) {
+		return recipeRepository.findCommentByRecipeId(reicpeId);
+	}
 }
