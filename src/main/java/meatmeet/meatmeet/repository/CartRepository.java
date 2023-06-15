@@ -46,13 +46,34 @@ public class CartRepository {
     
     public List<Cart> findCartByMemberId(String memberId) {
     	String sql = "select * from cart where member_id = ?";
-    	List<Cart> result = jdbcTemplate.query(sql, cartRowMapper, memberId);
-    	return result;
+    	List<Cart> cartItems = jdbcTemplate.query(sql, cartRowMapper, memberId);
+    	
+    	for(Cart cart: cartItems) {
+    		Optional<Item> i = this.findByItemId(cart.getItemId());
+    		
+    		if(i.isPresent()) {
+    			Item item = i.get();
+    			
+    			cart.setItemName(item.getItemName());
+    			cart.setPrice(item.getTodayPrice());
+    		}
+    	}
+    	
+    	return cartItems;
     }
     
     public Optional<Item> findByItemId(int itemId) {
     	String sql = "select * from item where item_id = ?";
     	Optional<Item> item = jdbcTemplate.query(sql, itemRowMapper, itemId).stream().findAny();
     	return item;
+    }
+    
+    public void updateQuantity(String memberId, int itemId, int quantity) {
+    	String sql = "update cart set quantity = quantity + ? where member_id = ? and item_id = ?";
+    	jdbcTemplate.update(sql, itemId, memberId, quantity);
+    }
+    
+    public void resetCart(String memberId) {
+    	jdbcTemplate.update("delete from cart where member_id = ?", memberId);
     }
 }

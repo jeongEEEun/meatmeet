@@ -1,56 +1,65 @@
 package meatmeet.meatmeet.service;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import lombok.extern.slf4j.Slf4j;
+import meatmeet.meatmeet.domain.Cart;
 import meatmeet.meatmeet.domain.Order;
+import meatmeet.meatmeet.repository.CartRepository;
 import meatmeet.meatmeet.repository.OrderRepository;
 
 @Service
+@Slf4j
 public class OrderService {
     private final OrderRepository orderRepository;
+    private final CartRepository cartRepository;
 
-    public OrderService(OrderRepository orderRepository) {
+    public OrderService(OrderRepository orderRepository, CartRepository cartRepository) {
         this.orderRepository = orderRepository;
+        this.cartRepository = cartRepository;
     }
 
-    public Optional<Order> saveOrder(Order order) {
-        // 주문 생성 로직 구현
-        return orderRepository.save(order);
+    public List<Order> saveOrder(Order order) {
+        log.info("[service] 주문자 >>" + order.getUserName());
+    	
+    	List<Cart> cartItems = cartRepository.findCartByMemberId(order.getMemberId());
+    	List<Order> orders = new ArrayList<>();
+    	
+    	LocalDate today = LocalDate.now();
+    	
+    	Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+    	SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmss");
+    	String orderId = sdf.format(timestamp);
+    	
+    	for(Cart cart: cartItems) {
+    		Order orderItem = order;
+    		orderItem.setOrderId(orderId);
+    		orderItem.setMemberId(cart.getMemberId());
+    		orderItem.setItemId(cart.getItemId());
+    		orderItem.setItemName(cart.getItemName());
+    		orderItem.setPrice(cart.getPrice());
+    		orderItem.setQuantity(cart.getQuantity());
+    		orderItem.setOrderDate(today);
+    		
+    		orders.add(orderItem);
+    	}
+    	
+    	orderRepository.save(orders);
+    	
+    	return orders;
     }
 
     public List<Order> getOrderById(String memberId) {
-        // 주문 조회 로직 구현
         return orderRepository.findByMemberId(memberId);
     }
 
-//    public void processPayment(Long orderId, String paymentMethod) {
-//        // 결제 처리 로직 구현
-//        Optional<Order> optionalOrder = orderRepository.findByOrderId(orderId);
-//        if (optionalOrder.isPresent()) {
-//            Order order = optionalOrder.get();
-//            order.setPayment(paymentMethod);
-//            orderRepository.save(order);
-//        } else {
-//            // 주문을 찾을 수 없는 경우 예외 처리 로직 작성
-//            // 예: throw new OrderNotFoundException("주문을 찾을 수 없습니다.");
-//        }
-//    }
-    
-//    public void processPayment(Long orderId, String paymentMethod) {
-//        // 결제 처리 로직 구현
-//        Order order = orderRepository.findById(orderId);
-//        order.setPayment(paymentMethod);
-//        orderRepository.save(order);
-//    }
-//
-//    public void cancelOrder(Long orderId) {
-//        orderRepository.deleteById(orderId);
-//    }
-
     public void cancelOrder(Long orderId) {
-        orderRepository.deleteById(orderId);
+        orderRepository.deleteByOrderId(orderId);
     }
 }

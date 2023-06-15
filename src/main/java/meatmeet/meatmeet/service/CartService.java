@@ -22,19 +22,7 @@ public class CartService {
     }
 
     public List<Cart> findCartByMemberId(String memberId) {
-    	List<Cart> cartItems = cartRepository.findCartByMemberId(memberId);
-    	
-    	for(Cart cart: cartItems) {
-    		Optional<Item> i = cartRepository.findByItemId(cart.getItemId());
-    		
-    		if(i.isPresent()) {
-    			Item item = i.get();
-    			
-    			cart.setItemName(item.getItemName());
-    			cart.setPrice(item.getTodayPrice());
-    		}
-    	}
-    	return cartItems;
+    	return cartRepository.findCartByMemberId(memberId);
     }
     
     public int totalPrice(String memberId) {
@@ -42,18 +30,12 @@ public class CartService {
     	int totalPrice = 0;
     	
     	for(Cart cart: cartItems) {
-    		totalPrice += cart.getPrice();
+    		totalPrice += cart.getPrice() * cart.getQuantity();
     	}
     	return totalPrice;
     }
     
-    public int totalQuantity(String memberId) {
-    	List<Cart> cartItems = findCartByMemberId(memberId);
-    	int totalQuantity = 0;
-    	
-    	for(Cart cart: cartItems) {
-    		totalQuantity += cart.getQuantity();
-    	}
-    	return totalQuantity;
+    public void updateQuantity(String memberId, int itemId, int quantity) {
+    	cartRepository.updateQuantity(memberId, quantity, itemId);
     }
 }

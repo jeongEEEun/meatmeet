@@ -26,53 +26,59 @@ public class OrderRepository {
     private RowMapper<Order> orderRowMapper = (rs, rowNum) -> {
         Order order = new Order();
         
-        order.setOrderId(rs.getInt("order_id"));
+        order.setOrderId(rs.getString("order_id"));
         order.setMemberId(rs.getString("member_id"));
         order.setItemId(rs.getInt("item_id"));
+        order.setPrice(rs.getInt("price"));
+        order.setQuantity(rs.getInt("quantity"));
         order.setUserName(rs.getString("user_name"));
         order.setPhone(rs.getString("phone"));
         order.setAddress(rs.getString("address"));
         order.setRequest(rs.getString("request"));
-        order.setPrice(rs.getInt("price"));
-        order.setOrderDate(rs.getString("order_date"));
-        order.setQuantity(rs.getString("quantity"));
+        order.setOrderDate(rs.getDate("order_date").toLocalDate());
+        order.setPayment(rs.getString("payment"));
         
         return order;
     };
     
-    public Optional<Order> findByOrderId(int orderId) {
+    public List<Order> findByOrderId(String orderId) {
         String sql = "SELECT * FROM order_list WHERE order_id = ?";
-        return jdbcTemplate.query(sql, orderRowMapper, orderId).stream().findAny();
+        return jdbcTemplate.query(sql, orderRowMapper, orderId);
+    }
+    
+    public List<Order> findByMemberId(String memberId) {
+    	String sql = "SELECT * FROM order_list WHERE order_id = ?";
+    	return jdbcTemplate.query(sql, orderRowMapper, memberId);
     }
 
-    public Optional<Order> save(Order order) {
+    public List<Order> save(List<Order> orders) {
     	SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
     			.withTableName("order_list")
-    			.usingGeneratedKeyColumns("order_id");
+    			.usingColumns("order_id", "member_id", "item_id", "price", "quantity", 
+    					"user_name", "phone", "address", "request", "order_date", "payment");
     	
-    	Map<String, Object> parameter = new HashMap<>();
-    	parameter.put("member_id", order.getMemberId());
-    	parameter.put("item_id", order.getItemId());
-    	parameter.put("user_name", order.getUserName());
-    	parameter.put("phone", order.getPhone());
-    	parameter.put("address", order.getAddress());
-    	parameter.put("request", order.getRequest());
-    	parameter.put("price", order.getPrice());
-    	parameter.put("orderDate", order.getOrderDate());
-    	parameter.put("quantity", order.getQuantity());
+    	for(Order order: orders) {
+    		Map<String, Object> parameter = new HashMap<>();
+    		parameter.put("order_id", order.getOrderId());
+    		parameter.put("member_id", order.getMemberId());
+    		parameter.put("item_id", order.getItemId());
+    		parameter.put("price", order.getPrice());
+    		parameter.put("quantity", order.getQuantity());
+    		parameter.put("user_name", order.getUserName());
+    		parameter.put("phone", order.getPhone());
+    		parameter.put("address", order.getAddress());
+    		parameter.put("request", order.getRequest());
+    		parameter.put("order_date", order.getOrderDate());
+    		parameter.put("payment", order.getPayment());
+    		
+    		jdbcInsert.execute(new MapSqlParameterSource(parameter));
+    	}
     	
-    	Number returnKey = jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameter));
-    	order.setOrderId(returnKey.intValue());
     	
-    	return findByOrderId(order.getOrderId());
+    	return findByOrderId(orders.get(0).getOrderId());
     }
 
-    public List<Order> findByMemberId(String memberId) {
-        String sql = "SELECT * FROM order_list WHERE order_id = ?";
-        return jdbcTemplate.query(sql, orderRowMapper, memberId);
-    }
-
-    public void deleteById(Long orderId) {
+    public void deleteByOrderId(Long orderId) {
         String sql = "DELETE FROM order_list WHERE order_id = ?";
         jdbcTemplate.update(sql, orderId);
     }

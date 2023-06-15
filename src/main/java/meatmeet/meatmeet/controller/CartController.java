@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -29,10 +30,6 @@ public class CartController {
 		List<Cart> cartItems = cartService.findCartByMemberId(memberId);
 		int itemPrice = cartService.totalPrice(memberId);
 		
-		for(Cart c: cartItems) {
-			log.info("itemId >> " + c.getItemId());
-		}
-		
 		model.addAttribute("member", member);
 		model.addAttribute("cartItems", cartItems);
 		model.addAttribute("itemPrice", itemPrice + "원");
@@ -41,9 +38,13 @@ public class CartController {
 		return "order/cart";
 	}
 	
-	@PostMapping("/cart/{memberId}/{itemId}/{quantity}")
-	public String updateItemQuantity(@PathVariable String memberId, RedirectAttributes redirectAttributes) {
+	@GetMapping("/cart/{memberId}/{itemId}/{quantity}")
+	public String updateItemQuantity(@PathVariable String memberId, @PathVariable int itemId, @PathVariable int quantity,
+			RedirectAttributes redirectAttributes) {
+		
+		cartService.updateQuantity(memberId, itemId, quantity);
 		redirectAttributes.addAttribute("memberId", memberId);
+		
 		return "redirect:/cart/{memberId}";
 	}
 }
