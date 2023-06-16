@@ -7,15 +7,12 @@
   font-style: normal;
 }
 
-form {
-  margin: auto;
+h3 {
+  font-size: 18px;
 }
 
-form #name,
-#phone,
-#address,
-#request {
-  background-color: #ddd;
+form {
+  margin: auto;
 }
 
 form #date {
@@ -27,18 +24,21 @@ table {
   margin-bottom: 20px;
 }
 
-.box button.order-button {
-  margin-top: 10px;
-  display: inline-block;
-  padding: 10px 60px;
-  border: 1px solid #ddd;
-  background-color: #ddd;
-  border-radius: 5px;
-  color: black;
-  width: 207px;
+.form-box {
+  text-align: left;
 }
 
-.box button.order-button:hover {
-  background-color: gray;
-  border: 1px solid gray;
+.container .order-date {
+  text-align: left;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.container .cancle-btn {
+  width: 200px;
+  height: 40px;
+}
+
+.container .box-wrap {
+  text-align: center;
 }

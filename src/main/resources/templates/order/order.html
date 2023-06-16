@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="../../static/css/header-footer.css" th:href="@{/css/header-footer.css}">
 	<link rel="stylesheet" href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
 	<link rel="stylesheet" href="../../static/css/cart.css" th:href="@{/css/cart.css}">
-	<link rel="stylesheet" href="../../static/css/order.css" th:href="@{/css/order.css}">
+	<link rel="stylesheet" href="../../static/css/order-list.css" th:href="@{/css/order-list.css}">
 	<title>order.html</title>
 </head>
 
@@ -54,20 +54,20 @@
 		<div class="container mb-5 mt-5 pb-5">
 			<h1 class="title">주문</h1>
 			<form class="row" method="post" th:action="@{/neworder/{memberId}(memberId=${member.memberId})}">
-				<div class="form-box col">
+				<div class="border rounded col form-box p-4">
 					<h3>주문자 정보</h3>
-					<label for="name">이름</label>
-					<input type="text" name="userName" placeholder="성함을 입력해주세요" required>
+					<label for="name" class="form-label">이름</label>
+					<input class="form-control" type="text" name="userName" placeholder="성함을 입력해주세요" required>
 					<br>
-					<label for="phone">전화번호</label>
-					<input type="tel" name="phone" placeholder="전화번호를 입력해주세요" required>
+					<label for="phone" class="form-label">전화번호</label>
+					<input class="form-control" type="tel" name="phone" placeholder="전화번호를 입력해주세요" required>
 					<br>
-					<label for="address">주소</label>
-					<input type="address" name="address" placeholder="내용을 입력해주세요" required>
+					<label for="address" class="form-label">주소</label>
+					<input class="form-control" type="address" name="address" placeholder="내용을 입력해주세요" required>
 					<br>
-					<label for="request">요청사항</label>
-					<select name="request" id="request">
-						<option value="없음">배송 시 요청사항을 선택해 주세요</option>
+					<label for="request" class="form-label">요청사항</label>
+					<select class="form-select" name="request" id="request">
+						<option value="없음" selected>배송 시 요청사항을 선택해 주세요</option>
 						<option value="문 앞에 놔주세요">문 앞에 놔주세요</option>
 						<option value="오실 때 연락주세요">오실 때 연락주세요</option>
 						<option value="도착해서 전화주세요">도착해서 전화주세요</option>
@@ -78,7 +78,7 @@
 					<label><input type="radio" name="payment" value="card"> 카드 결제</label>
 					<label><input type="radio" name="payment" value="toss"> 토스</label>
 				</div>
-				<div class="box col border rounded p-3">
+				<div class="box col border rounded p-3 ms-5">
 					<div class="border-bottom fw-bold mb-2 pb-2">결제정보</div>
 					<div class="row">
 						<span class="col-auto me-auto">상품 금액</span>
@@ -118,7 +118,7 @@
 					</a>
 				</div>
 			</div>
-		</div>
+	</div>
 	</footer>
 	<!-- footer end -->
 </body>

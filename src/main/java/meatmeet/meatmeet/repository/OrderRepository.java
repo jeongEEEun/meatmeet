@@ -1,6 +1,7 @@
 package meatmeet.meatmeet.repository;
 
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -13,9 +14,11 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
+import lombok.extern.slf4j.Slf4j;
 import meatmeet.meatmeet.domain.Order;
 
 @Repository
+@Slf4j
 public class OrderRepository {
     private final JdbcTemplate jdbcTemplate;
     
@@ -31,6 +34,7 @@ public class OrderRepository {
         order.setItemId(rs.getInt("item_id"));
         order.setPrice(rs.getInt("price"));
         order.setQuantity(rs.getInt("quantity"));
+        order.setTotalPrice(rs.getInt("total_price"));
         order.setUserName(rs.getString("user_name"));
         order.setPhone(rs.getString("phone"));
         order.setAddress(rs.getString("address"));
@@ -41,24 +45,26 @@ public class OrderRepository {
         return order;
     };
     
-    public List<Order> findByOrderId(String orderId) {
-        String sql = "SELECT * FROM order_list WHERE order_id = ?";
-        return jdbcTemplate.query(sql, orderRowMapper, orderId);
+    public List<Order> findByMemberId(String memberId) {
+        String sql = "SELECT * FROM order_list WHERE member_id = ?";
+        List<Order> orders = jdbcTemplate.query(sql, orderRowMapper, memberId);
+        return orders;
     }
     
-    public List<Order> findByMemberId(String memberId) {
+    public List<Order> findByOrderId(String orderId) {
     	String sql = "SELECT * FROM order_list WHERE order_id = ?";
-    	return jdbcTemplate.query(sql, orderRowMapper, memberId);
+    	return jdbcTemplate.query(sql, orderRowMapper, orderId);
     }
 
-    public List<Order> save(List<Order> orders) {
+    public void saveOrder(List<Order> orders) {
     	SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
     			.withTableName("order_list")
-    			.usingColumns("order_id", "member_id", "item_id", "price", "quantity", 
+    			.usingColumns("order_id", "member_id", "item_id", "price", "quantity", "total_price",
     					"user_name", "phone", "address", "request", "order_date", "payment");
     	
     	for(Order order: orders) {
     		Map<String, Object> parameter = new HashMap<>();
+    		
     		parameter.put("order_id", order.getOrderId());
     		parameter.put("member_id", order.getMemberId());
     		parameter.put("item_id", order.getItemId());
@@ -73,9 +79,6 @@ public class OrderRepository {
     		
     		jdbcInsert.execute(new MapSqlParameterSource(parameter));
     	}
-    	
-    	
-    	return findByOrderId(orders.get(0).getOrderId());
     }
 
     public void deleteByOrderId(Long orderId) {

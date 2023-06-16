@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import lombok.extern.slf4j.Slf4j;
 import meatmeet.meatmeet.domain.Member;
 import meatmeet.meatmeet.domain.Order;
+import meatmeet.meatmeet.service.CartService;
 import meatmeet.meatmeet.service.OrderService;
 
 
@@ -20,35 +21,48 @@ import meatmeet.meatmeet.service.OrderService;
 @Slf4j
 public class OrderController {
     private final OrderService orderService;
+    private final CartService cartService;
     
-    public OrderController(OrderService orderService) {
+    public OrderController(OrderService orderService, CartService cartService) {
     	this.orderService = orderService;
+    	this.cartService = cartService;
     }
     
     @GetMapping("/neworder/{memberId}")
     public String orderForm(@PathVariable String memberId, @SessionAttribute Member member, Model model) {
-        // 주문 페이지를 렌더링하는 로직을 구현합니다.
+    	int itemPrice = cartService.totalPrice(memberId);
+    	
     	model.addAttribute("member", member);
+    	model.addAttribute("itemPrice", itemPrice + "원");
+    	model.addAttribute("totalPrice", itemPrice + 3000 + "원");
+    	
         return "order/order";
     }
     
     @PostMapping("/neworder/{memberId}")
-    public String submitOrder(@PathVariable String memberId, @SessionAttribute Member member, Order order, Model model, RedirectAttributes redirectAttributes) {
+    public String order(@PathVariable String memberId, @SessionAttribute Member member, Order order, Model model, RedirectAttributes redirectAttributes) {
         orderService.saveOrder(order);
-
-        log.info("[controller] 주문자 >>" + order.getUserName());
-         
+        
+        log.info("[Ordercontroller - order] 주문자 >>" + order.getUserName());	
+        
         model.addAttribute("member", member);
         redirectAttributes.addAttribute("memberId", memberId);
         
         return "redirect:/order/{memberId}";
     }
-//    
+    
     @GetMapping("/order/{memberId}")
-    public String orderList(@PathVariable String memberId, Model model) {
-        // 주문 내역을 조회하여 주문 목록 페이지를 렌더링하는 로직을 구현합니다.
-        List<Order> orderList = orderService.getOrderById(memberId);
-        model.addAttribute("orderList", orderList);
+    public String orderList(@PathVariable String memberId, @SessionAttribute Member member , Model model) {
+        List<Order> orders = orderService.findByMemberId(memberId);
+        
+        model.addAttribute("member", member);
+        model.addAttribute("orders", orders);
+        
         return "order/order-list";
+    }
+    
+    @GetMapping("/order/{memberId}/{orderId}/cancel") 
+    public String cancelOrder(@PathVariable String memberId, @PathVariable String orderId) {
+    	return "redirect:/order/" + memberId;
     }
 }

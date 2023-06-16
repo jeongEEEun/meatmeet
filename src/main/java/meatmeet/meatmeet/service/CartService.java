@@ -26,13 +26,7 @@ public class CartService {
     }
     
     public int totalPrice(String memberId) {
-    	List<Cart> cartItems = findCartByMemberId(memberId);
-    	int totalPrice = 0;
-    	
-    	for(Cart cart: cartItems) {
-    		totalPrice += cart.getPrice() * cart.getQuantity();
-    	}
-    	return totalPrice;
+    	return cartRepository.totalPrice(memberId);
     }
     
     public void updateQuantity(String memberId, int itemId, int quantity) {

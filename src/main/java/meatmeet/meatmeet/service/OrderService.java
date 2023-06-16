@@ -5,11 +5,13 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
 import meatmeet.meatmeet.domain.Cart;
+import meatmeet.meatmeet.domain.Item;
 import meatmeet.meatmeet.domain.Order;
 import meatmeet.meatmeet.repository.CartRepository;
 import meatmeet.meatmeet.repository.OrderRepository;
@@ -25,41 +27,50 @@ public class OrderService {
         this.cartRepository = cartRepository;
     }
 
-    public List<Order> saveOrder(Order order) {
-        log.info("[service] 주문자 >>" + order.getUserName());
-    	
+    public void saveOrder(Order order) {
     	List<Cart> cartItems = cartRepository.findCartByMemberId(order.getMemberId());
     	List<Order> orders = new ArrayList<>();
     	
+    	// 주문날짜
     	LocalDate today = LocalDate.now();
     	
+    	// 주문번호
     	Timestamp timestamp = new Timestamp(System.currentTimeMillis());
     	SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmss");
     	String orderId = sdf.format(timestamp);
     	
     	for(Cart cart: cartItems) {
-    		Order orderItem = order;
+    		Order orderItem = new Order(order);
+    		
     		orderItem.setOrderId(orderId);
     		orderItem.setMemberId(cart.getMemberId());
     		orderItem.setItemId(cart.getItemId());
-    		orderItem.setItemName(cart.getItemName());
     		orderItem.setPrice(cart.getPrice());
+    		orderItem.setTotalPrice(cartRepository.totalPrice(order.getMemberId()));
     		orderItem.setQuantity(cart.getQuantity());
     		orderItem.setOrderDate(today);
     		
     		orders.add(orderItem);
     	}
     	
-    	orderRepository.save(orders);
-    	
-    	return orders;
+    	orderRepository.saveOrder(orders);
+    	cartRepository.resetCart(order.getMemberId());
     }
 
-    public List<Order> getOrderById(String memberId) {
-        return orderRepository.findByMemberId(memberId);
+    public List<Order> findByMemberId(String memberId) {
+    	List<Order> orders = orderRepository.findByMemberId(memberId); 
+
+    	for(Order order: orders) {
+    		Optional<Item> item = cartRepository.findByItemId(order.getItemId());
+    		
+    		if(item.isPresent()) {
+    			order.setItemName(item.get().getItemName());
+    		}
+    	}
+        return orders;
     }
 
-    public void cancelOrder(Long orderId) {
+    public void deleteByOrderId(Long orderId) {
         orderRepository.deleteByOrderId(orderId);
     }
 }
