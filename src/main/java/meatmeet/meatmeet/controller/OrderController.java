@@ -69,7 +69,9 @@ public class OrderController {
     }
     
     @GetMapping("/order/{memberId}/{orderId}/cancel") 
-    public String cancelOrder(@PathVariable String memberId, @PathVariable String orderId) {
+    public String cancelOrder(@PathVariable String memberId, @PathVariable String orderId, @SessionAttribute Member member) {
+    	log.info("주문 삭제 >> " + orderId);
+    	orderService.deleteOrder(orderId);
     	return "redirect:/order/" + memberId;
     }
 }

@@ -18,35 +18,29 @@
 	<!-- header start : 로그인 O -->
 	<header th:if="${member} != null">
 		<ul class="row px-0 pt-4">
-			<li class="col p-0 pe-1">
-				<a href="/">
-					<img src="/img/logo2.png" alt="meatmeet 로고" class="logo">
-				</a>
+			<li class="col p-0 pe-1"><a href="/"> <img
+					src="img/logo2.png" alt="meatmeet 로고" class="logo">
+			</a></li>
+			<li class="col p-0"><a href="/recipe" class="ms-5 title">레시피</a>
 			</li>
-			<li class="col p-0">
-				<a href="/recipe" class="ms-5 title">레시피</a>
-			</li>
-			<li class="col p-0">
-				<a href="/myrecipe" th:href="@{/myrecipe/{memberId}(memberId=${member.memberId})}" class="title">나의
-					레시피</a>
-			</li>
-			<li class="col p-0">
-				<a href="/order-list" th:href="@{/order/{memberId}(memberId=${member.memberId})}" class="title">
-					<img src="/img/order.png" alt="주문내역 아이콘" class="icon">
-					주문내역
-				</a>
-			</li>
-			<li class="col p-0">
-				<a href="/cart" th:href="@{/cart/{memberId}(memberId=${member.memberId})}" class="title">
-					<img src="/img/cart.png" alt="장바구니 아이콘" class="icon">
-					장바구니</a>
-			</li>
-			<li class="col p-0 row member">
-				<span class="col member-name" th:text="${member.memberName}">사용자명</span>
-				<button class="btn btn-primary col logout-btn" onclick="location.href='/sign-out'">로그아웃</button>
-			</li>
+			<li class="col p-0"><a href="/myrecipe"
+				th:href="@{/myrecipe/{memberId}(memberId=${member.memberId})}"
+				class="title">나의 레시피</a></li>
+			<li class="col p-0"><a href="/order"
+				th:href="@{/order/{memberId}(memberId=${member.memberId})}"
+				class="title"> <img src="img/order.png" alt="주문내역 아이콘"
+					class="icon"> 주문내역
+			</a></li>
+			<li class="col p-0"><a href="/cart"
+				th:href="@{/cart/{memberId}(memberId=${member.memberId})}"
+				class="title"> <img src="img/cart.png" alt="장바구니 아이콘"
+					class="icon"> 장바구니
+			</a></li>
+			<li class="col p-0 row member"><span href="#"
+				class="col member-name" th:text="${member.memberName}">사용자명</span>
+				<button class="btn btn-primary col logout-btn"
+					onclick="location.href='/sign-out'">로그아웃</button></li>
 		</ul>
-		<hr>
 	</header>
 	<!-- header end : 로그인 O -->
 
@@ -115,7 +109,7 @@
               <span class="fw-bold total-price col-auto" th:text="${orderInfo.totalPrice} + 3000">0원</span>
             </div>
           </div>
-          <button class="btn btn-secondary cancle-btn align-baseline" th:onclic="|location.href='@{order/{memberId}/{orderId}/cancel(memberId=${member.memberId}, orderId=${orderInfo.orderId})}'|">주문 취소</button>
+          <button class="btn btn-secondary cancle-btn align-baseline" th:onclick="|location.href='@{/order/{memberId}/{orderId}/cancel(memberId=${member.memberId}, orderId=${orderInfo.orderId})}'|">주문 취소</button>
         </div>
       </div>
       <div>

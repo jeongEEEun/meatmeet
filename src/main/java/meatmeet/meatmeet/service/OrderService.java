@@ -29,6 +29,7 @@ public class OrderService {
 
     public void saveOrder(Order order) {
     	List<Cart> cartItems = cartRepository.findCartByMemberId(order.getMemberId());
+    	List<Order> orders = new ArrayList<>();
     	
     	// 주문번호
     	Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -39,8 +40,22 @@ public class OrderService {
     	order.setOrderDate(LocalDate.now());
     	order.setTotalPrice(cartRepository.totalPrice(order.getMemberId()));
     	
-    	orderRepository.saveOrderInfo(order);
-    	orderRepository.saveOrderItem(orderId, cartItems);
+    	log.info("[service] orderId >> " + orderId);
+    	log.info("[service] OrderDate >> " + order.getOrderDate());
+    	log.info("[service] OrderAddress >> " + order.getAddress());
+    	
+    	for(Cart cart: cartItems) {
+    		Order orderItem = new Order(order);
+    		
+    		orderItem.setItemId(cart.getItemId());
+    		orderItem.setItemName(cart.getItemName());
+    		orderItem.setQuantity(cart.getQuantity());
+    		orderItem.setPrice(cart.getPrice());
+    		
+    		orders.add(orderItem);
+    	}
+    	
+    	orderRepository.saveOrder(orders);
     }
 
     public List<Order> findOrderInfoByMemberId(String memberId) {
@@ -56,5 +71,9 @@ public class OrderService {
     		orderItems.addAll(findOrderItems);
     	}
     	return orderItems;
+    }
+    
+    public void deleteOrder(String orderId) {
+    	orderRepository.deleteOrder(orderId);
     }
 }

@@ -90,8 +90,8 @@ public class MemberService {
 		return recipe.stream().filter(r -> r.getRecipeId() == recipeId).findFirst();
 	}
 	
-	public Optional<Recipe> updateRecipe(Recipe recipe) {
-		return memberRepository.updateRecipe(recipe);
+	public void updateRecipe(Recipe recipe) {
+		memberRepository.updateRecipe(recipe);
 	}
 	
 	public void deleteRecipe(Long recipeId) {

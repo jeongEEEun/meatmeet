@@ -1,8 +1,10 @@
 package meatmeet.meatmeet.repository;
 
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.sql.DataSource;
 
@@ -13,7 +15,6 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import lombok.extern.slf4j.Slf4j;
-import meatmeet.meatmeet.domain.Cart;
 import meatmeet.meatmeet.domain.Order;
 
 @Repository
@@ -53,47 +54,55 @@ public class OrderRepository {
     	return orderItem;
     };
     
-    public void saveOrderInfo(Order order) {
+    public void saveOrder(List<Order> orders) {
     	SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
-    			.withTableName("order_info");
-    			
-    	Map<String, Object> parameter = new HashMap<>();
-    	parameter.put("order_id", order.getOrderId());
-    	parameter.put("member_id", order.getMemberId());
-    	parameter.put("user_name", order.getUserName());
-    	parameter.put("phone", order.getPhone());
-    	parameter.put("address", order.getAddress());
-    	parameter.put("request", order.getRequest());
-    	parameter.put("order_date", order.getOrderDate());
-    	parameter.put("payment", order.getPayment());
-    	parameter.put("totalPrice", order.getTotalPrice());
+    			.withTableName("orders");
     	
-    	jdbcInsert.execute(new MapSqlParameterSource(parameter));
-    }
-    
-    public void saveOrderItem(String orderId, List<Cart> orderItems) {
-    	SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
-    			.withTableName("order_item");
-    	
-    	for(Cart orderItem: orderItems) {
+    	for(Order order: orders) {
     		Map<String, Object> parameter = new HashMap<>();
-    		parameter.put("order_id", orderId);
-    		parameter.put("item_id", orderItem.getItemId());
-    		parameter.put("item_name", orderItem.getItemName());
-    		parameter.put("quantity", orderItem.getQuantity());
-    		parameter.put("price", orderItem.getPrice());
+    		
+        	log.info("[repository] orderId >> " + order.getOrderId());
+        	log.info("[repository] OrderDate >> " + order.getOrderDate());
+        	log.info("[repository] OrderAddress >> " + order.getAddress());
+    		
+    		parameter.put("order_id", order.getOrderId());
+    		parameter.put("member_id", order.getMemberId());
+    		parameter.put("user_name", order.getUserName());
+    		parameter.put("phone", order.getPhone());
+    		parameter.put("address", order.getAddress());
+    		parameter.put("request", order.getRequest());
+    		parameter.put("order_date", order.getOrderDate());
+    		parameter.put("payment", order.getPayment());
+    		parameter.put("totalPrice", order.getTotalPrice());
+    		parameter.put("item_id", order.getItemId());
+    		parameter.put("item_name", order.getItemName());
+    		parameter.put("quantity", order.getQuantity());
+    		parameter.put("price", order.getPrice());
     		
     		jdbcInsert.execute(new MapSqlParameterSource(parameter));
     	}
     }
     
     public List<Order> findByMemberId(String memberId) {
-    	String sql = "select * from order_info where member_id = ?";
-    	return jdbcTemplate.query(sql, OrderInfoRowMapper, memberId);
+    	String sql = "select * from orders where member_id = ?";
+    	List<Order> orderInfo = jdbcTemplate.query(sql, OrderInfoRowMapper, memberId);
+    	
+    	for(int i=0; i<orderInfo.size(); i++) {
+    		if(orderInfo.get(i).getOrderId().equals(orderInfo.get(i + 1).getOrderId())) {
+    			orderInfo.remove(i);
+    		}
+    	}
+    	
+    	return orderInfo;
     }
     
     public List<Order> findByOrderId(String orderId) {
-    	String sql = "select * from order_item where order_id = ?";
+    	String sql = "select * from orders where order_id = ?";
     	return jdbcTemplate.query(sql, orderItemRowMapprt, orderId);
+    }
+    
+    public void deleteOrder(String orderId) {
+    	String sql = "delete from orders where order_id = ?";
+    	jdbcTemplate.update(sql, orderId);
     }
 } 

@@ -26,5 +26,16 @@ public class Order {
     private String itemName;
     private int price;
     private int quantity;
+    
+    public Order(Order order) {
+    	this.orderId = order.orderId;
+    	this.memberId = order.memberId;
+    	this.userName = order.userName;
+    	this.phone = order.phone;
+    	this.address = order.address;
+    	this.request = order.request;
+    	this.orderDate = order.orderDate;
+    	this.payment = order.payment;
+    }
 }
 

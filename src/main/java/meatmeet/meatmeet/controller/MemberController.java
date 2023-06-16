@@ -113,8 +113,11 @@ public class MemberController {
 	
 	@PostMapping("/recipe/{memberId}/{recipeId}/edit")
 	public String recipeEdit(@PathVariable String memberId, @PathVariable Long recipeId, @SessionAttribute Member member, Recipe recipe, RedirectAttributes redirectAttributes) {
-		Optional<Recipe> updateRecipe = memberService.updateRecipe(recipe);
-		redirectAttributes.addAttribute("recipeId", updateRecipe.get().getRecipeId());
+		recipe.setRecipeId(recipeId);
+		 memberService.updateRecipe(recipe);
+		
+		redirectAttributes.addAttribute("recipeId", recipeId);
+		
 		return "redirect:/recipe/{recipeId}";
 	}
 	

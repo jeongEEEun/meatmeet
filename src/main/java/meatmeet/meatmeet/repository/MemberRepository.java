@@ -109,10 +109,10 @@ public class MemberRepository {
 		return jdbcTemplate.query(sql, recipeRowMapper,recipeId).stream().findFirst();
 	}
 	
-	public Optional<Recipe> updateRecipe(Recipe recipe) {
+	public void updateRecipe(Recipe recipe) {
 		String sql = "update recipe set title = ?, ingre = ?, sauce = ?, step = ? where recipe_id = ?";
-		jdbcTemplate.update(sql, recipe.getTitle(), recipe.getIngre(), recipe.getSauce(), recipe.getStep(), recipe.getRecipeId());
-		return findByRecipeId(recipe.getRecipeId());
+		jdbcTemplate.update(sql, recipe.getRecipeId(), recipe.getTitle(), 
+				recipe.getIngre(), recipe.getSauce(), recipe.getStep());
 	}
 	
 	public void deleteRecipe(Long recipeId) {
