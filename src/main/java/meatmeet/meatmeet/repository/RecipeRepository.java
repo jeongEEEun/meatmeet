@@ -117,10 +117,22 @@ public class RecipeRepository {
 		return count > 0;
 	}
 
-	public Comment saveComment(Comment comment) {
-		String sql = "insert into comment (recipe_id, member_id, comment) values (?, ?, ?)";
-		jdbcTemplate.update(sql, comment.getRecipeId(), comment.getMemberId(), comment.getComment());
-		return comment;
+	public void saveComment(Comment comment) {
+		log.info("repository");
+		SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
+				.withTableName("comment")
+				.usingColumns("recipe_id", "member_id", "comment");
+		
+		log.info("repository");
+				
+		Map<String, Object> parameter = new HashMap<>();
+		parameter.put("recipe_id", comment.getRecipeId());
+		parameter.put("member_id", comment.getMemberId());
+		parameter.put("comment", comment.getComment());
+		log.info("repository");
+		
+		jdbcInsert.execute(new MapSqlParameterSource(parameter));
+		log.info("repository");
 	}
 	
 	public List<Comment> findCommentByRecipeId(Long recipeId) {

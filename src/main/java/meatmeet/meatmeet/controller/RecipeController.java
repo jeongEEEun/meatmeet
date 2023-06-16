@@ -70,22 +70,26 @@ public class RecipeController {
 	    return "redirect:/recipe";
 	}
 	
-//	@PostMapping("/recipe/{recipeId}/comment")
-//	public String comment(@PathVariable Long recipeId, @SessionAttribute(required = false) Member member,
-//	        @RequestParam String commentText, RedirectAttributes redirectAttributes, Model model) {
-//		if (member == null) {
-//	        return "redirect:/sign-in";
-//	    }
-//		Comment comment = new Comment();
-//	    comment.setRecipeId(recipeId);
-//	    comment.setMemberId(member.getMemberId());
-//	    comment.setComment(commentText);
-//	    recipeService.saveComment(comment);
-//	    redirectAttributes.addAttribute("recipeId", recipeId);
-//	    
+	
+	@PostMapping("/recipe/{recipeId}/comment")
+	public String comment(@PathVariable("recipeId") Long recipeId, @SessionAttribute(required = false) Member member,
+	        @RequestParam("commentText") String commentText, RedirectAttributes redirectAttributes, Model model) {
+	    if (member == null) {
+	        return "redirect:/sign-in";
+	    }
+		
+	    Comment comment = new Comment();
+	    
+	    comment.setRecipeId(recipeId);
+	    comment.setMemberId(member.getMemberId());
+	    comment.setComment(commentText);
+	    recipeService.saveComment(comment);
+	    
+	    redirectAttributes.addAttribute("recipeId", recipeId);
+	    
 //	    List<Comment> comments = recipeService.findCommentByRecipeId(recipeId);
 //	    model.addAttribute("comments", comments);
-//	    
-//	    return "redirect:/recipe/{recipeId}";
-//	}
+	    
+	    return "redirect:/recipe/{recipeId}";
+	}
 }

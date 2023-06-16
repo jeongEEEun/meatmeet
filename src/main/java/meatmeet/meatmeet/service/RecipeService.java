@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import lombok.extern.slf4j.Slf4j;
 import meatmeet.meatmeet.domain.Cart;
 import meatmeet.meatmeet.domain.Comment;
 import meatmeet.meatmeet.domain.Item;
@@ -12,6 +13,7 @@ import meatmeet.meatmeet.domain.Recipe;
 import meatmeet.meatmeet.repository.RecipeRepository;
 
 @Service
+@Slf4j
 public class RecipeService {
 	private final RecipeRepository recipeRepository;
 	
@@ -58,8 +60,9 @@ public class RecipeService {
 		return recipeRepository.itemExist(memberId, itemId);
 	}
 	
-	public Comment saveComment(Comment comment) {
-		return recipeRepository.saveComment(comment);
+	public void saveComment(Comment comment) {
+		log.info("service");
+		recipeRepository.saveComment(comment);
 	}
 	
 	public List<Comment> findCommentByRecipeId(Long reicpeId) {
