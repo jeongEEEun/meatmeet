@@ -1,5 +1,6 @@
 package meatmeet.meatmeet.controller;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.mysql.cj.x.protobuf.MysqlxCrud.Collection;
 
 import lombok.extern.slf4j.Slf4j;
 import meatmeet.meatmeet.domain.Member;
@@ -53,11 +56,15 @@ public class OrderController {
     
     @GetMapping("/order/{memberId}")
     public String orderList(@PathVariable String memberId, @SessionAttribute Member member , Model model) {
-        List<Order> orders = orderService.findByMemberId(memberId);
-        
-        model.addAttribute("member", member);
-        model.addAttribute("orders", orders);
-        
+    	List<Order> orderInfo = orderService.findOrderInfoByMemberId(memberId);
+    	List<Order> orderItems = orderService.findOrderItemByMemberId(memberId);
+    	
+    	Collections.reverse(orderInfo);
+    	
+    	model.addAttribute("member", member);
+    	model.addAttribute("orderInfo", orderInfo);
+    	model.addAttribute("orderItems", orderItems);
+    	
         return "order/order-list";
     }
     

@@ -29,48 +29,32 @@ public class OrderService {
 
     public void saveOrder(Order order) {
     	List<Cart> cartItems = cartRepository.findCartByMemberId(order.getMemberId());
-    	List<Order> orders = new ArrayList<>();
-    	
-    	// 주문날짜
-    	LocalDate today = LocalDate.now();
     	
     	// 주문번호
     	Timestamp timestamp = new Timestamp(System.currentTimeMillis());
     	SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmss");
     	String orderId = sdf.format(timestamp);
     	
-    	for(Cart cart: cartItems) {
-    		Order orderItem = new Order(order);
-    		
-    		orderItem.setOrderId(orderId);
-    		orderItem.setMemberId(cart.getMemberId());
-    		orderItem.setItemId(cart.getItemId());
-    		orderItem.setPrice(cart.getPrice());
-    		orderItem.setTotalPrice(cartRepository.totalPrice(order.getMemberId()));
-    		orderItem.setQuantity(cart.getQuantity());
-    		orderItem.setOrderDate(today);
-    		
-    		orders.add(orderItem);
-    	}
+    	order.setOrderId(orderId);
+    	order.setOrderDate(LocalDate.now());
+    	order.setTotalPrice(cartRepository.totalPrice(order.getMemberId()));
     	
-    	orderRepository.saveOrder(orders);
-    	cartRepository.resetCart(order.getMemberId());
+    	orderRepository.saveOrderInfo(order);
+    	orderRepository.saveOrderItem(orderId, cartItems);
     }
 
-    public List<Order> findByMemberId(String memberId) {
-    	List<Order> orders = orderRepository.findByMemberId(memberId); 
-
-    	for(Order order: orders) {
-    		Optional<Item> item = cartRepository.findByItemId(order.getItemId());
-    		
-    		if(item.isPresent()) {
-    			order.setItemName(item.get().getItemName());
-    		}
+    public List<Order> findOrderInfoByMemberId(String memberId) {
+    	return orderRepository.findByMemberId(memberId);
+    }
+    
+    public List<Order> findOrderItemByMemberId(String memberId) {
+    	List<Order> orderInfo = orderRepository.findByMemberId(memberId);
+    	List<Order> orderItems = new ArrayList<>();
+    	
+    	for(Order order: orderInfo) {
+    		List<Order> findOrderItems = orderRepository.findByOrderId(order.getOrderId());
+    		orderItems.addAll(findOrderItems);
     	}
-        return orders;
-    }
-
-    public void deleteByOrderId(Long orderId) {
-        orderRepository.deleteByOrderId(orderId);
+    	return orderItems;
     }
 }

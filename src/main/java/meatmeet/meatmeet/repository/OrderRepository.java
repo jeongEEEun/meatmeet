@@ -1,10 +1,8 @@
 package meatmeet.meatmeet.repository;
 
 import java.util.HashMap;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import javax.sql.DataSource;
 
@@ -15,6 +13,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import lombok.extern.slf4j.Slf4j;
+import meatmeet.meatmeet.domain.Cart;
 import meatmeet.meatmeet.domain.Order;
 
 @Repository
@@ -26,63 +25,75 @@ public class OrderRepository {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
     
-    private RowMapper<Order> orderRowMapper = (rs, rowNum) -> {
-        Order order = new Order();
-        
-        order.setOrderId(rs.getString("order_id"));
-        order.setMemberId(rs.getString("member_id"));
-        order.setItemId(rs.getInt("item_id"));
-        order.setPrice(rs.getInt("price"));
-        order.setQuantity(rs.getInt("quantity"));
-        order.setTotalPrice(rs.getInt("total_price"));
-        order.setUserName(rs.getString("user_name"));
-        order.setPhone(rs.getString("phone"));
-        order.setAddress(rs.getString("address"));
-        order.setRequest(rs.getString("request"));
-        order.setOrderDate(rs.getDate("order_date").toLocalDate());
-        order.setPayment(rs.getString("payment"));
-        
-        return order;
+    RowMapper<Order> OrderInfoRowMapper = (rs, rowNum) -> {
+    	Order orderInfo = new Order();
+    	
+    	orderInfo.setOrderId(rs.getString("order_id"));
+    	orderInfo.setMemberId(rs.getString("member_id"));
+    	orderInfo.setUserName(rs.getString("user_name"));
+    	orderInfo.setPhone(rs.getString("phone"));
+    	orderInfo.setAddress(rs.getString("address"));
+    	orderInfo.setRequest(rs.getString("request"));
+    	orderInfo.setOrderDate(rs.getDate("order_date").toLocalDate());
+    	orderInfo.setPayment(rs.getString("payment"));
+    	orderInfo.setTotalPrice(rs.getInt("total_price"));
+    	
+    	return orderInfo;
     };
     
-    public List<Order> findByMemberId(String memberId) {
-        String sql = "SELECT * FROM order_list WHERE member_id = ?";
-        List<Order> orders = jdbcTemplate.query(sql, orderRowMapper, memberId);
-        return orders;
+    RowMapper<Order> orderItemRowMapprt = (rs, rowNum) -> {
+    	Order orderItem = new Order();
+    	
+    	orderItem.setOrderId(rs.getString("order_id"));
+    	orderItem.setItemId(rs.getInt("item_id"));
+    	orderItem.setItemName(rs.getString("item_name"));
+    	orderItem.setPrice(rs.getInt("price"));
+    	orderItem.setQuantity(rs.getInt("quantity"));
+    	
+    	return orderItem;
+    };
+    
+    public void saveOrderInfo(Order order) {
+    	SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
+    			.withTableName("order_info");
+    			
+    	Map<String, Object> parameter = new HashMap<>();
+    	parameter.put("order_id", order.getOrderId());
+    	parameter.put("member_id", order.getMemberId());
+    	parameter.put("user_name", order.getUserName());
+    	parameter.put("phone", order.getPhone());
+    	parameter.put("address", order.getAddress());
+    	parameter.put("request", order.getRequest());
+    	parameter.put("order_date", order.getOrderDate());
+    	parameter.put("payment", order.getPayment());
+    	parameter.put("totalPrice", order.getTotalPrice());
+    	
+    	jdbcInsert.execute(new MapSqlParameterSource(parameter));
     }
     
-    public List<Order> findByOrderId(String orderId) {
-    	String sql = "SELECT * FROM order_list WHERE order_id = ?";
-    	return jdbcTemplate.query(sql, orderRowMapper, orderId);
-    }
-
-    public void saveOrder(List<Order> orders) {
+    public void saveOrderItem(String orderId, List<Cart> orderItems) {
     	SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
-    			.withTableName("order_list")
-    			.usingColumns("order_id", "member_id", "item_id", "price", "quantity", "total_price",
-    					"user_name", "phone", "address", "request", "order_date", "payment");
+    			.withTableName("order_item");
     	
-    	for(Order order: orders) {
+    	for(Cart orderItem: orderItems) {
     		Map<String, Object> parameter = new HashMap<>();
-    		
-    		parameter.put("order_id", order.getOrderId());
-    		parameter.put("member_id", order.getMemberId());
-    		parameter.put("item_id", order.getItemId());
-    		parameter.put("price", order.getPrice());
-    		parameter.put("quantity", order.getQuantity());
-    		parameter.put("user_name", order.getUserName());
-    		parameter.put("phone", order.getPhone());
-    		parameter.put("address", order.getAddress());
-    		parameter.put("request", order.getRequest());
-    		parameter.put("order_date", order.getOrderDate());
-    		parameter.put("payment", order.getPayment());
+    		parameter.put("order_id", orderId);
+    		parameter.put("item_id", orderItem.getItemId());
+    		parameter.put("item_name", orderItem.getItemName());
+    		parameter.put("quantity", orderItem.getQuantity());
+    		parameter.put("price", orderItem.getPrice());
     		
     		jdbcInsert.execute(new MapSqlParameterSource(parameter));
     	}
     }
-
-    public void deleteByOrderId(Long orderId) {
-        String sql = "DELETE FROM order_list WHERE order_id = ?";
-        jdbcTemplate.update(sql, orderId);
+    
+    public List<Order> findByMemberId(String memberId) {
+    	String sql = "select * from order_info where member_id = ?";
+    	return jdbcTemplate.query(sql, OrderInfoRowMapper, memberId);
+    }
+    
+    public List<Order> findByOrderId(String orderId) {
+    	String sql = "select * from order_item where order_id = ?";
+    	return jdbcTemplate.query(sql, orderItemRowMapprt, orderId);
     }
 } 

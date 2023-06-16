@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Setter
@@ -12,25 +14,17 @@ import lombok.Setter;
 public class Order {
 	private String orderId;
 	private String memberId;
-	private int itemId;
-	private String itemName;
-	private int price;
-	private int quantity;
-	private int totalPrice;
 	private String userName;
 	private String phone;
 	private String address;
 	private String request;
 	private LocalDate orderDate;
     private String payment;
+    private int totalPrice;
     
-    public Order(Order order) {
-    	this.memberId = order.memberId;
-    	this.userName = order.userName;
-    	this.phone = order.phone;
-    	this.address = order.address;
-    	this.request = order.request;
-    	this.payment = order.payment;
-    }
+    private int itemId;
+    private String itemName;
+    private int price;
+    private int quantity;
 }
 

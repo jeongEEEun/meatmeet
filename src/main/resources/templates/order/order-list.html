@@ -51,13 +51,13 @@
 	<!-- header end : 로그인 O -->
 
   <!-- container start : 주문내역 O -->
-  <div class="container mb-5 mt-5 pb-5" th:if="${#lists.size(orders) > 0}">
+  <div class="container mb-5 mt-5 pb-5" th:if="${#lists.size(orderInfo) > 0}">
     <h1 class="title">주문내역</h1>
-    <div th:each="order, status: ${orders}" th:if="${status.index == 0 or orders[status.index].orderId != orders[status.index-1].orderId}">
+    <div th:each="orderInfo: ${orderInfo}">
       <div class="order-date">
-        <span th:text="${order.orderDate}">2023. 06. 06</span>
+        <span th:text="${orderInfo.orderDate}">2023. 06. 06</span>
         <span class="ms-3">주문번호
-          <span th:text="${order.orderId}">202306061234</span>
+          <span th:text="${orderInfo.orderId}">202306061234</span>
         </span>
       </div>
       <table class="table mt-3 mb-4 col">
@@ -69,12 +69,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr th:each="order: ${orders}" th:if="${status.index == 0 or orders[status.index].orderId == orders[status.index-1].orderId}">
-            <td th:text="${order.itemName}">상품명</td>
+          <tr th:each="orderItem, status: ${orderItems}" th:if="${orderInfo.orderId == orderItem.orderId}">
+            <td th:text="${orderItem.itemName}">상품명</td>
             <td>
-              <span class="ms-2 me-2 quantity" th:text="${order.quantity}">1</span>
+              <span class="ms-2 me-2 quantity" th:text="${orderItem.quantity}">1</span>
             </td>
-            <td th:text="${order.price}">가격</td>
+            <td th:text="${orderItem.price}">가격</td>
           </tr>
         </tbody>
       </table>
@@ -82,17 +82,17 @@
         <div class="col form-box">
           <h3>주문자 정보</h3>
           <label for="name" class="form-label">이름</label>
-          <input class="form-control" type="text" th:value="${order.userName}" disabled>
+          <input class="form-control" type="text" th:value="${orderInfo.userName}" disabled>
           <br>
           <label for="phone" class="form-label">전화번호</label>
-          <input class="form-control" type="tel" th:value="${order.phone}" disabled>
+          <input class="form-control" type="tel" th:value="${orderInfo.phone}" disabled>
           <br>
           <label for="address" class="form-label">주소</label>
-          <input class="form-control" type="address" th:value="${order.address}" disabled>
+          <input class="form-control" type="address" th:value="${orderInfo.address}" disabled>
           <br>
           <label for="request" class="form-label" disabled>요청사항</label>
           <select class="form-select" name="request" id="request">
-            <option th:text="${order.request}" selected>배송 시 요청사항을 선택해 주세요</option>
+            <option th:text="${orderInfo.request}" selected>배송 시 요청사항을 선택해 주세요</option>
           </select>
         </div>
         <div class="box p-0 ms-4">
@@ -100,7 +100,7 @@
             <div class="border-bottom fw-bold mb-2 pb-2">결제정보</div>
             <div class="row">
               <span class="col-auto me-auto">상품 금액</span>
-              <span class="fw-bold col-auto price" th:text="${itemPrice}">0원</span>
+              <span class="fw-bold col-auto price" th:text="${orderInfo.totalPrice}">0원</span>
             </div>
             <div class="row">
               <span class="col-auto me-auto">배송비</span>
@@ -108,14 +108,14 @@
             </div>
             <div class="row mb-5">
               <span class="col-auto me-auto">결제수단</span>
-              <span class="fw-bold col-auto price" th:text="${order.payment}">카카오페이</span>
+              <span class="fw-bold col-auto price" th:text="${orderInfo.payment}">카카오페이</span>
             </div>
             <div class="row pt-4">
               <span class="col-auto me-auto">결제금액</span>
-              <span class="fw-bold total-price col-auto" th:text="${totalPrice}">0원</span>
+              <span class="fw-bold total-price col-auto" th:text="${orderInfo.totalPrice} + 3000">0원</span>
             </div>
           </div>
-          <button class="btn btn-secondary cancle-btn align-baseline" th:onclic="|location.href='@{order/{memberId}/{orderId}/cancel(memberId=${member.memberId}, orderId=${order.orderId})}'|">주문 취소</button>
+          <button class="btn btn-secondary cancle-btn align-baseline" th:onclic="|location.href='@{order/{memberId}/{orderId}/cancel(memberId=${member.memberId}, orderId=${orderInfo.orderId})}'|">주문 취소</button>
         </div>
       </div>
       <div>
@@ -126,7 +126,7 @@
   <!-- container end : 주문내역 O -->
   
   <!-- container start : 주문내역 X -->
-  <div th:if="${#lists.size(orders) == 0}">
+  <div th:if="${#lists.size(orderInfo) == 0}">
   	<span>주문내역 없음</span>
   </div>
   <!-- container end : 주문내역 X -->
