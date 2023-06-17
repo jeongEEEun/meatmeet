@@ -1,5 +1,6 @@
 package meatmeet.meatmeet.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -87,9 +88,14 @@ public class RecipeController {
 	    
 	    redirectAttributes.addAttribute("recipeId", recipeId);
 	    
-//	    List<Comment> comments = recipeService.findCommentByRecipeId(recipeId);
-//	    model.addAttribute("comments", comments);
+	    List<Comment> comments = recipeService.findCommentByRecipeId(recipeId);
+	    model.addAttribute("comments", comments);
 	    
+	    LocalDateTime currentTime = LocalDateTime.now();
+	    model.addAttribute("currentTime", currentTime);
+	    
+	    log.info("시간 >> {}", currentTime);
+	    log.info("findCommentByRecipeId >> {}", recipeService.findCommentByRecipeId(recipeId));
 	    return "redirect:/recipe/{recipeId}";
 	}
 }

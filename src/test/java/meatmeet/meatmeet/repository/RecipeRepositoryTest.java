@@ -2,6 +2,8 @@ package meatmeet.meatmeet.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import lombok.extern.slf4j.Slf4j;
 import meatmeet.meatmeet.domain.Cart;
 import meatmeet.meatmeet.domain.Comment;
+import meatmeet.meatmeet.domain.Member;
 
 @Slf4j
 @SpringBootTest
@@ -35,9 +38,20 @@ public class RecipeRepositoryTest {
 	void saveComment() {
 		Comment comment = new Comment(2, "aa", "맛있어요");
 		
-		Comment result = recipeRepository.saveComment(comment);
+		recipeRepository.saveComment(comment);
 		
-		log.info("saveComment result >> {}", result.getMemberId());
-		assertThat(result).isNotNull();
+		assertThat(comment.getComment()).isEqualTo("맛있어요");
+	}
+	
+	@Test
+	void findCommentByRecipeId() {
+		Comment comment = new Comment(2, "ㅁ", "저장됨");
+		
+		recipeRepository.saveComment(comment);
+		
+		List<Comment> result = recipeRepository.findCommentByRecipeId(2L);
+		
+		log.info("RecipeRepositoryTest result >> {}", result);
+		assertThat(result).isNotEmpty();
 	}
 }

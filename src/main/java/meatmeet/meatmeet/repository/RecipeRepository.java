@@ -137,6 +137,6 @@ public class RecipeRepository {
 	
 	public List<Comment> findCommentByRecipeId(Long recipeId) {
 		String sql = "select * from comment where recipe_id = ?";
-		return jdbcTemplate.query(sql, commentRowMapper);
+		return jdbcTemplate.query(sql, commentRowMapper, recipeId);
 	}
 }
