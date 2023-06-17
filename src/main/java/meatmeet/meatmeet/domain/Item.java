@@ -12,5 +12,7 @@ public class Item {
 	private int todayPrice;
 	private int yesterdayPrice;
 	private String itemName;
+	private String part;
 	private String itemUnit;
+	private String selector;
 }

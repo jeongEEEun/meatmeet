@@ -31,12 +31,6 @@ public class MemberController {
 		this.memberService = memberService;
 	}
 	
-	@GetMapping
-	public String index(@SessionAttribute(required = false) Member member, Model model) {
-		model.addAttribute("member", member);
-		return "index";
-	}
-	
 	@GetMapping("/sign-up")
 	public String signUpForm() {
 		return "member/sign-up";
