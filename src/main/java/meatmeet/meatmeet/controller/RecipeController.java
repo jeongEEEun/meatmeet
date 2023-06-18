@@ -25,77 +25,80 @@ import meatmeet.meatmeet.service.RecipeService;
 @Controller
 public class RecipeController {
 	private final RecipeService recipeService;
-	
+
 	public RecipeController(RecipeService recipeService) {
 		this.recipeService = recipeService;
 	}
-	
+
 	@GetMapping("/recipe")
 	public String recipeAll(@SessionAttribute(required = false) Member member, Model model) {
 		List<Recipe> recipes = recipeService.findAll();
 		List<Item> items = recipeService.findItemAll();
-        model.addAttribute("member", member);
-        model.addAttribute("recipes", recipes);
-        model.addAttribute("items", items);
+		model.addAttribute("member", member);
+		model.addAttribute("recipes", recipes);
+		model.addAttribute("items", items);
 		return "recipe/recipe";
 	}
-	
-	@GetMapping("/recipe/{recipeId}") 
-	public String detail(@PathVariable Long recipeId, @SessionAttribute(required = false) Member member, Model model){
+
+	@GetMapping("/recipe/{recipeId}")
+	public String detail(@PathVariable Long recipeId, @SessionAttribute(required = false) Member member, Model model) {
 		if (member == null) {
-	        return "redirect:/sign-in";
-	    }
+			return "redirect:/sign-in";
+		}
+		
 		Optional<Recipe> details = recipeService.findRecipeById(member.getMemberId(), recipeId);
+		if (!details.isPresent()) {
+			return "redirect:/recipe";
+		}
+		model.addAttribute("member", member);
 		model.addAttribute("recipeId", recipeId);
 		model.addAttribute("details", details.get());
 		recipeService.updateCnt(recipeId);
+		
+		List<Comment> comments = recipeService.findCommentByRecipeId(recipeId);
+		model.addAttribute("comments", comments);
+
+		LocalDateTime currentTime = LocalDateTime.now();
+		model.addAttribute("currentTime", currentTime);
+
 		return "recipe/detail";
 	}
-	
+
 	@GetMapping("/cart/{memberId}/{itemId}")
 	public String cartAdd(@PathVariable String memberId, @PathVariable int itemId, @SessionAttribute Member member) {
 		Cart cart = new Cart();
 		cart.setMemberId(memberId);
 		cart.setItemId(itemId);
 		Optional<Item> optionalItem = recipeService.findItemById(itemId);
-	    if (optionalItem.isPresent()) {
-	        Item item = optionalItem.get();
-	        cart.setPrice(item.getTodayPrice()); 
-	    }
-	    boolean itemExists = recipeService.itemExist(memberId, itemId);
-	    if (itemExists) {
-	        return "redirect:/cart/" + memberId;
-	    }
-	    
-	    recipeService.cartAdd(cart);
-	    return "redirect:/recipe";
+		if (optionalItem.isPresent()) {
+			Item item = optionalItem.get();
+			cart.setPrice(item.getTodayPrice());
+		}
+		boolean itemExists = recipeService.itemExist(memberId, itemId);
+		if (itemExists) {
+			return "redirect:/cart/" + memberId;
+		}
+
+		recipeService.cartAdd(cart);
+		return "redirect:/recipe";
 	}
-	
-	
+
 	@PostMapping("/recipe/{recipeId}/comment")
 	public String comment(@PathVariable("recipeId") Long recipeId, @SessionAttribute(required = false) Member member,
-	        @RequestParam("commentText") String commentText, RedirectAttributes redirectAttributes, Model model) {
-	    if (member == null) {
-	        return "redirect:/sign-in";
-	    }
-		
-	    Comment comment = new Comment();
-	    
-	    comment.setRecipeId(recipeId);
-	    comment.setMemberId(member.getMemberId());
-	    comment.setComment(commentText);
-	    recipeService.saveComment(comment);
-	    
-	    redirectAttributes.addAttribute("recipeId", recipeId);
-	    
-	    List<Comment> comments = recipeService.findCommentByRecipeId(recipeId);
-	    model.addAttribute("comments", comments);
-	    
-	    LocalDateTime currentTime = LocalDateTime.now();
-	    model.addAttribute("currentTime", currentTime);
-	    
-	    log.info("시간 >> {}", currentTime);
-	    log.info("findCommentByRecipeId >> {}", recipeService.findCommentByRecipeId(recipeId));
-	    return "redirect:/recipe/{recipeId}";
+			@RequestParam("commentText") String commentText, RedirectAttributes redirectAttributes, Model model) {
+		if (member == null) {
+			return "redirect:/sign-in";
+		}
+
+		Comment comment = new Comment();
+
+		comment.setRecipeId(recipeId);
+		comment.setMemberId(member.getMemberId());
+		comment.setComment(commentText);
+		recipeService.saveComment(comment);
+
+		redirectAttributes.addAttribute("recipeId", recipeId);
+
+		return "redirect:/recipe/{recipeId}";
 	}
 }

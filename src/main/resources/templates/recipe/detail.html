@@ -102,7 +102,7 @@
 		</div>
 		<div class="review">
 			<h3>요리 후기</h3>
-			<h3 class="count">1</h3>
+			<h3 class="count" th:if="${comments != null}" th:text="${#lists.size(comments)}">1</h3>
 			<hr>
 			<div class="comment" th:each="comment : ${comments}">
 				<div class="name" th:text="${comment.memberId}"></div>
@@ -110,7 +110,7 @@
 				<div class="text" th:text="${comment.comment}"></div>
 				<hr>
 			</div>
-			<form class="comment-add" method="POST" th:action="@{/recipe/{recipeId}/comment(recipeId=${recipeId})}">
+			<form class="comment-add" method="POST" th:action="@{/recipe/{recipeId}/comment(recipeId=${details.recipeId})}">
 				<input class="comment-input" type="text" placeholder="댓글을 남겨 주세요." name="commentText">
 				<button class="comment-button" type="submit">댓글 쓰기</button>
 			</form>
