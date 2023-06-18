@@ -36,4 +36,12 @@ public class ItemRepository {
 		String sql = "select * from item";
 		return jdbcTemplate.query(sql, itemRowMapper);
 	}
+	
+	public void updateItem(List<Item> items) {
+		String sql = "update item set today_price = ?, yesterday_price = ? where part = ?";
+		
+		for(Item item: items) {
+			jdbcTemplate.update(sql, item.getPart(), item.getTodayPrice(), item.getYesterdayPrice());
+		}
+	}
 }
