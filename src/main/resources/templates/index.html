@@ -113,7 +113,6 @@
 			<div class="box pb-5 pt-5" id="cow">
 				<h3 class="title">소</h3>
 				<img src="img/소.png" alt="소고기 부위별 시세" usemap="#cow-map">
-				<div class="price-tooltip hidden"><b>갈비</b><br>100g 1,000원<br>전일대비 00원</div>
 				<map name="cow-map">
 					<area target="_blank" alt="등심" href="등심" coords="289,88,9" shape="circle">
 					<area target="_blank" alt="등심" href="등심" coords="393,5,428,27" shape="rect">
@@ -144,7 +143,7 @@
 					<div>
 						<span>어제랑</span>
 						<span>똑같아요</span>
-					</div>d
+					</div>
 				</div>
 				<div class="chicken-egg-milk">
 					<h3 class="title">계란</h3>
@@ -199,11 +198,11 @@
 	
 	<script th:inline="javascript">
 	/*<![CDATA[*/
-		let item = new Object();
 		let items = new Array();
-		let targetItem = new Object();
 		
 		/*[# th:each="i : ${items}"]*/
+		var item = new Object();
+		
 		item.name = /*[[${i.itemName}]]*/;
 		item.part = /*[[${i.part}]]*/;
 		item.unit = /*[[${i.itemUnit}]]*/;
@@ -216,6 +215,7 @@
 		
 		
 		jQuery(document).ready(function (e) {
+			var targetItem = new Object();
 			var map = document.querySelector('map');
 	
 			map.addEventListener('mouseover', function(e) {
@@ -224,19 +224,22 @@
 						targetItem = item;
 					}
 				}
+				let increase = parseInt(targetItem.todayPrice) - parseInt(targetItem.yesterdayPrice);
+				let tooltipTag = '<div class="price-tooltip"><b>' + targetItem.part + '</b><br>' + targetItem.unit + ' ' + targetItem.todayPrice + '<br>전일대비 ' + increase + '</div>';
+				$('area').qtip('option', 'content.text', tooltipTag);
 			})
-			
-			jQuery('area').qtip({
-				style: {
-					classes: 'qtip-bootstrap'
-				},
-				content: {
-					text: '---' + targetItem.itemName
-				},
-				hide: {
-					fixed: true
-				}
-			});
+		});
+
+		$('area').qtip({
+			style: {
+				classes: 'qtip-bootstrap'
+			},
+			content: {
+				text: '-'
+			},
+			hide: {
+				fixed: true
+			}
 		});
 	/*]]>*/
 	</script>

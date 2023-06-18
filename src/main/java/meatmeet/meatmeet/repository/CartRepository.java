@@ -37,13 +37,14 @@ public class CartRepository {
     	
     	item.setItemId(rs.getInt("item_id"));
     	item.setItemName(rs.getString("item_name"));
+    	item.setPart(rs.getString("part"));
     	item.setTodayPrice(rs.getInt("today_price"));
     	item.setYesterdayPrice(rs.getInt("yesterday_price"));
     	item.setItemUnit(rs.getString("item_unit"));
     	
     	return item;
     };
-    
+
     public List<Cart> findCartByMemberId(String memberId) {
     	String sql = "select * from cart where member_id = ?";
     	List<Cart> cartItems = jdbcTemplate.query(sql, cartRowMapper, memberId);
@@ -52,11 +53,16 @@ public class CartRepository {
     		Optional<Item> item = this.findByItemId(cart.getItemId());
     		
     		if(item.isPresent()) {
-    			cart.setItemName(item.get().getItemName());
+    			Item i = item.get();
+    			String itemName = String.format("%s(%s)/%s", i.getItemName(), i.getPart(), i.getItemUnit());
+    			
+    			cart.setItemName(itemName);
     			cart.setPrice(item.get().getTodayPrice());
+    			
+    			log.info("[cartRepository] itemName >> " + cart.getItemName());
     		}
     	}
-    	
+
     	return cartItems;
     }
     
