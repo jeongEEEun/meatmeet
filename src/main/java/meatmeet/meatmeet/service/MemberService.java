@@ -1,12 +1,23 @@
 package meatmeet.meatmeet.service;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 
 import lombok.extern.slf4j.Slf4j;
 import meatmeet.meatmeet.domain.Member;
@@ -17,6 +28,9 @@ import meatmeet.meatmeet.repository.MemberRepository;
 @Slf4j
 public class MemberService {
 	private final MemberRepository memberRepository;
+	
+	@Autowired
+	private S3Uploader s3Uploader;
 	
 	public MemberService(MemberRepository memberRepository) {
 		this.memberRepository = memberRepository;
@@ -45,40 +59,15 @@ public class MemberService {
 		
 		return Optional.empty();
 	}
-	
+
 	// 글 작성 -> 저장
-	public Long saveRecipe(Recipe recipe, MultipartFile imgFile) throws Exception {
-		log.info("[MemberService - saveRecipe] 저장");
-		
-		// 기존 파일명 변수에 저장, 
-		String originImgName = imgFile.getOriginalFilename();
-		
-		// 파일 저장 경로
-		String imgFilePath = System.getProperty("user.dir") + "/src/main/resources/static/img/recipe-img/";
-		
-		// 파일명 중복 방지
-		// 현재 시간을 기준으로 난수화시킨 이름 + 기존 파일명
-		UUID uuid = UUID.randomUUID();
-		String saveFileName = uuid + "_" + originImgName;
-		
-		// 만들어진 이름 imgName변수에 저장
-		String imgName = saveFileName;
-		
-		// File 객체 생성(저장 경로 + 파일명)
-		File saveFile = new File(imgFilePath, imgName);
-		
-		// 이미지 파일 저장
-		imgFile.transferTo(saveFile);
-		
-		// 전달받은 recipe파일에 imgName, imgPath 저장
-		recipe.setImgName(imgName);
-		recipe.setImgPath("/img/recipe-img/" + imgName);
-		
-		log.info("[MemberService - saveRecipe] 파일명 >>" + recipe.getImgName());
-		log.info("[MemberService - saveRecipe] 저장경로 >>" + recipe.getImgPath());
-		
-		// recipe 테이블에 저장 후 리턴받은 recipeId 리턴
-		return memberRepository.saveRecipe(recipe);
+	@Transactional
+	public Long saveRecipe(MultipartFile imgFile, Recipe recipe) throws IOException {
+		if(!imgFile.isEmpty()) {
+			String storedFileName = s3Uploader.upload(imgFile, "images");
+			recipe.setImgPath(storedFileName);
+		}
+		return memberRepository.saveRecipe(recipe); 
 	}
 	
 	public List<Recipe> findRecipeByMemberId(String memberId) {
