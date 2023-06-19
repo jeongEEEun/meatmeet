@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org"></html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 </html>
 
@@ -15,7 +15,6 @@
 	rel="stylesheet">
 <link th:href="@{/css/recipe.css}" href="css/recipe.css"
 	rel="stylesheet">
-
 
 </head>
 
@@ -80,7 +79,7 @@
 				<li class="item" data-target="우유">우유</li>
 			</ul>
 			<div class="submenu hide" id="돼지">
-				<ul data-submenu="돼지">
+				<ul>
 					<li data-target="목심" data-item-name="목심">목심</li>
 					<li data-target="갈비" data-item-name="갈비">갈비</li>
 					<li data-target="삼겹살" data-item-name="삼겹살">삼겹살</li>
@@ -88,7 +87,7 @@
 				</ul>
 			</div>
 			<div class="submenu hide" id="소">
-				<ul data-submenu="소">
+				<ul>
 					<li data-target="등심" data-item-name="등심">등심</li>
 					<li data-target="안심" data-item-name="안심">안심</li>
 					<li data-target="갈비" data-item-name="갈비">갈비</li>
@@ -103,19 +102,11 @@
 				<ul class="recipe-list">
 					<li id="list" th:if="${recipe.category1 != null}"
 						th:each="recipe : ${recipes}"
-<<<<<<< HEAD
-						th:class="${recipe.category2 == 'none' ? recipe.category1 : (recipe.category1 == 'pork' or recipe.category1 == 'beef') ? (recipe.category1 + ' ' + recipe.category2) : recipe.category2}">
-						<a th:href="@{/recipe/{recipeId}(recipeId=${recipe.recipeId})}"
-						class="recipe-link" th:data-target="${recipe.category1}">
-							<div class="recipe-img-placeholder">
-								<img th:src="${recipe.imgPath}"
-=======
 						th:class="${recipe.category2 == '없음' ? recipe.category1 : (recipe.category1 == '돼지' or recipe.category1 == '소') ? (recipe.category1 + ' ' + recipe.category2) : recipe.category2}">
 						<a th:href="@{/recipe/{recipeId}(recipeId=${recipe.recipeId})}"
 						class="recipe-link" th:data-target="${recipe.category1}">
 							<div class="recipe-img-placeholder">
 								<img th:src="@{${recipe.imgPath}}"
->>>>>>> 527c58a5927702b79fc6d5037c1c80a98a92a41a
 									onerror="this.onerror=null; this.src='/img/no-image.png';"
 									th:if="${recipe.imgPath != null}" class="recipe-img">
 							</div>
@@ -132,87 +123,14 @@
 					</li>
 				</ul>
 			</div>
-<<<<<<< HEAD
-			<!-- 			<div class="add-to-cart-section" th:each="item : ${items}" th:if="${item.itemName == recipe.category2 || (!recipe.category2 == 'none' && item.itemName == recipe.category1)}">
-					<img src="#" alt="">
-					<h1 class="item-title" th:text="${item.itemName}">
-						목심 <span th:text="${item.itemUnit}">100g</span>
-					</h1>
-					<div class="now-price">
-						현재가격 <span class="price" th:text="${item.todayPrice}">1000</span>원
-					</div>
-					<div class="change">
-						어제보다 <span class="change-price"
-							th:text="${item.todayPrice - item.yesterdayPrice}">200</span>원
-						비싸요
-					</div>
-					<button class="add-to-cart-btn" th:if="${member != null}"
-						data-memberId="${member.memberId}" data-itemId="${item.itemId}"
-						th:onclick="|location.href='@{/cart/{memberId}/{itemId}(memberId=${member.memberId}, itemId=${item.itemId})}'|">장바구니
-						담기</button>
-			</div>  -->
-
-<!-- 			<div class="add-to-cart-section hide" th:each="item : ${items}" th:id="${item.itemName}" >
-				<div th:with="foundRecipe = false">
-					<div th:each="recipe : ${recipes}"
-						th:if="${item.itemName == recipe.category2 or (recipe.category2.equals('none') and item.itemName == recipe.category1)}">
-						<img src="#" alt="">
-						<h1 class="item-title" th:text="${item.itemName}">
-							목심 <span th:text="${item.itemUnit}">100g</span>
-						</h1>
-						<div class="now-price">
-							현재가격 <span class="price" th:text="${item.todayPrice}">1000</span>원
-						</div>
-						<div class="change">
-							어제보다 <span class="change-price"
-								th:text="${item.todayPrice - item.yesterdayPrice}">200</span>원
-							비싸요
-						</div>
-						<button class="add-to-cart-btn" th:if="${member != null}"
-							data-memberId="${member.memberId}" data-itemId="${item.itemId}"
-							th:onclick="|location.href='@{/cart/{memberId}/{itemId}(memberId=${member.memberId}, itemId=${item.itemId})}'|">장바구니
-							담기</button>
-					</div>
-					<div th:with="foundRecipe = true"></div>
-				</div>
-				<div th:if="${foundRecipe == false}" th:attr="data-target=${item.itemName}">목록
-					없음</div>
-			</div> -->
-			
-			<div class="add-to-cart-section hide" th:each="item : ${items}" th:id="${item.itemName}" >
-				<div th:with="foundRecipe = false">
-					<div>
-						<img src="#" alt="">
-						<h1 class="item-title" th:text="${item.itemName}">
-							목심 <span th:text="${item.itemUnit}">100g</span>
-						</h1>
-						<div class="now-price">
-							현재가격 <span class="price" th:text="${item.todayPrice}">1000</span>원
-						</div>
-						<div class="change">
-							어제보다 <span class="change-price"
-								th:text="${item.todayPrice - item.yesterdayPrice}">200</span>원
-							비싸요
-						</div>
-						<button class="add-to-cart-btn" th:if="${member != null}"
-							data-memberId="${member.memberId}" data-itemId="${item.itemId}"
-							th:onclick="|location.href='@{/cart/{memberId}/{itemId}(memberId=${member.memberId}, itemId=${item.itemId})}'|">장바구니
-							담기</button>
-					</div>
-					<div th:with="foundRecipe = true"></div>
-				</div>
-				<div th:if="${foundRecipe == false}" th:attr="data-target=${item.itemName}">목록
-					없음</div>
-=======
 			<div class="add-to-cart-section" th:each="item : ${items}"
-				th:id="${item.part == null} ? ${item.itemName} : ${item.part}">
+				th:id="${item.part}">
 				<div th:with="foundRecipe = false">
 					<div>
 						<img src="#" alt="">
 						<div class="item-name">
-							<span class="item-title"
-								th:text="${item.part == null} ? ${item.itemName} : ${item.part}">목심</span>
-							<span class="item-unit" th:text="${item.itemUnit}">100g</span>
+							<span class="item-title" th:text="${item.part}">목심</span> <span
+								class="item-unit" th:text="${item.itemUnit}">100g</span>
 						</div>
 
 						<div class="now-price">
@@ -232,7 +150,6 @@
 				</div>
 				<div th:if="${foundRecipe == false}"
 					th:attr="data-target=${item.itemName}">목록 없음</div>
->>>>>>> 527c58a5927702b79fc6d5037c1c80a98a92a41a
 			</div>
 
 
@@ -263,133 +180,114 @@
 		</div>
 	</footer>
 	<!-- footer end -->
-
-	<script>
-		var items = document.querySelectorAll(".item");
-		var submenus = document.querySelectorAll(".submenu");
-		var recipes = document.querySelectorAll(".recipes li");
-<<<<<<< HEAD
-		var add =  document.querySelectorAll("#egg");
-=======
-		var addToCart = document.querySelectorAll(".add-to-cart-section");
-
-		addToCart.forEach(function(section) {
-		    section.classList.add("hide");
-		  });
->>>>>>> 527c58a5927702b79fc6d5037c1c80a98a92a41a
-
-		items.forEach(function(item) {
-			item.addEventListener("click", function() {
-				var target = this.getAttribute("data-target");
-				/* console.log(target); */
-				recipes.forEach(function(recipe) {
-							var recipeCategory = recipe.getAttribute("class");
-							if (target === "all"
-									|| recipeCategory.indexOf(target) > -1) {
-								recipe.classList.remove("hide");
-								add.classList.remove("hide");
-							} else {
-								recipe.classList.add("hide");
-								add.classList.add("hide");
-							}
-						});
-
-				submenus.forEach(function(submenu) {
-					submenu.classList.add("hide");
-				});
-
-				var submenu = document.getElementById(target);
-				
-				if (submenu) {
-					submenu.classList.remove("hide");
-				}
-
-				addToCart.forEach(function(section) {
-					var itemName = section.getAttribute("id");
-
-					if (itemName === target) {
-						section.classList.remove("hide");
-					} else {
-						section.classList.add("hide");
-					}
-				});
-				
-
-			});
-		});
-
-		submenus.forEach(function(submenu) {
-			var submenuItems = submenu.querySelectorAll("li");
-			submenuItems.forEach(function(submenuItem) {
-				submenuItem.addEventListener("click", function(event) {
-					event.stopPropagation();
-
-					var target = this.getAttribute("data-target");
-
-					recipes.forEach(function(recipe) {
-						var recipeCategory = recipe.getAttribute("class");
-						if (target === "all"
-								|| recipeCategory.indexOf(target) > -1) {
-							recipe.classList.remove("hide");
-						} else {
-							recipe.classList.add("hide");
-						}
-					});
-
-					submenus.forEach(function(submenu) {
-						submenu.classList.add("hide");
-					});
-
-					var parentMenu = this.closest(".submenu");
-					if (parentMenu) {
-						parentMenu.classList.remove("hide");
-					}
-					
-					addToCart.forEach(function(section) {
-						var itemName = section.getAttribute("id");
-					
-						/* console.log(itemName); */
-						/* console.log(target); */
-						if (itemName === target) {
-							section.classList.remove("hide");
-						} else {
-							section.classList.add("hide");
-						}
-					});
-					
-					
-					if (target === "갈비") {
-					      recipes.forEach(function(recipe) {
-					        var recipeCategory = recipe.getAttribute("class");
-					        console.log(recipeCategory);
-					        if (recipeCategory.indexOf("돼지 갈비") > -1) {
-					          recipe.classList.remove("hide");
-					        } else {
-					          recipe.classList.add("hide");
-					        }
-					      });
-
-					      addToCart.forEach(function(section) {
-					        var itemName = section.getAttribute("id");
 	
-					        if (itemName === "돼지") {
-					          section.classList.remove("hide");
-					        } else {
-					          section.classList.add("hide");
-					        }
-					      });
-					}
+	
+  <script>
+    var items = document.querySelectorAll(".item");
+    var submenus = document.querySelectorAll(".submenu");
+    var recipes = document.querySelectorAll(".recipe-list li");
+    var addToCart = document.querySelectorAll(".add-to-cart-section");
 
-				});
+    addToCart.forEach(function(section) {
+      section.classList.add("hide");
+    });
 
-			});
-		});
-		
-		const addToCart = document.querySelector('.add-to-cart-section');
-		console.log(addToCart);
-	</script>
+    items.forEach(function(item) {
+      item.addEventListener("click", function() {
+        var target = this.getAttribute("data-target");
+        selectedTarget = target;
+        recipes.forEach(function(recipe) {
+			console.log("target", target);
 
+			console.log("recipe.category1", recipe.category1);
+			console.log("recipe.category2", recipe.category2);
+          var recipeCategory = recipe.className;
+			console.log("recipeCategory", recipeCategory);
+			console.log("recipeCategory2",recipe.getAttribute("class"));
 
+			// console.log("recipeCategory.indexOf(target)", recipeCategory.indexOf(target));
+
+			if (target === "all" || recipeCategory == target) {
+				console.log("true");
+				console.log("before recipe.classList", recipe.classList);
+
+				recipe.classList.remove("hide");
+				console.log("afeter recipe.classList", recipe.classList);
+
+			} else {
+				console.log("false");
+				console.log("before recipe.classList", recipe.classList);
+
+				recipe.classList.add("hide");
+				console.log("afeter recipe.classList", recipe.classList);
+
+			}
+        });
+
+        submenus.forEach(function(submenu) {
+          submenu.classList.add("hide");
+        });
+
+        var submenu = document.getElementById(target);
+        if (submenu) {
+			console.log('submenu', submenu)
+          submenu.classList.remove("hide");
+        }
+
+        addToCart.forEach(function(section) {
+          var itemName = section.getAttribute("id");
+
+          if (itemName === target) {
+            section.classList.remove("hide");
+          } else {
+            section.classList.add("hide");
+          }
+        });
+      });
+    });
+
+    submenus.forEach(function(submenu) {
+      var submenuItems = submenu.querySelectorAll("li");
+      submenuItems.forEach(function(submenuItem) {
+        submenuItem.addEventListener("click", function(event) {
+          event.stopPropagation();
+
+          var target = this.getAttribute("data-target");
+			console.log("submenu target", target);
+
+          recipes.forEach(function(recipe) {
+            var recipeCategory = recipe.getAttribute("class");
+			  console.log("recipeCategory", recipeCategory);
+
+		  	if (target === "all" || (recipeCategory.indexOf(target) > -1 && recipeCategory.indexOf(selectedTarget) > -1) ) {
+              recipe.classList.remove("hide");
+            } else {
+              recipe.classList.add("hide");
+            }
+          });
+
+          submenus.forEach(function(submenu) {
+            submenu.classList.add("hide");
+          });
+
+          var parentMenu = this.closest(".submenu");
+          if (parentMenu) {
+            parentMenu.classList.remove("hide");
+          }
+
+          addToCart.forEach(function(section) {
+            var itemName = section.getAttribute("id");
+
+            if (itemName === target) {
+              section.classList.remove("hide");
+            } else {
+              section.classList.add("hide");
+            }
+          });
+        });
+      });
+    });
+  </script>
 </body>
 
 </html>

@@ -110,18 +110,11 @@ nav .submenu ul li:hover {
     position: relative;
     top: 0;
 }
-<<<<<<< HEAD
-.recipe-img-placeholder img {
-	width: 177px;
-	height: 136px;
-	object-fit: cover;
-=======
 
 .recipe-img-placeholder img {
     width: 177px;
     height: 136px;
     object-fit: cover;
->>>>>>> 527c58a5927702b79fc6d5037c1c80a98a92a41a
 }
 
 .recipe-view {
@@ -151,7 +144,6 @@ nav .submenu ul li:hover {
     border-radius: 5px;
     padding: 20px;
     margin-top: 30px;
-    background-color: red;
 }
 
 .add-to-cart-section img {
