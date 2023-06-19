@@ -124,12 +124,12 @@
 				</ul>
 			</div>
 			<div class="add-to-cart-section" th:each="item : ${items}"
-				th:id="${item.part}">
+				th:id="${item.part == null ? item.itemName : ((item.itemName == '소' && item.part == '갈비') ? item.itemName + ' ' + item.part : ((item.itemName == '돼지' && item.part == '갈비') ? item.itemName + ' ' + item.part : item.part))}">
 				<div th:with="foundRecipe = false">
 					<div>
 						<img src="#" alt="">
 						<div class="item-name">
-							<span class="item-title" th:text="${item.part}">목심</span> <span
+							<span class="item-title" th:text="${item.part == null} ? ${item.itemName} : ${item.part}">목심</span> <span
 								class="item-unit" th:text="${item.itemUnit}">100g</span>
 						</div>
 
@@ -149,7 +149,7 @@
 					<div th:with="foundRecipe = true"></div>
 				</div>
 				<div th:if="${foundRecipe == false}"
-					th:attr="data-target=${item.itemName}">목록 없음</div>
+					th:attr="data-target=${item.part == null ? item.itemName : item.part}">목록 없음</div>
 			</div>
 
 
@@ -187,6 +187,7 @@
     var submenus = document.querySelectorAll(".submenu");
     var recipes = document.querySelectorAll(".recipe-list li");
     var addToCart = document.querySelectorAll(".add-to-cart-section");
+    var selectedTarget;
 
     addToCart.forEach(function(section) {
       section.classList.add("hide");
@@ -197,30 +198,13 @@
         var target = this.getAttribute("data-target");
         selectedTarget = target;
         recipes.forEach(function(recipe) {
-			console.log("target", target);
-
-			console.log("recipe.category1", recipe.category1);
-			console.log("recipe.category2", recipe.category2);
           var recipeCategory = recipe.className;
-			console.log("recipeCategory", recipeCategory);
-			console.log("recipeCategory2",recipe.getAttribute("class"));
 
-			// console.log("recipeCategory.indexOf(target)", recipeCategory.indexOf(target));
-
-			if (target === "all" || recipeCategory == target) {
-				console.log("true");
-				console.log("before recipe.classList", recipe.classList);
-
+			if (target === "all" || recipeCategory.indexOf(target) > -1) {
 				recipe.classList.remove("hide");
-				console.log("afeter recipe.classList", recipe.classList);
 
 			} else {
-				console.log("false");
-				console.log("before recipe.classList", recipe.classList);
-
 				recipe.classList.add("hide");
-				console.log("afeter recipe.classList", recipe.classList);
-
 			}
         });
 
@@ -230,14 +214,13 @@
 
         var submenu = document.getElementById(target);
         if (submenu) {
-			console.log('submenu', submenu)
           submenu.classList.remove("hide");
         }
 
         addToCart.forEach(function(section) {
           var itemName = section.getAttribute("id");
 
-          if (itemName === target) {
+          if (itemName === target || (itemName === "소 갈비" && target === "갈비"  && selectedTarget === "소") || (itemName === "돼지 갈비" && target === "갈비"  && selectedTarget === "돼지")) {
             section.classList.remove("hide");
           } else {
             section.classList.add("hide");
@@ -254,12 +237,13 @@
 
           var target = this.getAttribute("data-target");
 			console.log("submenu target", target);
+			console.log("selectedTarget", selectedTarget);
 
           recipes.forEach(function(recipe) {
             var recipeCategory = recipe.getAttribute("class");
 			  console.log("recipeCategory", recipeCategory);
 
-		  	if (target === "all" || (recipeCategory.indexOf(target) > -1 && recipeCategory.indexOf(selectedTarget) > -1) ) {
+		  	if (target === "all" || (recipeCategory.indexOf(target) > -1 && recipeCategory.indexOf(selectedTarget) > -1)) {
               recipe.classList.remove("hide");
             } else {
               recipe.classList.add("hide");
@@ -268,6 +252,7 @@
 
           submenus.forEach(function(submenu) {
             submenu.classList.add("hide");
+            
           });
 
           var parentMenu = this.closest(".submenu");
@@ -277,12 +262,15 @@
 
           addToCart.forEach(function(section) {
             var itemName = section.getAttribute("id");
+            console.log("itemName", itemName);
+            console.log("addToCart target", target);
 
-            if (itemName === target) {
+            if (itemName === target || (itemName === "소 갈비" && target === "갈비" && selectedTarget === "소") || (itemName === "돼지 갈비" && target === "갈비" && selectedTarget === "돼지")) {
               section.classList.remove("hide");
             } else {
               section.classList.add("hide");
             }
+            
           });
         });
       });
