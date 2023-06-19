@@ -58,7 +58,9 @@ public class RecipeRepository {
 		item.setTodayPrice(rs.getInt("today_price"));
 		item.setYesterdayPrice(rs.getInt("yesterday_price"));
 		item.setItemName(rs.getString("item_name"));
+		item.setPart(rs.getString("part"));
 		item.setItemUnit(rs.getString("item_unit"));
+		item.setSelector(rs.getString("selector"));
 		return item;
 
 	};

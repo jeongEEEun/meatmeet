@@ -1,18 +1,17 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org"></html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+</html>
 
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>레시피 목록</title>
-<link th:href="@{/css/reset.css}" href="css/reset.css" rel="stylesheet">
-<link th:href="@{/css/header-footer.css}" href="css/header-footer.css"
-	rel="stylesheet">
-<link th:href="@{/css/bootstrap.min.css}" href="css/bootstrap.min.css"
-	rel="stylesheet">
-<link th:href="@{/css/recipe.css}" href="css/recipe.css"
-	rel="stylesheet">
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>레시피 목록</title>
+	<link th:href="@{/css/reset.css}" href="css/reset.css" rel="stylesheet">
+	<link th:href="@{/css/header-footer.css}" href="css/header-footer.css" rel="stylesheet">
+	<link th:href="@{/css/bootstrap.min.css}" href="css/bootstrap.min.css" rel="stylesheet">
+	<link th:href="@{/css/recipe.css}" href="css/recipe.css" rel="stylesheet">
 
 
 </head>
@@ -21,15 +20,14 @@
 	<!-- header start : 로그인 X -->
 	<header th:if="${member} == null">
 		<ul class="row px-0 pt-4">
-			<li class="col p-0 pe-1"><a href="/"> <img
-					src="/img/logo2.png" alt="meatmeet 로고" class="logo">
-			</a></li>
+			<li class="col p-0 pe-1"><a href="/"> <img src="/img/logo2.png" alt="meatmeet 로고" class="logo">
+				</a></li>
 			<li class="col p-0"><a href="/recipe" class="ms-5 title">레시피</a>
 			</li>
 			<div class="col-5 m-0 p-0">
-				<li class="me-5"><a href="/sign-in" class="title"> <img
-						src="/img/icon_login.png" alt="로그인 아이콘" class="icon"> 로그인
-				</a></li>
+				<li class="me-5"><a href="/sign-in" class="title"> <img src="/img/icon_login.png" alt="로그인 아이콘" class="icon">
+						로그인
+					</a></li>
 				<li><a href="/sign-up" class="title">회원가입</a></li>
 			</div>
 		</ul>
@@ -39,28 +37,21 @@
 	<!-- header start : 로그인 O -->
 	<header th:if="${member} != null">
 		<ul class="row px-0 pt-4">
-			<li class="col p-0 pe-1"><a href="/"> <img
-					src="img/logo2.png" alt="meatmeet 로고" class="logo">
-			</a></li>
+			<li class="col p-0 pe-1"><a href="/"> <img src="img/logo2.png" alt="meatmeet 로고" class="logo">
+				</a></li>
 			<li class="col p-0"><a href="/recipe" class="ms-5 title">레시피</a>
 			</li>
-			<li class="col p-0"><a href="/myrecipe"
-				th:href="@{/myrecipe/{memberId}(memberId=${member.memberId})}"
-				class="title">나의 레시피</a></li>
-			<li class="col p-0"><a href="/order"
-				th:href="@{/order/{memberId}(memberId=${member.memberId})}"
-				class="title"> <img src="img/order.png" alt="주문내역 아이콘"
-					class="icon"> 주문내역
-			</a></li>
-			<li class="col p-0"><a href="/cart"
-				th:href="@{/cart/{memberId}(memberId=${member.memberId})}"
-				class="title"> <img src="img/cart.png" alt="장바구니 아이콘"
-					class="icon"> 장바구니
-			</a></li>
-			<li class="col p-0 row member"><span href="#"
-				class="col member-name" th:text="${member.memberName}">사용자명</span>
-				<button class="btn btn-primary col logout-btn"
-					onclick="location.href='/sign-out'">로그아웃</button></li>
+			<li class="col p-0"><a href="/myrecipe" th:href="@{/myrecipe/{memberId}(memberId=${member.memberId})}"
+					class="title">나의 레시피</a></li>
+			<li class="col p-0"><a href="/order" th:href="@{/order/{memberId}(memberId=${member.memberId})}" class="title">
+					<img src="img/order.png" alt="주문내역 아이콘" class="icon"> 주문내역
+				</a></li>
+			<li class="col p-0"><a href="/cart" th:href="@{/cart/{memberId}(memberId=${member.memberId})}" class="title"> <img
+						src="img/cart.png" alt="장바구니 아이콘" class="icon"> 장바구니
+				</a></li>
+			<li class="col p-0 row member"><span href="#" class="col member-name" th:text="${member.memberName}">사용자명</span>
+				<button class="btn btn-primary col logout-btn" onclick="location.href='/sign-out'">로그아웃</button>
+			</li>
 		</ul>
 	</header>
 	<!-- header end : 로그인 O -->
@@ -99,14 +90,12 @@
 		<div class="content">
 			<div class="recipes">
 				<ul class="recipe-list">
-					<li id="list" th:if="${recipe.category1 != null}"
-						th:each="recipe : ${recipes}"
+					<li id="list" th:if="${recipe.category1 != null}" th:each="recipe : ${recipes}"
 						th:class="${recipe.category2 == '없음' ? recipe.category1 : (recipe.category1 == '돼지' or recipe.category1 == '소') ? (recipe.category1 + ' ' + recipe.category2) : recipe.category2}">
-						<a th:href="@{/recipe/{recipeId}(recipeId=${recipe.recipeId})}"
-						class="recipe-link" th:data-target="${recipe.category1}">
+						<a th:href="@{/recipe/{recipeId}(recipeId=${recipe.recipeId})}" class="recipe-link"
+							th:data-target="${recipe.category1}">
 							<div class="recipe-img-placeholder">
-								<img th:src="@{${recipe.imgPath}}"
-									onerror="this.onerror=null; this.src='/img/no-image.png';"
+								<img th:src="@{${recipe.imgPath}}" onerror="this.onerror=null; this.src='/img/no-image.png';"
 									th:if="${recipe.imgPath != null}" class="recipe-img">
 							</div>
 							<div class="recipe-writer">
@@ -118,80 +107,34 @@
 							<div class="recipe-view">
 								조회수 <span th:text=${recipe.view}></span>
 							</div>
-					</a>
+						</a>
 					</li>
 				</ul>
 			</div>
-			<!-- 			<div class="add-to-cart-section" th:each="item : ${items}" th:if="${item.itemName == recipe.category2 || (!recipe.category2 == 'none' && item.itemName == recipe.category1)}">
-					<img src="#" alt="">
-					<h1 class="item-title" th:text="${item.itemName}">
-						목심 <span th:text="${item.itemUnit}">100g</span>
-					</h1>
-					<div class="now-price">
-						현재가격 <span class="price" th:text="${item.todayPrice}">1000</span>원
-					</div>
-					<div class="change">
-						어제보다 <span class="change-price"
-							th:text="${item.todayPrice - item.yesterdayPrice}">200</span>원
-						비싸요
-					</div>
-					<button class="add-to-cart-btn" th:if="${member != null}"
-						data-memberId="${member.memberId}" data-itemId="${item.itemId}"
-						th:onclick="|location.href='@{/cart/{memberId}/{itemId}(memberId=${member.memberId}, itemId=${item.itemId})}'|">장바구니
-						담기</button>
-			</div>  -->
-
-<!-- 			<div class="add-to-cart-section hide" th:each="item : ${items}" th:id="${item.itemName}" >
-				<div th:with="foundRecipe = false">
-					<div th:each="recipe : ${recipes}"
-						th:if="${item.itemName == recipe.category2 or (recipe.category2.equals('none') and item.itemName == recipe.category1)}">
-						<img src="#" alt="">
-						<h1 class="item-title" th:text="${item.itemName}">
-							목심 <span th:text="${item.itemUnit}">100g</span>
-						</h1>
-						<div class="now-price">
-							현재가격 <span class="price" th:text="${item.todayPrice}">1000</span>원
-						</div>
-						<div class="change">
-							어제보다 <span class="change-price"
-								th:text="${item.todayPrice - item.yesterdayPrice}">200</span>원
-							비싸요
-						</div>
-						<button class="add-to-cart-btn" th:if="${member != null}"
-							data-memberId="${member.memberId}" data-itemId="${item.itemId}"
-							th:onclick="|location.href='@{/cart/{memberId}/{itemId}(memberId=${member.memberId}, itemId=${item.itemId})}'|">장바구니
-							담기</button>
-					</div>
-					<div th:with="foundRecipe = true"></div>
-				</div>
-				<div th:if="${foundRecipe == false}" th:attr="data-target=${item.itemName}">목록
-					없음</div>
-			</div> -->
-			
-			<div class="add-to-cart-section hide" th:each="item : ${items}" th:id="${item.itemName}" >
+			<div class="add-to-cart-section" th:each="item : ${items}" th:id="${item.itemName}">
 				<div th:with="foundRecipe = false">
 					<div>
 						<img src="#" alt="">
-						<h1 class="item-title" th:text="${item.itemName}">
-							목심 <span th:text="${item.itemUnit}">100g</span>
-						</h1>
+						<div class="item-name">
+							<span class="item-title" th:text="${item.part}">목심</span>
+							<span class="item-unit" th:text="${item.itemUnit}">100g</span>
+						</div>
+
 						<div class="now-price">
 							현재가격 <span class="price" th:text="${item.todayPrice}">1000</span>원
 						</div>
 						<div class="change">
-							어제보다 <span class="change-price"
-								th:text="${item.todayPrice - item.yesterdayPrice}">200</span>원
+							어제보다 <span class="change-price" th:text="${item.todayPrice - item.yesterdayPrice}">200</span>원
 							비싸요
 						</div>
-						<button class="add-to-cart-btn" th:if="${member != null}"
-							data-memberId="${member.memberId}" data-itemId="${item.itemId}"
+						<button class="add-to-cart-btn" th:if="${member != null}" data-memberId="${member.memberId}"
+							data-itemId="${item.itemId}"
 							th:onclick="|location.href='@{/cart/{memberId}/{itemId}(memberId=${member.memberId}, itemId=${item.itemId})}'|">장바구니
 							담기</button>
 					</div>
 					<div th:with="foundRecipe = true"></div>
 				</div>
-				<div th:if="${foundRecipe == false}" th:attr="data-target=${item.itemName}">목록
-					없음</div>
+				<div th:if="${foundRecipe == false}" th:attr="data-target=${item.itemName}">목록 없음</div>
 			</div>
 
 
@@ -215,8 +158,7 @@
 				</ul>
 			</div>
 			<div class="col pt-5">
-				<a href="#"> <img src="img/logo_white.png" alt="meatmeet로고"
-					class="mt-3">
+				<a href="#"> <img src="img/logo_white.png" alt="meatmeet로고" class="mt-3">
 				</a>
 			</div>
 		</div>
@@ -227,26 +169,26 @@
 		var items = document.querySelectorAll(".item");
 		var submenus = document.querySelectorAll(".submenu");
 		var recipes = document.querySelectorAll(".recipes li");
-		var add =  document.querySelectorAll("#egg");
+		var addToCart = document.querySelectorAll(".add-to-cart-section");
 
-		items.forEach(function(item) {
-			item.addEventListener("click", function() {
+		console.log(addToCart);
+
+		items.forEach(function (item) {
+			item.addEventListener("click", function () {
 				var target = this.getAttribute("data-target");
 
 				recipes
-						.forEach(function(recipe) {
-							var recipeCategory = recipe.getAttribute("class");
-							if (target === "all"
-									|| recipeCategory.indexOf(target) > -1) {
-								recipe.classList.remove("hide");
-								/* add.classList.remove("hide"); */
-							} else {
-								recipe.classList.add("hide");
-								/* add.classList.add("hide"); */
-							}
-						});
+					.forEach(function (recipe) {
+						var recipeCategory = recipe.getAttribute("class");
+						if (target === "all"
+							|| recipeCategory.indexOf(target) > -1) {
+							recipe.classList.remove("hide");
+						} else {
+							recipe.classList.add("hide");
+						}
+					});
 
-				submenus.forEach(function(submenu) {
+				submenus.forEach(function (submenu) {
 					submenu.classList.add("hide");
 				});
 
@@ -257,25 +199,25 @@
 			});
 		});
 
-		submenus.forEach(function(submenu) {
+		submenus.forEach(function (submenu) {
 			var submenuItems = submenu.querySelectorAll("li");
-			submenuItems.forEach(function(submenuItem) {
-				submenuItem.addEventListener("click", function(event) {
+			submenuItems.forEach(function (submenuItem) {
+				submenuItem.addEventListener("click", function (event) {
 					event.stopPropagation();
 
 					var target = this.getAttribute("data-target");
 
-					recipes.forEach(function(recipe) {
+					recipes.forEach(function (recipe) {
 						var recipeCategory = recipe.getAttribute("class");
 						if (target === "all"
-								|| recipeCategory.indexOf(target) > -1) {
+							|| recipeCategory.indexOf(target) > -1) {
 							recipe.classList.remove("hide");
 						} else {
 							recipe.classList.add("hide");
 						}
 					});
 
-					submenus.forEach(function(submenu) {
+					submenus.forEach(function (submenu) {
 						submenu.classList.add("hide");
 					});
 
@@ -287,9 +229,6 @@
 
 			});
 		});
-		
-		const addToCart = document.querySelector('.add-to-cart-section');
-		console.log(addToCart);
 	</script>
 </body>
 
