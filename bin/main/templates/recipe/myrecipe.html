@@ -57,9 +57,7 @@
 						<div th:text="${recipe.title}">
 							Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit, consequuntur?
 						</div>
-						<div class="pt-5 mt-4">
-							조회수 123회
-						</div>
+						<div class="pt-5 mt-4">조회수 <span class="p-0 m-0" th:text="${recipe.view}"></span>회</div>
 					</div>
 					<div class="btns p-3 col">
 						<button class="btn btn-primary mb-2"
