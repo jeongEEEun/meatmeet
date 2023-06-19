@@ -80,7 +80,7 @@
 				<li class="item" data-target="우유">우유</li>
 			</ul>
 			<div class="submenu hide" id="돼지">
-				<ul>
+				<ul data-submenu="돼지">
 					<li data-target="목심" data-item-name="목심">목심</li>
 					<li data-target="갈비" data-item-name="갈비">갈비</li>
 					<li data-target="삼겹살" data-item-name="삼겹살">삼겹살</li>
@@ -88,7 +88,7 @@
 				</ul>
 			</div>
 			<div class="submenu hide" id="소">
-				<ul>
+				<ul data-submenu="소">
 					<li data-target="등심" data-item-name="등심">등심</li>
 					<li data-target="안심" data-item-name="안심">안심</li>
 					<li data-target="갈비" data-item-name="갈비">갈비</li>
@@ -125,13 +125,14 @@
 				</ul>
 			</div>
 			<div class="add-to-cart-section" th:each="item : ${items}"
-				th:id="${item.part}">
+				th:id="${item.part == null} ? ${item.itemName} : ${item.part}">
 				<div th:with="foundRecipe = false">
 					<div>
 						<img src="#" alt="">
 						<div class="item-name">
-							<span class="item-title" th:text="${item.part}">목심</span> <span
-								class="item-unit" th:text="${item.itemUnit}">100g</span>
+							<span class="item-title"
+								th:text="${item.part == null} ? ${item.itemName} : ${item.part}">목심</span>
+							<span class="item-unit" th:text="${item.itemUnit}">100g</span>
 						</div>
 
 						<div class="now-price">
@@ -195,9 +196,8 @@
 		items.forEach(function(item) {
 			item.addEventListener("click", function() {
 				var target = this.getAttribute("data-target");
-				selectedTarget = target;
-				recipes
-						.forEach(function(recipe) {
+				/* console.log(target); */
+				recipes.forEach(function(recipe) {
 							var recipeCategory = recipe.getAttribute("class");
 							if (target === "all"
 									|| recipeCategory.indexOf(target) > -1) {
@@ -212,6 +212,7 @@
 				});
 
 				var submenu = document.getElementById(target);
+				
 				if (submenu) {
 					submenu.classList.remove("hide");
 				}
@@ -225,6 +226,7 @@
 						section.classList.add("hide");
 					}
 				});
+				
 
 			});
 		});
@@ -258,20 +260,46 @@
 					
 					addToCart.forEach(function(section) {
 						var itemName = section.getAttribute("id");
-
+					
+						/* console.log(itemName); */
+						/* console.log(target); */
 						if (itemName === target) {
 							section.classList.remove("hide");
 						} else {
 							section.classList.add("hide");
 						}
 					});
-
 					
+					
+					if (target === "갈비") {
+					      recipes.forEach(function(recipe) {
+					        var recipeCategory = recipe.getAttribute("class");
+					        console.log(recipeCategory);
+					        if (recipeCategory.indexOf("돼지 갈비") > -1) {
+					          recipe.classList.remove("hide");
+					        } else {
+					          recipe.classList.add("hide");
+					        }
+					      });
+
+					      addToCart.forEach(function(section) {
+					        var itemName = section.getAttribute("id");
+					        console.log(itemName);
+	
+					        if (itemName === "돼지") {
+					          section.classList.remove("hide");
+					        } else {
+					          section.classList.add("hide");
+					        }
+					      });
+					}
+
 				});
 
 			});
 		});
 	</script>
+
 
 </body>
 
