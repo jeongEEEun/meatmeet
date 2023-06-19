@@ -94,14 +94,14 @@
 				<h3 class="title">돼지</h3>
 				<img src="img/돼지.png" usemap="#pig-map">
 				<map name="pig-map">
-					<area target="_blank" alt="목살" href="#" coords="210,82,8" shape="circle">
-					<area target="_blank" alt="목살" href="#" coords="315,4,351,25" shape="rect">
-					<area target="_blank" alt="갈비" href="#" coords="221,146,9" shape="circle">
-					<area target="_blank" alt="갈비" href="#" coords="24,261,60,283" shape="rect">
-					<area target="_blank" alt="앞다리" href="#" coords="217,213,8" shape="circle">
-					<area target="_blank" alt="앞다리" href="#" coords="8,296,59,317" shape="rect">
-					<area target="_blank" alt="삼겹살" href="#" coords="303,213,9" shape="circle">
-					<area target="_blank" alt="삼겹살" href="#" coords="460,269,510,290" shape="rect">
+					<area id="neck" target="_blank" alt="목살" href="#" coords="210,82,8" shape="circle">
+					<area id="neck" target="_blank" alt="목살" href="#" coords="315,4,351,25" shape="rect">
+					<area id="rib" target="_blank" alt="갈비" href="#" coords="221,146,9" shape="circle">
+					<area id="rib" target="_blank" alt="갈비" href="#" coords="24,261,60,283" shape="rect">
+					<area id="leg" target="_blank" alt="앞다리" href="#" coords="217,213,8" shape="circle">
+					<area id="leg" target="_blank" alt="앞다리" href="#" coords="8,296,59,317" shape="rect">
+					<area id="belly" target="_blank" alt="삼겹살" href="#" coords="303,213,9" shape="circle">
+					<area id="belly" target="_blank" alt="삼겹살" href="#" coords="460,269,510,290" shape="rect">
 				</map>
 				<div class="analysis-box">
 					<h4 class="mt-5 title">돼지도체의 시기별 가격 변동</h4>
@@ -195,29 +195,58 @@
 		</div>
 	</footer>
 	<!-- footer end -->
-
-	<script>
+	
+	<script th:inline="javascript">
+	/*<![CDATA[*/
+		let items = new Array();
+		
+		/*[# th:each="i : ${items}"]*/
+		var item = new Object();
+		
+		item.name = /*[[${i.itemName}]]*/;
+		item.part = /*[[${i.part}]]*/;
+		item.unit = /*[[${i.itemUnit}]]*/;
+		item.todayPrice = /*[[${i.todayPrice}]]*/;
+		item.yesterdayPrice = /*[[${i.yesterdayPrice}]]*/;
+		item.selector = /*[[${i.selector}]]*/;
+		
+		items.push(item);
+		/*[/]*/
+		
+		
 		jQuery(document).ready(function (e) {
-			jQuery('area').qtip({
-				style: {
-					classes: 'qtip-bootstrap'
-				},
-				content: {
-					text: '<div class="price-tooltip"><b>축산물명</b><br>100g 1,000원<br>어제보다 000원 비싸요</div>'
-				},
-				hide: {
-					fixed: true
-				},
-				events: {
-					show: function (event, api) {
-						api.set({
-							'content.text': api.elements.target.attr('title')
-						});
+			var targetItem = new Object();
+			var map = document.querySelector('map');
+	
+			map.addEventListener('mouseover', function(e) {
+				for (let item of items) {
+					if(item.selector == e.target.id) {
+						targetItem = item;
 					}
 				}
-			});
+				let increase = parseInt(targetItem.todayPrice) - parseInt(targetItem.yesterdayPrice);
+				let tooltipTag = '<div class="price-tooltip"><b>' + targetItem.part + '</b><br>' + targetItem.unit + ' ' + targetItem.todayPrice + '<br>전일대비 ' + increase + '</div>';
+				$('area').qtip('option', 'content.text', tooltipTag);
+			})
 		});
+
+		$('area').qtip({
+			style: {
+				classes: 'qtip-bootstrap'
+			},
+			content: {
+				text: '-'
+			},
+			hide: {
+				fixed: true
+			}
+		});
+	/*]]>*/
 	</script>
+</body>
+
+</html>
+
 </body>
 
 </html>

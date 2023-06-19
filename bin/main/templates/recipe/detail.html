@@ -14,7 +14,7 @@
 	th:href="@{/css/bootstrap.min.css}">
 <link rel="stylesheet" href="../../static/css/detail.css"
 	th:href="@{/css/detail.css}">
-
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 </head>
 
 <body>
@@ -40,7 +40,7 @@
 	<header th:if="${member} != null">
 		<ul class="row px-0 pt-4">
 			<li class="col p-0 pe-1"><a href="/"> <img
-					src="img/logo2.png" alt="meatmeet 로고" class="logo">
+					src="/img/logo2.png" alt="meatmeet 로고" class="logo">
 			</a></li>
 			<li class="col p-0"><a href="/recipe" class="ms-5 title">레시피</a>
 			</li>
@@ -49,12 +49,12 @@
 				class="title">나의 레시피</a></li>
 			<li class="col p-0"><a href="/order"
 				th:href="@{/order/{memberId}(memberId=${member.memberId})}"
-				class="title"> <img src="img/order.png" alt="주문내역 아이콘"
+				class="title"> <img src="/img/order.png" alt="주문내역 아이콘"
 					class="icon"> 주문내역
 			</a></li>
 			<li class="col p-0"><a href="/cart"
 				th:href="@{/cart/{memberId}(memberId=${member.memberId})}"
-				class="title"> <img src="img/cart.png" alt="장바구니 아이콘"
+				class="title"> <img src="/img/cart.png" alt="장바구니 아이콘"
 					class="icon"> 장바구니
 			</a></li>
 			<li class="col p-0 row member"><span href="#"
@@ -70,6 +70,7 @@
 		<div class="view">
 			<div>조회수</div>
 			<div class="count"><span th:text="${details.view}"></span>회</div>
+			<div data-recipe-id=${details.recipeId} hidden="true"></div>
 		</div>
 		<div class="location">
 			<span class="category" th:text="${details.category1}">돼지</span> <span>></span>
@@ -77,7 +78,7 @@
 		</div>
 		<h2 th:text="${details.title}">집에서 한우 등심 스테이크 맛있게 만드는 법! 찹 스테이크
 			만들기!</h2>
-		<img th:src="@{${details.imgPath}}" alt="첨부 사진">
+		<img th:src="@{${details.imgPath}}" onerror="this.onerror=null; this.src='/img/no-image.png';" alt="첨부 사진">
 		<div class="content">
 			<div class="ingredient">
 				<ul>
@@ -101,18 +102,18 @@
 		</div>
 		<div class="review">
 			<h3>요리 후기</h3>
-			<h3 class="count">1</h3>
+			<h3 class="count" th:if="${comments != null}" th:text="${#lists.size(comments)}">1</h3>
 			<hr>
-			<div class="comment">
-				<div class="name">김세형</div>
-				<div class="date">2015-11-20</div>
-				<div class="text">저는 지미추리 소스 곁들여서 만들었어요~</div>
+			<div class="comment" th:each="comment : ${comments}">
+				<div class="name" th:text="${comment.memberId}"></div>
+				<div class="date" th:text="${#temporals.format(currentTime, 'yyyy-MM-dd')}"></div>
+				<div class="text" th:text="${comment.comment}"></div>
 				<hr>
 			</div>
-			<div class="comment-add" method="POST">
-				<input class="comment-input" type="text" placeholder="댓글을 남겨 주세요.">
-				<button class="comment-button" th:onclick="|location.href='@{/recipe/{recipeId}/comment(recipeId=${details.recipeId})}'|">댓글 쓰기</button>
-			</div>
+			<form class="comment-add" method="POST" th:action="@{/recipe/{recipeId}/comment(recipeId=${details.recipeId})}">
+				<input class="comment-input" type="text" placeholder="댓글을 남겨 주세요." name="commentText">
+				<button class="comment-button" type="submit">댓글 쓰기</button>
+			</form>
 		</div>
 	</div>
 	<!-- container end -->

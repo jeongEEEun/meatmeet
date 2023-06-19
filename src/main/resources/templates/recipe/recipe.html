@@ -71,27 +71,27 @@
 			<h1 class="title">레시피</h1>
 			<ul class="menu">
 				<li class="item" data-target="all">전체</li>
-				<li class="item" data-target="pork">돼지</li>
-				<li class="item" data-target="beef">소</li>
-				<li class="item" data-target="chicken">닭</li>
-				<li class="item" data-target="egg">계란</li>
-				<li class="item" data-target="milk">우유</li>
+				<li class="item" data-target="돼지">돼지</li>
+				<li class="item" data-target="소">소</li>
+				<li class="item" data-target="닭">닭</li>
+				<li class="item" data-target="계란">계란</li>
+				<li class="item" data-target="우유">우유</li>
 			</ul>
-			<div class="submenu hide" id="pork">
+			<div class="submenu hide" id="돼지">
 				<ul>
-					<li data-target="neck" data-item-name="목심">목심</li>
-					<li data-target="rib" data-item-name="갈비">갈비</li>
-					<li data-target="belly" data-item-name="삼겹살">삼겹살</li>
-					<li data-target="forelegs" data-item-name="앞다리">앞다리</li>
+					<li data-target="목심" data-item-name="목심">목심</li>
+					<li data-target="갈비" data-item-name="갈비">갈비</li>
+					<li data-target="삼겹살" data-item-name="삼겹살">삼겹살</li>
+					<li data-target="앞다리" data-item-name="앞다리">앞다리</li>
 				</ul>
 			</div>
-			<div class="submenu hide" id="beef">
+			<div class="submenu hide" id="소">
 				<ul>
-					<li data-target="sirloin" data-item-name="등심">등심</li>
-					<li data-target="tenderloin" data-item-name="안심">안심</li>
-					<li data-target="rib" data-item-name="갈비">갈비</li>
-					<li data-target="brisket" data-item-name="양지">양지</li>
-					<li data-target="butt" data-item-name="설도">설도</li>
+					<li data-target="등심" data-item-name="등심">등심</li>
+					<li data-target="안심" data-item-name="안심">안심</li>
+					<li data-target="갈비" data-item-name="갈비">갈비</li>
+					<li data-target="양지" data-item-name="양지">양지</li>
+					<li data-target="설도" data-item-name="설도">설도</li>
 				</ul>
 			</div>
 		</nav>
@@ -101,11 +101,11 @@
 				<ul class="recipe-list">
 					<li id="list" th:if="${recipe.category1 != null}"
 						th:each="recipe : ${recipes}"
-						th:class="${recipe.category2 == 'none' ? recipe.category1 : (recipe.category1 == 'pork' or recipe.category1 == 'beef') ? (recipe.category1 + ' ' + recipe.category2) : recipe.category2}">
+						th:class="${recipe.category2 == '없음' ? recipe.category1 : (recipe.category1 == '돼지' or recipe.category1 == '소') ? (recipe.category1 + ' ' + recipe.category2) : recipe.category2}">
 						<a th:href="@{/recipe/{recipeId}(recipeId=${recipe.recipeId})}"
 						class="recipe-link" th:data-target="${recipe.category1}">
 							<div class="recipe-img-placeholder">
-								<img th:src="${recipe.imgPath}"
+								<img th:src="@{${recipe.imgPath}}"
 									onerror="this.onerror=null; this.src='/img/no-image.png';"
 									th:if="${recipe.imgPath != null}" class="recipe-img">
 							</div>
@@ -239,10 +239,10 @@
 							if (target === "all"
 									|| recipeCategory.indexOf(target) > -1) {
 								recipe.classList.remove("hide");
-								add.classList.remove("hide");
+								/* add.classList.remove("hide"); */
 							} else {
 								recipe.classList.add("hide");
-								add.classList.add("hide");
+								/* add.classList.add("hide"); */
 							}
 						});
 

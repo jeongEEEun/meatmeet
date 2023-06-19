@@ -13,80 +13,49 @@
 </head>
 
 <body>
-	<!-- header start : 로그인 X -->
-	<header th:if="${member} == null">
-		<ul class="row px-0 pt-4">
-			<li class="col p-0 pe-1">
-				<a href="/">
-					<img src="../img/logo2.png" alt="meatmeet 로고" class="logo">
-				</a>
-			</li>
-			<li class="col p-0">
-				<a href="/recipe" class="ms-5 title">레시피</a>
-			</li>
-			<li class="col p-0">
-				<a href="#" class="title">나의 레시피</a>
-			</li>
-			<div class="col-5 m-0 p-0">
-				<li class="me-5">
-					<a href="/sign-in" class="title">
-						<img src="../img/icon_login.png" alt="로그인 아이콘" class="icon">
-						로그인
-					</a>
-				</li>
-				<li>
-					<a href="/sign-up" class="title">회원가입</a>
-				</li>
-			</div>
-		</ul>
-	</header>
-	<!-- header end : 로그인 X -->
-
 	<!-- header start : 로그인 O -->
 	<header th:if="${member} != null">
 		<ul class="row px-0 pt-4">
-			<li class="col p-0 pe-1">
-				<a href="/">
-					<img src="img/logo2.png" alt="meatmeet 로고" class="logo">
-				</a>
+			<li class="col p-0 pe-1"><a href="/"> <img
+					src="/img/logo2.png" alt="meatmeet 로고" class="logo">
+			</a></li>
+			<li class="col p-0"><a href="/recipe" class="ms-5 title">레시피</a>
 			</li>
-			<li class="col p-0">
-				<a href="/recipe" class="ms-5 title">레시피</a>
-			</li>
-			<li class="col p-0">
-				<a href="/myrecipe" th:href="@{/myrecipe/{memberId}(memberId=${member.memberId})}" class="title">나의 레시피</a>
-			</li>
-			<li class="col p-0">
-				<a href="/order" th:href="@{/order/{memberId}(memberId=${member.memberId})}" class="title">
-					<img src="img/order.png" alt="주문내역 아이콘" class="icon">
-					주문내역
-				</a>
-			</li>
-			<li class="col p-0">
-				<a href="/cart" th:href="@{/cart/{memberId}(memberId=${member.memberId})}" class="title">
-					<img src="img/cart.png" alt="장바구니 아이콘" class="icon">
-					장바구니</a>
-			</li>
-			<li class="col p-0 row member">
-				<span href="#" class="col member-name" th:text="${member.memberName}">사용자명</span>
-				<button class="btn btn-primary col logout-btn" onclick="location.href='/sign-out'">로그아웃</button>
-			</li>
+			<li class="col p-0"><a href="/myrecipe"
+				th:href="@{/myrecipe/{memberId}(memberId=${member.memberId})}"
+				class="title">나의 레시피</a></li>
+			<li class="col p-0"><a href="/order"
+				th:href="@{/order/{memberId}(memberId=${member.memberId})}"
+				class="title"> <img src="/img/order.png" alt="주문내역 아이콘"
+					class="icon"> 주문내역
+			</a></li>
+			<li class="col p-0"><a href="/cart"
+				th:href="@{/cart/{memberId}(memberId=${member.memberId})}"
+				class="title"> <img src="/img/cart.png" alt="장바구니 아이콘"
+					class="icon"> 장바구니
+			</a></li>
+			<li class="col p-0 row member"><span href="#"
+				class="col member-name" th:text="${member.memberName}">사용자명</span>
+				<button class="btn btn-primary col logout-btn"
+					onclick="location.href='/sign-out'">로그아웃</button></li>
 		</ul>
 	</header>
 	<!-- header end : 로그인 O -->
 
 	<script>
-		function handleCategoryChange() {
-			var category = document.getElementById("type").value;
-			var parts = document.querySelectorAll("#part optgroup");
+	function handleCategoryChange() {
+        var category = document.getElementById("type").value;
+        var parts = document.querySelectorAll("#part > optgroup");
 
-			parts.forEach(function (part) {
-				part.style.display = "none";
-			});
+        parts.forEach(function(part) {
+            part.style.display = "none";
+        });
 
-			var selectedParts = document.querySelector("#" + category + "-part");
-			selectedParts.style.display = "block";
-		}
+        var selectedPart = document.querySelector("#part > optgroup[label='" + category + "']");
+        if (selectedPart) {
+            selectedPart.style.display = "block";
+        }
+    }
 	</script>
 
 	<!-- container start -->
@@ -99,39 +68,39 @@
 					<label for="category-select">카테고리</label>
 					<select class="type" name="category1" id="type" onchange="handleCategoryChange()">
 						<option value="" selected disabled>종류</option>
-						<option value="pork">돼지</option>
-						<option value="beef">소</option>
-						<option value="chicken">닭</option>
-						<option value="egg">계란</option>
-						<option value="milk">우유</option>
+						<option value="돼지">돼지</option>
+						<option value="소">소</option>
+						<option value="닭">닭</option>
+						<option value="계란">계란</option>
+						<option value="우유">우유</option>
 					</select>
 					<select class="part" name="category2" id="part">
 						<option value="" selected disabled>부위</option>
 						<optgroup id="pork-part" label="돼지" style="display: none;">
-							<option value="neck">목심</option>
-							<option value="rib">갈비</option>
-							<option value="belly">삼겹살</option>
-							<option value="forelegs">앞다리</option>
+							<option value="목심">목심</option>
+							<option value="갈비">갈비</option>
+							<option value="삼겹살">삼겹살</option>
+							<option value="앞다리">앞다리</option>
 						</optgroup>
 
 						<optgroup id="beef-part" label="소" style="display: none;">
-							<option value="rib">갈비</option>
-							<option value="brisket">양지</option>
-							<option value="round">설도</option>
-							<option value="sirloin">등심</option>
-							<option value="tenderloin">안심</option>
+							<option value="갈비">갈비</option>
+							<option value="양지">양지</option>
+							<option value="설도">설도</option>
+							<option value="등심">등심</option>
+							<option value="안심">안심</option>
 						</optgroup>
 
 						<optgroup id="chicken-part" label="닭" style="display: none;">
-							<option value="none" selected>없음</option>
+							<option value="없음" selected>없음</option>
 						</optgroup>
 
 						<optgroup id="egg-part" label="계란" style="display: none;">
-							<option value="none" selected>없음</option>
+							<option value="없음" selected>없음</option>
 						</optgroup>
 
 						<optgroup id="milk-part" label="우유" style="display: none;">
-							<option value="none" selected>없음</option>
+							<option value="없음" selected>없음</option>
 						</optgroup>
 					</select>
 				</div>
