@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"></html>
 
 </html>
 
@@ -103,11 +103,19 @@
 				<ul class="recipe-list">
 					<li id="list" th:if="${recipe.category1 != null}"
 						th:each="recipe : ${recipes}"
+<<<<<<< HEAD
+						th:class="${recipe.category2 == 'none' ? recipe.category1 : (recipe.category1 == 'pork' or recipe.category1 == 'beef') ? (recipe.category1 + ' ' + recipe.category2) : recipe.category2}">
+						<a th:href="@{/recipe/{recipeId}(recipeId=${recipe.recipeId})}"
+						class="recipe-link" th:data-target="${recipe.category1}">
+							<div class="recipe-img-placeholder">
+								<img th:src="${recipe.imgPath}"
+=======
 						th:class="${recipe.category2 == '없음' ? recipe.category1 : (recipe.category1 == '돼지' or recipe.category1 == '소') ? (recipe.category1 + ' ' + recipe.category2) : recipe.category2}">
 						<a th:href="@{/recipe/{recipeId}(recipeId=${recipe.recipeId})}"
 						class="recipe-link" th:data-target="${recipe.category1}">
 							<div class="recipe-img-placeholder">
 								<img th:src="@{${recipe.imgPath}}"
+>>>>>>> 527c58a5927702b79fc6d5037c1c80a98a92a41a
 									onerror="this.onerror=null; this.src='/img/no-image.png';"
 									th:if="${recipe.imgPath != null}" class="recipe-img">
 							</div>
@@ -124,6 +132,78 @@
 					</li>
 				</ul>
 			</div>
+<<<<<<< HEAD
+			<!-- 			<div class="add-to-cart-section" th:each="item : ${items}" th:if="${item.itemName == recipe.category2 || (!recipe.category2 == 'none' && item.itemName == recipe.category1)}">
+					<img src="#" alt="">
+					<h1 class="item-title" th:text="${item.itemName}">
+						목심 <span th:text="${item.itemUnit}">100g</span>
+					</h1>
+					<div class="now-price">
+						현재가격 <span class="price" th:text="${item.todayPrice}">1000</span>원
+					</div>
+					<div class="change">
+						어제보다 <span class="change-price"
+							th:text="${item.todayPrice - item.yesterdayPrice}">200</span>원
+						비싸요
+					</div>
+					<button class="add-to-cart-btn" th:if="${member != null}"
+						data-memberId="${member.memberId}" data-itemId="${item.itemId}"
+						th:onclick="|location.href='@{/cart/{memberId}/{itemId}(memberId=${member.memberId}, itemId=${item.itemId})}'|">장바구니
+						담기</button>
+			</div>  -->
+
+<!-- 			<div class="add-to-cart-section hide" th:each="item : ${items}" th:id="${item.itemName}" >
+				<div th:with="foundRecipe = false">
+					<div th:each="recipe : ${recipes}"
+						th:if="${item.itemName == recipe.category2 or (recipe.category2.equals('none') and item.itemName == recipe.category1)}">
+						<img src="#" alt="">
+						<h1 class="item-title" th:text="${item.itemName}">
+							목심 <span th:text="${item.itemUnit}">100g</span>
+						</h1>
+						<div class="now-price">
+							현재가격 <span class="price" th:text="${item.todayPrice}">1000</span>원
+						</div>
+						<div class="change">
+							어제보다 <span class="change-price"
+								th:text="${item.todayPrice - item.yesterdayPrice}">200</span>원
+							비싸요
+						</div>
+						<button class="add-to-cart-btn" th:if="${member != null}"
+							data-memberId="${member.memberId}" data-itemId="${item.itemId}"
+							th:onclick="|location.href='@{/cart/{memberId}/{itemId}(memberId=${member.memberId}, itemId=${item.itemId})}'|">장바구니
+							담기</button>
+					</div>
+					<div th:with="foundRecipe = true"></div>
+				</div>
+				<div th:if="${foundRecipe == false}" th:attr="data-target=${item.itemName}">목록
+					없음</div>
+			</div> -->
+			
+			<div class="add-to-cart-section hide" th:each="item : ${items}" th:id="${item.itemName}" >
+				<div th:with="foundRecipe = false">
+					<div>
+						<img src="#" alt="">
+						<h1 class="item-title" th:text="${item.itemName}">
+							목심 <span th:text="${item.itemUnit}">100g</span>
+						</h1>
+						<div class="now-price">
+							현재가격 <span class="price" th:text="${item.todayPrice}">1000</span>원
+						</div>
+						<div class="change">
+							어제보다 <span class="change-price"
+								th:text="${item.todayPrice - item.yesterdayPrice}">200</span>원
+							비싸요
+						</div>
+						<button class="add-to-cart-btn" th:if="${member != null}"
+							data-memberId="${member.memberId}" data-itemId="${item.itemId}"
+							th:onclick="|location.href='@{/cart/{memberId}/{itemId}(memberId=${member.memberId}, itemId=${item.itemId})}'|">장바구니
+							담기</button>
+					</div>
+					<div th:with="foundRecipe = true"></div>
+				</div>
+				<div th:if="${foundRecipe == false}" th:attr="data-target=${item.itemName}">목록
+					없음</div>
+=======
 			<div class="add-to-cart-section" th:each="item : ${items}"
 				th:id="${item.part == null} ? ${item.itemName} : ${item.part}">
 				<div th:with="foundRecipe = false">
@@ -152,6 +232,7 @@
 				</div>
 				<div th:if="${foundRecipe == false}"
 					th:attr="data-target=${item.itemName}">목록 없음</div>
+>>>>>>> 527c58a5927702b79fc6d5037c1c80a98a92a41a
 			</div>
 
 
@@ -187,11 +268,15 @@
 		var items = document.querySelectorAll(".item");
 		var submenus = document.querySelectorAll(".submenu");
 		var recipes = document.querySelectorAll(".recipes li");
+<<<<<<< HEAD
+		var add =  document.querySelectorAll("#egg");
+=======
 		var addToCart = document.querySelectorAll(".add-to-cart-section");
 
 		addToCart.forEach(function(section) {
 		    section.classList.add("hide");
 		  });
+>>>>>>> 527c58a5927702b79fc6d5037c1c80a98a92a41a
 
 		items.forEach(function(item) {
 			item.addEventListener("click", function() {
@@ -202,8 +287,10 @@
 							if (target === "all"
 									|| recipeCategory.indexOf(target) > -1) {
 								recipe.classList.remove("hide");
+								add.classList.remove("hide");
 							} else {
 								recipe.classList.add("hide");
+								add.classList.add("hide");
 							}
 						});
 
@@ -297,6 +384,9 @@
 
 			});
 		});
+		
+		const addToCart = document.querySelector('.add-to-cart-section');
+		console.log(addToCart);
 	</script>
 
 
