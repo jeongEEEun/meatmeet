@@ -141,4 +141,10 @@ public class RecipeRepository {
 		String sql = "select * from comment where recipe_id = ?";
 		return jdbcTemplate.query(sql, commentRowMapper, recipeId);
 	}
+	
+	public void deleteCommentsByRecipeId(Long recipeId) {
+		String sql = "delete from comment where recipe_id = ?";
+		jdbcTemplate.update(sql, recipeId);
+		
+	}
 }

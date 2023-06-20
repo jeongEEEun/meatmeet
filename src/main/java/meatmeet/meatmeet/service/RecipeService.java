@@ -68,4 +68,8 @@ public class RecipeService {
 	public List<Comment> findCommentByRecipeId(Long reicpeId) {
 		return recipeRepository.findCommentByRecipeId(reicpeId);
 	}
+	
+	public void deleteCommentsByRecipeId(Long recipeId) {
+		recipeRepository.deleteCommentsByRecipeId(recipeId);
+	}
 }
