@@ -182,7 +182,7 @@ nav .submenu ul li:hover {
     width: 90%;
     /* 너비를 100%로 조정 */
     position: absolute;
-    bottom: 5px;
+    bottom: 10px;
     left: 5%;
     padding: 10px 20px;
     background-color: #ff6666;
