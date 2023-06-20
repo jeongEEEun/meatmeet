@@ -120,8 +120,20 @@
   <!-- container end : 주문내역 O -->
   
   <!-- container start : 주문내역 X -->
-  <div th:if="${#lists.size(orderInfo) == 0}">
-  	<span>주문내역 없음</span>
+  <div class="container" th:if="${#lists.size(orderInfo) == 0}">
+    <div>
+      <a href="#" class="title">
+        <img src="/img/order.png" alt="주문내역 아이콘" class="small-icon">
+      </a>
+    </div>
+    <br>
+    <div>
+      주문내역이 없습니다
+    </div>
+    <br>
+    <div>
+      <button class="btn btn-primary" onclick="location.href='/'">홈으로 가기</button>
+    </div>
   </div>
   <!-- container end : 주문내역 X -->
   
