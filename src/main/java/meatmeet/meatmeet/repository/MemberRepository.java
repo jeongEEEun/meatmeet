@@ -49,6 +49,7 @@ public class MemberRepository {
 		recipe.setIngre(rs.getString("ingre"));
 		recipe.setSauce(rs.getString("sauce"));
 		recipe.setStep(rs.getString("step"));
+		recipe.setView(rs.getInt("view"));
 		recipe.setImgName(rs.getString("img_name"));
 		recipe.setImgPath(rs.getString("img_path"));
 		
@@ -105,14 +106,14 @@ public class MemberRepository {
 	}
 	
 	public Optional<Recipe> findByRecipeId(Long recipeId) {
-		String sql = "select * from recipe where recipe_id = ?";
+		String sql = "select * from item where item_id = ?";
 		return jdbcTemplate.query(sql, recipeRowMapper,recipeId).stream().findFirst();
 	}
 	
-	public Optional<Recipe> updateRecipe(Recipe recipe) {
+	public void updateRecipe(Recipe recipe) {
 		String sql = "update recipe set title = ?, ingre = ?, sauce = ?, step = ? where recipe_id = ?";
-		jdbcTemplate.update(sql, recipe.getTitle(), recipe.getIngre(), recipe.getSauce(), recipe.getStep(), recipe.getRecipeId());
-		return findByRecipeId(recipe.getRecipeId());
+		jdbcTemplate.update(sql, recipe.getTitle(), 
+				recipe.getIngre(), recipe.getSauce(), recipe.getStep(), recipe.getRecipeId());
 	}
 	
 	public void deleteRecipe(Long recipeId) {

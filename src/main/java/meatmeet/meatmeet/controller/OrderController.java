@@ -1,65 +1,77 @@
 package meatmeet.meatmeet.controller;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.mysql.cj.x.protobuf.MysqlxCrud.Collection;
+
+import lombok.extern.slf4j.Slf4j;
 import meatmeet.meatmeet.domain.Member;
 import meatmeet.meatmeet.domain.Order;
+import meatmeet.meatmeet.service.CartService;
 import meatmeet.meatmeet.service.OrderService;
 
 
 @Controller
+@Slf4j
 public class OrderController {
-	private final OrderService orderService;
-	
-	public OrderController(OrderService orderService) {
-		this.orderService = orderService;
-	}
-	
-//	@GetMapping
-//	public String index(@SessionAttribute(required = false) Member member, Model model) {
-//		model.addAttribute("member", member);
-//		return "order";
-//	}
-	
-	@GetMapping("/order")
-	public String showOrderPage() {
-		return "order";
-	}
-    @PostMapping("/order")
-    public String createOrder(@ModelAttribute Order order) {
-        orderService.createOrder(order);
-        return "redirect:/order";
+    private final OrderService orderService;
+    private final CartService cartService;
+    
+    public OrderController(OrderService orderService, CartService cartService) {
+    	this.orderService = orderService;
+    	this.cartService = cartService;
     }
     
-//    @GetMapping("/order-list")
-//    public String showOrderListPage(Model model) {
-//        // 주문 목록을 조회하여 모델에 추가
-//        List<Order> orders = orderService.getAllOrders();
-//        model.addAttribute("orders", orders);
-//        
-//        return "order-list";
-//    }
+    @GetMapping("/neworder/{memberId}")
+    public String orderForm(@PathVariable String memberId, @SessionAttribute Member member, Model model) {
+    	int itemPrice = cartService.totalPrice(memberId);
+    	
+    	model.addAttribute("member", member);
+    	model.addAttribute("itemPrice", itemPrice + "원");
+    	model.addAttribute("totalPrice", itemPrice + 3000 + "원");
+    	
+        return "order/order";
+    }
     
-    @PostMapping("/cancel-order")
-    public String cancelOrder(@RequestParam("orderId") Long orderId) {
-        // 주문 취소 로직 수행
-        orderService.cancelOrder(orderId);
+    @PostMapping("/neworder/{memberId}")
+    public String order(@PathVariable String memberId, @SessionAttribute Member member, Order order, Model model, RedirectAttributes redirectAttributes) {
+        orderService.saveOrder(order);
         
-        return "redirect:/order-list";
+        log.info("[Ordercontroller - order] 주문자 >>" + order.getUserName());	
+        
+        model.addAttribute("member", member);
+        redirectAttributes.addAttribute("memberId", memberId);
+        
+        return "redirect:/order/{memberId}";
     }
     
-//    주문 검색 기능
-//    @GetMapping("/order/search")
-//    public String searchOrders(@RequestParam("orderName") String orderName, Model model) {
-//        model.addAttribute("orders", orderService.getOrdersByOrderName(orderName));
-//        return "order";
-//    }
+    @GetMapping("/order/{memberId}")
+    public String orderList(@PathVariable String memberId, @SessionAttribute Member member , Model model) {
+    	List<Order> orderInfo = orderService.findOrderInfoByMemberId(memberId);
+    	List<Order> orderItems = orderService.findOrderItemByMemberId(memberId);
+    	
+    	Collections.reverse(orderInfo);
+    	
+    	model.addAttribute("member", member);
+    	model.addAttribute("orderInfo", orderInfo);
+    	model.addAttribute("orderItems", orderItems);
+    	
+        return "order/order-list";
+    }
+    
+    @GetMapping("/order/{memberId}/{orderId}/cancel") 
+    public String cancelOrder(@PathVariable String memberId, @PathVariable String orderId, @SessionAttribute Member member) {
+    	log.info("주문 삭제 >> " + orderId);
+    	orderService.deleteOrder(orderId);
+    	return "redirect:/order/" + memberId;
+    }
 }
