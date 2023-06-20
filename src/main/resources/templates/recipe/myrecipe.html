@@ -51,7 +51,9 @@
 				<div class="recipe mb-3 row" th:each="recipe: ${myRecipe}">
 					<div class="col-3 me-3">
 						<a href="#" th:href="@{|/recipe/${recipe.recipeId}|}"><img src="http://via.placeholder.com/1080x720"
-								th:src="@{${recipe.imgPath}}"></img></a>
+								th:src="@{${recipe.imgPath}}"
+									onerror="this.onerror=null; this.src='/img/no-image.png';"
+									th:if="${recipe.imgPath != null}"></img></a>
 					</div>
 					<div class="col-7">
 						<div th:text="${recipe.title}">
