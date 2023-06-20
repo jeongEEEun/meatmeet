@@ -1,6 +1,5 @@
 package meatmeet.meatmeet.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +34,10 @@ public class CartService {
     public List<Item> getItemPrice(String memberId) {
         return cartRepository.getItemPrice(memberId);
     }
-
+    public List<Cart> addItemToCart(String memberId, Item item, int quantity) {
+        Cart cart = new Cart(memberId, item.getItemId(), quantity);
+        return cartRepository.save(cart);
+    }
     /**
      * 아이템 수량 1 감소
 

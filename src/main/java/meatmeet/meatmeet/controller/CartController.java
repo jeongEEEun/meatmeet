@@ -30,7 +30,6 @@ public class CartController {
 	    model.addAttribute("itemNameList", itemNameList);
 	    model.addAttribute("itemPriceList", itemPriceList);
 
-	    
 	    return "order/cart.html";
 	}
 
