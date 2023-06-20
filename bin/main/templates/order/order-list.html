@@ -94,7 +94,7 @@
             <div class="border-bottom fw-bold mb-2 pb-2">결제정보</div>
             <div class="row">
               <span class="col-auto me-auto">상품 금액</span>
-              <span class="fw-bold col-auto price" th:text="${orderInfo.totalPrice}">0원</span>
+              <span class="fw-bold col-auto price" th:text="${orderInfo.totalPrice} + 원">0원</span>
             </div>
             <div class="row">
               <span class="col-auto me-auto">배송비</span>
@@ -106,7 +106,7 @@
             </div>
             <div class="row pt-4">
               <span class="col-auto me-auto">결제금액</span>
-              <span class="fw-bold total-price col-auto" th:text="${orderInfo.totalPrice} + 3000">0원</span>
+              <span class="fw-bold total-price col-auto" th:text="${orderInfo.totalPrice} + 3000 + 원">0원</span>
             </div>
           </div>
           <button class="btn btn-secondary cancle-btn align-baseline" th:onclick="|location.href='@{/order/{memberId}/{orderId}/cancel(memberId=${member.memberId}, orderId=${orderInfo.orderId})}'|">주문 취소</button>
