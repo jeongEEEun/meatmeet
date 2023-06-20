@@ -36,6 +36,7 @@ public class Order {
     	this.request = order.request;
     	this.orderDate = order.orderDate;
     	this.payment = order.payment;
+    	this.totalPrice = order.totalPrice;
     }
 }
 

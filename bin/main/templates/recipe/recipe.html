@@ -114,7 +114,7 @@
 				th:id="${item.part == null ? item.itemName : ((item.itemName == '소' && item.part == '갈비') ? item.itemName + ' ' + item.part : ((item.itemName == '돼지' && item.part == '갈비') ? item.itemName + ' ' + item.part : item.part))}">
 				<div th:with="foundRecipe = false">
 					<div>
-						<img src="#" alt="">
+						<img th:src="@{/img/item-img/{imgName}(imgName=${item.imgName})}" alt="">
 						<div class="item-name">
 							<span class="item-title" th:text="${item.part == null} ? ${item.itemName} : ${item.part}">목심</span> <span
 								class="item-unit" th:text="${item.itemUnit}">100g</span>
