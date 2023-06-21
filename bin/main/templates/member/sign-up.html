@@ -15,7 +15,7 @@
 <body>
 	<div class="wrap-body">
 		<!-- header start : 로그인 X -->
-		<header th:if="${member} == null" class="border-bottom">
+		<header th:if="${member} == null or ${duplicateId} == true" class="border-bottom">
 			<div class="wrap">
 				<ul class="row px-0 pt-4">
 					<li class="col p-0 pe-1">
@@ -57,6 +57,8 @@
 				<div class="row mb-2">
 					<label for="id" class="col-sm-3 col-form-label">아이디</label> <input type="text" name="memberId" id="memberId"
 						class="form-control col-sm" onkeyup="checkReg(event)" required>
+					<div th:if="${duplicateId}" class="text-danger">이미 존재하는
+					아이디입니다.</div>
 				</div>
 				<div class="row mb-2">
 					<label for="pw" class="col-sm-3 col-form-label">비밀번호</label> <input type="password" name="memberPw"

@@ -43,7 +43,7 @@ public class MemberController {
 	public String signUp(@ModelAttribute Member member, Model model) {
 		Optional<Member> savedMember = memberService.saveMember(member);
 		if (savedMember.isEmpty()) {
-	        model.addAttribute("duplicateId", true); // 중복된 아이디 플래그 설정
+	        model.addAttribute("duplicateId", true); 
 	        return "member/sign-up";
 	    }
 		return "redirect:/sign-in";
@@ -55,7 +55,7 @@ public class MemberController {
 	}
 
 	@PostMapping("/sign-in")
-	public String signIn(Member member, HttpServletRequest request) {
+	public String signIn(Member member, HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
 		Optional<Member> loginMember = memberService.login(member);
 

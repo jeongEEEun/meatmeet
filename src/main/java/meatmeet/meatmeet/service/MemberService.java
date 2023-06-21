@@ -39,7 +39,7 @@ public class MemberService {
 	public Optional<Member> login(Member member) {
 		Optional<Member> findMember = memberRepository.findByMemberId(member.getMemberId());
 		
-		if(findMember.isPresent()) {
+		if(findMember.isPresent() && findMember.get().getMemberPw().equals(member.getMemberPw())) {
 			return findMember;
 		}
 		
