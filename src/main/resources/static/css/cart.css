@@ -50,6 +50,7 @@ footer.cart {
 	font-size: 16px;
 	line-height: 14px;
 	padding-bottom: 10px;
+	margin-top: 5px;
 }
 
 .container .box .total-price {
@@ -58,6 +59,7 @@ footer.cart {
 	color: #ff6666;
 	margin: 0;
 	padding-left: 0;
+	margin-top: -3px;
 }
 
 .row {
