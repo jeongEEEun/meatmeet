@@ -17,6 +17,7 @@
 	width: 1000px;
 	height: auto;
 	position: relative;
+	bottom: 20px;
 }
 
 .content .recipe {
