@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
-</html>
-
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -169,34 +167,35 @@
 					없음</div>
 			</div>
 
-
 			<button class="write-recipe" th:if="${member != null}"
 				th:onclick="|location.href='@{/recipe/{memberId}/new(memberId=${member.memberId})}'|">글쓰기</button>
 		</div>
 	</div>
 	<!-- container end -->
 
-	<!-- footer strat -->
+	<!-- footer start -->
 	<footer>
-		<div class="row">
-			<div class="col mt-3">
-				<ul>
-					<li class="title">meat meet</li>
-					<li>상호 : 미트미트 | 대표자명 : 홍길동 | <a href="#">개인정보처리방침</a></li>
-					<li>사업자등록번호 : 000-00-00000</li>
-					<li>연락처 : 00-000-0000</li>
-					<li>이메일 : meatmeet@gmail.com</li>
-					<li>주소 : 서울특별시 OO구 OO로O길</li>
-				</ul>
-			</div>
-			<div class="col pt-5">
-				<a href="#"> <img src="img/logo_white.png" alt="meatmeet로고" class="mt-3">
-				</a>
+		<div class="wrap">
+			<div class="row">
+				<div class="col mt-5">
+					<ul>
+						<li class="title">meat meet</li>
+						<li>상호 : 미트미트 | 대표자명 : 홍길동 | <a href="#">개인정보처리방침</a></li>
+						<li>사업자등록번호 : 000-00-00000</li>
+						<li>연락처 : 00-000-0000</li>
+						<li>이메일 : meatmeet@gmail.com</li>
+						<li>주소 : 서울특별시 OO구 OO로O길</li>
+					</ul>
+				</div>
+				<div class="col pt-5">
+					<a href="#">
+						<img src="img/logo_white.png" alt="meatmeet로고" class="mt-3">
+					</a>
+				</div>
 			</div>
 		</div>
 	</footer>
 	<!-- footer end -->
-
 
 	<script>
 		var items = document.querySelectorAll(".item");

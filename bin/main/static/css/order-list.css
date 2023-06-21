@@ -7,13 +7,6 @@
   font-style: normal;
 }
 
-.wrap {
-	min-height: 100%;
-	position: relative;
-	padding-bottom: 60px;
-}
-
-
 h3 {
   font-size: 18px;
 }
@@ -52,6 +45,6 @@ table {
 }
 
 footer {
-	position: absolute;
-    bottom: 0;
+  position: absolute;
+  bottom: 0;
 }

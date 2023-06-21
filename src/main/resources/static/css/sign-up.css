@@ -1,7 +1,6 @@
 .container {
   max-width: 400px;
   text-align: center;
-
   margin-bottom: 5em;
 }
 
@@ -60,8 +59,4 @@
   background-color: #ff6666;
   border-color: #ff6666;
   color: #fff;
-}
-
-footer {
-  position: absolute;
 }

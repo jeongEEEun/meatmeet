@@ -3,7 +3,7 @@
 .container {
     width: 1000px;
     min-height: 50vh;
-    margin: 30px auto;
+    margin: 0 auto;
 }
 
 .container h1 {
