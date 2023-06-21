@@ -40,8 +40,12 @@ public class MemberController {
 	}
 
 	@PostMapping("/sign-up")
-	public String signUp(@ModelAttribute Member member) {
-		memberService.saveMember(member);
+	public String signUp(@ModelAttribute Member member, Model model) {
+		Optional<Member> savedMember = memberService.saveMember(member);
+		if (savedMember.isEmpty()) {
+	        model.addAttribute("duplicateId", true); // 중복된 아이디 플래그 설정
+	        return "member/sign-up";
+	    }
 		return "redirect:/sign-in";
 	}
 
