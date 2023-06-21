@@ -206,19 +206,19 @@
 
 	<script th:inline="javascript">
 		/*<![CDATA[*/
-		let items = new Array();
+		var items = new Array();
 
 		/*[# th:each="i : ${items}"]*/
 		var item = new Object();
 
 		item.name = /*[[${i.itemName}]]*/
-			item.part = /*[[${i.part}]]*/
-			item.unit = /*[[${i.itemUnit}]]*/
-			item.todayPrice = /*[[${i.todayPrice}]]*/
-			item.yesterdayPrice = /*[[${i.yesterdayPrice}]]*/
-			item.selector = /*[[${i.selector}]]*/
+		item.part = /*[[${i.part}]]*/
+		item.unit = /*[[${i.itemUnit}]]*/
+		item.todayPrice = /*[[${i.todayPrice}]]*/
+		item.yesterdayPrice = /*[[${i.yesterdayPrice}]]*/
+		item.selector = /*[[${i.selector}]]*/
 
-			items.push(item);
+		items.push(item);
 		/*[/]*/
 
 		jQuery(document).ready(function (e) {
@@ -250,10 +250,6 @@
 		});
 	/*]]>*/
 	</script>
-</body>
-
-</html>
-
 </body>
 
 </html>

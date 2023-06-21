@@ -142,6 +142,38 @@
 		</footer>
 		<!-- footer end -->
 	</div>
+
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		var items = new Array();
+			
+		/*[# th:if="${#lists.size(cartItems) > 0}"]*/
+		/*[# th:each="i : ${cartItems}"]*/
+		var item = new Object();
+		var itemId = /*[[${i.itemId}]]*/
+
+		item.id = '#quantity-item' + itemId;
+		item.minusBtnId = '#minus-btn' + itemId;
+
+		items.push(item);
+		/*[/]*/
+		
+		for (let item of items) {
+			
+			
+			itemQuantityElement = document.querySelector(item.id);
+			minusBtnElement = document.querySelector(item.minusBtnId);
+
+			console.log("상품아이디 >> " + item.id);
+			console.log("상품수 >> " + itemQuantityElement);
+
+			if (parseInt(itemQuantityElement.innerText) <= 1) {
+				minusBtnElement.disabled = true;
+			}
+		}
+		/*[/]*/
+		/*]]>*/
+	</script>
 </body>
 
 </html>
