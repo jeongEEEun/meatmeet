@@ -16,63 +16,67 @@
 
 <body>
 	<!-- header start : 로그인 X -->
-	<header th:if="${member} == null">
-		<ul class="row px-0 pt-4">
-			<li class="col p-0 pe-1">
-				<a href="/">
-					<img src="/img/logo2.png" alt="meatmeet 로고" class="logo">
-				</a>
-			</li>
-			<li class="col p-0">
-				<a href="/recipe" class="ms-5 title">레시피</a>
-			</li>
-			<div class="col-5 m-0 p-0">
-				<li class="me-5">
-					<a href="/sign-in" class="title">
-						<img src="/img/icon_login.png" alt="로그인 아이콘" class="icon">
-						로그인
+	<header th:if="${member} == null" class="border-bottom">
+		<div class="wrap">
+			<ul class="row px-0 pt-4">
+				<li class="col p-0 pe-1">
+					<a href="/">
+						<img src="/img/logo2.png" alt="meatmeet 로고" class="logo">
 					</a>
 				</li>
-				<li>
-					<a href="/sign-up" class="title">회원가입</a>
+				<li class="col p-0">
+					<a href="/recipe" class="ms-5 title">레시피</a>
 				</li>
-			</div>
-		</ul>
+				<div class="col-5 m-0 p-0">
+					<li class="me-5">
+						<a href="/sign-in" class="title">
+							<img src="/img/icon_login.png" alt="로그인 아이콘" class="icon">
+							로그인
+						</a>
+					</li>
+					<li>
+						<a href="/sign-up" class="title">회원가입</a>
+					</li>
+				</div>
+			</ul>
+		</div>
 	</header>
 	<!-- header end : 로그인 X -->
 
 	<!-- header start : 로그인 O -->
-	<header th:if="${member} != null">
-		<ul class="row px-0 pt-4">
-			<li class="col p-0 pe-1">
-				<a href="/">
-					<img src="img/logo2.png" alt="meatmeet 로고" class="logo">
-				</a>
-			</li>
-			<li class="col p-0">
-				<a href="/recipe" class="ms-5 title">레시피</a>
-			</li>
-			<li class="col p-0">
-				<a href="/myrecipe" th:href="@{/myrecipe/{memberId}(memberId=${member.memberId})}" class="title">나의 레시피</a>
-			</li>
-			<li class="col p-0">
-				<a href="/order-list" th:href="@{/order/{memberId}(memberId=${member.memberId})}" class="title">
-					<img src="img/order.png" alt="주문내역 아이콘" class="icon">
-					주문내역
-				</a>
-			</li>
-			<li class="col p-0">
-				<a href="/cart" th:href="@{/cart/{memberId}(memberId=${member.memberId})}" class="title">
-					<img src="img/cart.png" alt="장바구니 아이콘" class="icon">
-					장바구니</a>
-			</li>
-			<li class="col p-0 row member">
-				<span class="col p-0">
-					<span class="member-name" th:text="${member.memberName}">사용자명</span><span> 님</span>
-				</span>
-				<button class="btn btn-primary col logout-btn" onclick="location.href='/sign-out'">로그아웃</button>
-			</li>
-		</ul>
+	<header th:if="${member} != null" class="border-bottom">
+		<div class="wrap">
+			<ul class="row px-0 pt-4">
+				<li class="col p-0 pe-1">
+					<a href="/">
+						<img src="/img/logo2.png" alt="meatmeet 로고" class="logo">
+					</a>
+				</li>
+				<li class="col p-0">
+					<a href="/recipe" class="ms-5 title">레시피</a>
+				</li>
+				<li class="col p-0">
+					<a href="/myrecipe" th:href="@{/myrecipe/{memberId}(memberId=${member.memberId})}" class="title">나의 레시피</a>
+				</li>
+				<li class="col p-0">
+					<a href="/order-list" th:href="@{/order/{memberId}(memberId=${member.memberId})}" class="title">
+						<img src="/img/order.png" alt="주문내역 아이콘" class="icon">
+						주문내역
+					</a>
+				</li>
+				<li class="col p-0">
+					<a href="/cart" th:href="@{/cart/{memberId}(memberId=${member.memberId})}" class="title">
+						<img src="/img/cart.png" alt="장바구니 아이콘" class="icon">
+						장바구니</a>
+				</li>
+				<li class="col p-0 row member">
+					<span class="col p-0">
+						<span class="member-name" th:text="${member.memberName}">사용자명</span><span> 님</span>
+					</span>
+					<button class="btn btn-light col logout-btn" onclick="location.href='/sign-out'">로그아웃</button>
+				</li>
+			</ul>
+		</div>
 	</header>
 	<!-- header end : 로그인 O -->
 
@@ -197,31 +201,31 @@
 		</div>
 	</footer>
 	<!-- footer end -->
-	
+
 	<script th:inline="javascript">
-	/*<![CDATA[*/
+		/*<![CDATA[*/
 		let items = new Array();
-		
+
 		/*[# th:each="i : ${items}"]*/
 		var item = new Object();
-		
+
 		item.name = /*[[${i.itemName}]]*/
-		item.part = /*[[${i.part}]]*/
-		item.unit = /*[[${i.itemUnit}]]*/
-		item.todayPrice = /*[[${i.todayPrice}]]*/
-		item.yesterdayPrice = /*[[${i.yesterdayPrice}]]*/
-		item.selector = /*[[${i.selector}]]*/
-		
-		items.push(item);
+			item.part = /*[[${i.part}]]*/
+			item.unit = /*[[${i.itemUnit}]]*/
+			item.todayPrice = /*[[${i.todayPrice}]]*/
+			item.yesterdayPrice = /*[[${i.yesterdayPrice}]]*/
+			item.selector = /*[[${i.selector}]]*/
+
+			items.push(item);
 		/*[/]*/
-		
+
 		jQuery(document).ready(function (e) {
 			var targetItem = new Object();
 			var map = document.querySelector('map');
-	
-			map.addEventListener('mouseover', function(e) {
+
+			map.addEventListener('mouseover', function (e) {
 				for (let item of items) {
-					if(item.selector == e.target.id) {
+					if (item.selector == e.target.id) {
 						targetItem = item;
 					}
 				}

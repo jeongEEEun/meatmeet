@@ -18,20 +18,30 @@
 
 <body>
 	<!-- header start : 로그인 X -->
-	<header th:if="${member} == null">
-		<ul class="row px-0 pt-4">
-			<li class="col p-0 pe-1"><a href="/"> <img
-					src="/img/logo2.png" alt="meatmeet 로고" class="logo">
-			</a></li>
-			<li class="col p-0"><a href="/recipe" class="ms-5 title">레시피</a>
-			</li>
-			<div class="col-5 m-0 p-0">
-				<li class="me-5"><a href="/sign-in" class="title"> <img
-						src="/img/icon_login.png" alt="로그인 아이콘" class="icon"> 로그인
-				</a></li>
-				<li><a href="/sign-up" class="title">회원가입</a></li>
-			</div>
-		</ul>
+	<header th:if="${member} == null" class="border-bottom">
+		<div class="wrap">
+			<ul class="row px-0 pt-4">
+				<li class="col p-0 pe-1">
+					<a href="/">
+						<img src="/img/logo2.png" alt="meatmeet 로고" class="logo">
+					</a>
+				</li>
+				<li class="col p-0">
+					<a href="/recipe" class="ms-5 title">레시피</a>
+				</li>
+				<div class="col-5 m-0 p-0">
+					<li class="me-5">
+						<a href="/sign-in" class="title">
+							<img src="/img/icon_login.png" alt="로그인 아이콘" class="icon">
+							로그인
+						</a>
+					</li>
+					<li>
+						<a href="/sign-up" class="title">회원가입</a>
+					</li>
+				</div>
+			</ul>
+		</div>
 	</header>
 	<!-- header end : 로그인 X -->
 
