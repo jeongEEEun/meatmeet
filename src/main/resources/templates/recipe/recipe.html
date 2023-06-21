@@ -6,10 +6,10 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>레시피 목록</title>
-	<link th:href="@{/css/reset.css}" href="css/reset.css" rel="stylesheet">
-	<link th:href="@{/css/header-footer.css}" href="css/header-footer.css" rel="stylesheet">
-	<link th:href="@{/css/bootstrap.min.css}" href="css/bootstrap.min.css" rel="stylesheet">
-	<link th:href="@{/css/recipe.css}" href="css/recipe.css" rel="stylesheet">
+	<link th:href="@{/css/reset.css}" href="../../static/css/reset.css" rel="stylesheet">
+	<link th:href="@{/css/header-footer.css}" href="../../static/css/header-footer.css" rel="stylesheet">
+	<link th:href="@{/css/bootstrap.min.css}" href="../../static/css/bootstrap.min.css" rel="stylesheet">
+	<link th:href="@{/css/recipe.css}" href="../../static/css/recipe.css" rel="stylesheet">
 
 </head>
 
@@ -80,39 +80,39 @@
 	<!-- header end : 로그인 O -->
 
 	<!-- container start -->
-	<div class="container">
-		<nav>
-			<h1 class="title">레시피</h1>
-			<ul class="menu">
-				<li class="item" data-target="all">전체</li>
-				<li class="item" data-target="돼지">돼지</li>
-				<li class="item" data-target="소">소</li>
-				<li class="item" data-target="닭">닭</li>
-				<li class="item" data-target="계란">계란</li>
-				<li class="item" data-target="우유">우유</li>
+	<nav>
+		<h1 class="title">레시피</h1>
+		<ul class="menu">
+			<li class="item" data-target="all">전체</li>
+			<li class="item" data-target="돼지">돼지</li>
+			<li class="item" data-target="소">소</li>
+			<li class="item" data-target="닭">닭</li>
+			<li class="item" data-target="계란">계란</li>
+			<li class="item" data-target="우유">우유</li>
+		</ul>
+		<div class="submenu hide" id="돼지">
+			<ul>
+				<li data-target="목심" data-item-name="목심">목심</li>
+				<li data-target="갈비" data-item-name="갈비">갈비</li>
+				<li data-target="삼겹살" data-item-name="삼겹살">삼겹살</li>
+				<li data-target="앞다리" data-item-name="앞다리">앞다리</li>
 			</ul>
-			<div class="submenu hide" id="돼지">
-				<ul>
-					<li data-target="목심" data-item-name="목심">목심</li>
-					<li data-target="갈비" data-item-name="갈비">갈비</li>
-					<li data-target="삼겹살" data-item-name="삼겹살">삼겹살</li>
-					<li data-target="앞다리" data-item-name="앞다리">앞다리</li>
-				</ul>
-			</div>
-			<div class="submenu hide" id="소">
-				<ul>
-					<li data-target="등심" data-item-name="등심">등심</li>
-					<li data-target="안심" data-item-name="안심">안심</li>
-					<li data-target="갈비" data-item-name="갈비">갈비</li>
-					<li data-target="양지" data-item-name="양지">양지</li>
-					<li data-target="설도" data-item-name="설도">설도</li>
-				</ul>
-			</div>
-		</nav>
+		</div>
+		<div class="submenu hide" id="소">
+			<ul>
+				<li data-target="등심" data-item-name="등심">등심</li>
+				<li data-target="안심" data-item-name="안심">안심</li>
+				<li data-target="갈비" data-item-name="갈비">갈비</li>
+				<li data-target="양지" data-item-name="양지">양지</li>
+				<li data-target="설도" data-item-name="설도">설도</li>
+			</ul>
+		</div>
+	</nav>
+	<div class="container">
 
 		<div class="content">
 			<div class="recipes">
-				<ul class="recipe-list">
+				<ul class="recipe-list mt-5 ps-0">
 					<li id="list" th:if="${recipe.category1 != null}" th:each="recipe : ${recipes}"
 						th:class="${recipe.category2 == '없음' ? recipe.category1 : (recipe.category1 == '돼지' or recipe.category1 == '소') ? (recipe.category1 + ' ' + recipe.category2) : recipe.category2}">
 						<a th:href="@{/recipe/{recipeId}(recipeId=${recipe.recipeId})}" class="recipe-link"
@@ -121,14 +121,16 @@
 								<img th:src="@{${recipe.imgPath}}" onerror="this.onerror=null; this.src='/img/no-image.png';"
 									th:if="${recipe.imgPath != null}" class="recipe-img">
 							</div>
-							<div class="recipe-writer">
-								작성자 <span th:text=${recipe.memberId}></span>
-							</div>
-							<div class="recipe-title">
-								<span th:text=${recipe.title}></span>
-							</div>
-							<div class="recipe-view">
-								조회수 <span th:text=${recipe.view}></span>
+							<div class="info-box">
+								<div class="recipe-writer">
+									작성자 <span th:text=${recipe.memberId}></span>
+								</div>
+								<div class="recipe-title">
+									<span th:text=${recipe.title}>돼지 어쩌구 저쩌구 어쩌구저쩌구 맛있게 만드는 법!</span>
+								</div>
+								<div class="recipe-view">
+									조회수 <span th:text=${recipe.view}></span>
+								</div>
 							</div>
 						</a>
 					</li>
@@ -167,7 +169,7 @@
 					없음</div>
 			</div>
 
-			<button class="write-recipe" th:if="${member != null}"
+			<button class="btn btn-primary write-recipe " th:if="${member != null}"
 				th:onclick="|location.href='@{/recipe/{memberId}/new(memberId=${member.memberId})}'|">글쓰기</button>
 		</div>
 	</div>
