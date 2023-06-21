@@ -120,8 +120,8 @@
 				<h3 class="title">소</h3>
 				<img src="img/소.png" alt="소고기 부위별 시세" usemap="#cow-map">
 				<map name="cow-map">
-					<area target="_blank" alt="등심" href="등심" coords="289,88,9" shape="circle">
-					<area target="_blank" alt="등심" href="등심" coords="393,5,428,27" shape="rect">
+					<area id="rib-cow" target="_blank" alt="등심" href="등심" coords="289,88,9" shape="circle">
+					<area id="brisket" target="_blank" alt="등심" href="등심" coords="393,5,428,27" shape="rect">
 					<area target="_blank" alt="안심" href="안심" coords="347,121,9" shape="circle">
 					<area target="_blank" alt="안심" href="안심" coords="449,43,484,62" shape="rect">
 					<area target="_blank" alt="설도" href="설도" coords="394,179,9" shape="circle">
@@ -212,13 +212,13 @@
 		var item = new Object();
 
 		item.name = /*[[${i.itemName}]]*/
-		item.part = /*[[${i.part}]]*/
-		item.unit = /*[[${i.itemUnit}]]*/
-		item.todayPrice = /*[[${i.todayPrice}]]*/
-		item.yesterdayPrice = /*[[${i.yesterdayPrice}]]*/
-		item.selector = /*[[${i.selector}]]*/
+			item.part = /*[[${i.part}]]*/
+			item.unit = /*[[${i.itemUnit}]]*/
+			item.todayPrice = /*[[${i.todayPrice}]]*/
+			item.yesterdayPrice = /*[[${i.yesterdayPrice}]]*/
+			item.selector = /*[[${i.selector}]]*/
 
-		items.push(item);
+			items.push(item);
 		/*[/]*/
 
 		jQuery(document).ready(function (e) {
@@ -231,8 +231,18 @@
 						targetItem = item;
 					}
 				}
+
 				let increase = parseInt(targetItem.todayPrice) - parseInt(targetItem.yesterdayPrice);
-				let tooltipTag = '<div class="price-tooltip"><b>' + targetItem.part + '</b><br>' + targetItem.unit + ' ' + targetItem.todayPrice + '<br>전일대비 ' + increase + '</div>';
+				let increaseTag = '';
+
+				if (increase > 0) {
+					increaseTag = '<br>어제보다 ' + increase + '원 비싸요</div>';
+				} else {
+					increaseTag = '<br>어제보다 ' + increase * -1 + '원 싸요</div>';
+
+				}
+
+				let tooltipTag = '<div class="price-tooltip"><b>' + targetItem.part + '</b><br>' + targetItem.unit + ' ' + targetItem.todayPrice + increaseTag;
 				$('area').qtip('option', 'content.text', tooltipTag);
 			})
 		});
