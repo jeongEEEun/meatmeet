@@ -2,36 +2,42 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<title>회원가입</title>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="../../static/css/reset.css"
-	th:href="@{/css/reset.css}">
-<link rel="stylesheet" href="../../static/css/header-footer.css"
-	th:href="@{/css/header-footer.css}">
-<link rel="stylesheet" href="../../static/css/bootstrap.min.css"
-	th:href="@{/css/bootstrap.min.css}">
-<link rel="stylesheet" href="../../static/css/signup.css"
-	th:href="@{/css/sign-up.css}">
+	<title>회원가입</title>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../../static/css/reset.css" th:href="@{/css/reset.css}">
+	<link rel="stylesheet" href="../../static/css/header-footer.css" th:href="@{/css/header-footer.css}">
+	<link rel="stylesheet" href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+	<link rel="stylesheet" href="../../static/css/signup.css" th:href="@{/css/sign-up.css}">
 </head>
 
 <body>
 	<!-- header start : 로그인 X -->
-	<header th:if="${member} == null">
-		<ul class="row px-0 pt-4">
-			<li class="col p-0 pe-1"><a href="/"> <img
-					src="/img/logo2.png" alt="meatmeet 로고" class="logo">
-			</a></li>
-			<li class="col p-0"><a href="/recipe" class="ms-5 title">레시피</a>
-			</li>
-			<div class="col-5 m-0 p-0">
-				<li class="me-5"><a href="/sign-in" class="title"> <img
-						src="/img/icon_login.png" alt="로그인 아이콘" class="icon"> 로그인
-				</a></li>
-				<li><a href="/sign-up" class="title">회원가입</a></li>
-			</div>
-		</ul>
+	<header th:if="${member} == null" class="border-bottom">
+		<div class="wrap">
+			<ul class="row px-0 pt-4">
+				<li class="col p-0 pe-1">
+					<a href="/">
+						<img src="/img/logo2.png" alt="meatmeet 로고" class="logo">
+					</a>
+				</li>
+				<li class="col p-0">
+					<a href="/recipe" class="ms-5 title">레시피</a>
+				</li>
+				<div class="col-5 m-0 p-0">
+					<li class="me-5">
+						<a href="/sign-in" class="title">
+							<img src="/img/icon_login.png" alt="로그인 아이콘" class="icon">
+							로그인
+						</a>
+					</li>
+					<li>
+						<a href="/sign-up" class="title">회원가입</a>
+					</li>
+				</div>
+			</ul>
+		</div>
 	</header>
 	<!-- header end : 로그인 X -->
 
@@ -40,29 +46,24 @@
 		<h2 class="mt-5 mb-5">회원가입</h2>
 		<form method="post" th:action="@{/sign-up}">
 			<div class="row mb-2">
-				<label for="name" class="col-sm-3 col-form-label">이름</label> <input
-					type="text" name="memberName" id="memberName"
-					class="form-control col-sm">
+				<label for="name" class="col-sm-3 col-form-label">이름</label> <input type="text" name="memberName"
+					id="memberName" class="form-control col-sm">
 			</div>
 			<div class="row mb-2">
-				<label for="email" class="col-sm-3 col-form-label">이메일</label> <input
-					type="text" name="memberEmail" id="memberEmail"
-					class="form-control col-sm">
+				<label for="email" class="col-sm-3 col-form-label">이메일</label> <input type="text" name="memberEmail"
+					id="memberEmail" class="form-control col-sm">
 			</div>
 			<div class="row mb-2">
-				<label for="id" class="col-sm-3 col-form-label">아이디</label> <input
-					type="text" name="memberId" id="memberId"
+				<label for="id" class="col-sm-3 col-form-label">아이디</label> <input type="text" name="memberId" id="memberId"
 					class="form-control col-sm" onkeyup="checkReg(event)">
 			</div>
 			<div class="row mb-2">
-				<label for="pw" class="col-sm-3 col-form-label">비밀번호</label> <input
-					type="password" name="memberPw" id="memberPw"
-					class="form-control col-sm">
+				<label for="pw" class="col-sm-3 col-form-label">비밀번호</label> <input type="password" name="memberPw"
+					id="memberPw" class="form-control col-sm">
 			</div>
 			<div class="row mb-5 mt-4">
-				<input type="button" value="취소" class="btn btn-secondary col me-1"
-					onclick="location.href='/'"> <input type="submit"
-					value="가입" class="btn btn-primary col ms-1">
+				<input type="button" value="취소" class="btn btn-secondary col me-1" onclick="location.href='/'"> <input
+					type="submit" value="가입" class="btn btn-primary col ms-1">
 			</div>
 		</form>
 	</div>
@@ -70,28 +71,31 @@
 
 	<!-- footer start -->
 	<footer>
-		<div class="row">
-			<div class="col mt-3">
-				<ul>
-					<li class="title">meat meet</li>
-					<li>상호 : 미트미트 | 대표자명 : 홍길동 | <a href="#">개인정보처리방침</a></li>
-					<li>사업자등록번호 : 000-00-00000</li>
-					<li>연락처 : 00-000-0000</li>
-					<li>이메일 : meatmeet@gmail.com</li>
-					<li>주소 : 서울특별시 OO구 OO로O길</li>
-				</ul>
-			</div>
-			<div class="col pt-5">
-				<a href="#"> <img src="../img/logo_white.png" alt="meatmeet로고"
-					class="mt-3">
-				</a>
+		<div class="wrap">
+			<div class="row mt-5">
+				<div class="col mt-5">
+					<ul>
+						<li class="title">meat meet</li>
+						<li>상호 : 미트미트 | 대표자명 : 홍길동 | <a href="#">개인정보처리방침</a></li>
+						<li>사업자등록번호 : 000-00-00000</li>
+						<li>연락처 : 00-000-0000</li>
+						<li>이메일 : meatmeet@gmail.com</li>
+						<li>주소 : 서울특별시 OO구 OO로O길</li>
+					</ul>
+				</div>
+				<div class="col pt-5">
+					<a href="#">
+						<img src="img/logo_white.png" alt="meatmeet로고" class="mt-3">
+					</a>
+				</div>
 			</div>
 		</div>
 	</footer>
 	<!-- footer end -->
+
 	<script>
 		function checkReg(event) {
-			const regExp = /[^0-9a-zA-Z]/g; 
+			const regExp = /[^0-9a-zA-Z]/g;
 			const del = event.target;
 			if (regExp.test(del.value)) {
 				del.value = del.value.replace(regExp, '');

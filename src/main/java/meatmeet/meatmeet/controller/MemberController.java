@@ -77,21 +77,11 @@ public class MemberController {
 		model.addAttribute("member", member);
 		return "recipe/new";
 	}
-<<<<<<< HEAD
 	
 	@PostMapping(value = "/recipe/{memberId}/new", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public String newRecipe(@PathVariable String memberId, @SessionAttribute Member member, 
-			@RequestParam MultipartFile imgFile, Recipe recipe, 
-			RedirectAttributes redirectAttributes) throws Exception {
-		
-=======
+			@RequestParam MultipartFile imgFile, Recipe recipe, RedirectAttributes redirectAttributes) throws Exception {
 
-	@PostMapping("/recipe/{memberId}/new")
-	public String newRecipe(@PathVariable String memberId, @SessionAttribute Member member,
-			@RequestParam MultipartFile imgFile, Recipe recipe, RedirectAttributes redirectAttributes)
-			throws Exception {
-
->>>>>>> 02e4f50238ac695eda82f02a610bbdb386ecbf1f
 		Long recipeId = memberService.saveRecipe(recipe, imgFile);
 		redirectAttributes.addAttribute("recipeId", recipeId);
 		return "redirect:/recipe/{recipeId}";
