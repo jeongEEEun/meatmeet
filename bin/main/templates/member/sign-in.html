@@ -49,10 +49,10 @@
       <div class="col-8 box">
         <form method="post" th:action="@{/sign-in}">
           <div class="row mb-2">
-            <input type="text" name="memberId" id="memberId" class="form-control col-sm" placeholder="아이디를 입력하세요">
+            <input type="text" name="memberId" id="memberId" class="form-control col-sm" placeholder="아이디를 입력하세요" required>
           </div>
           <div class="row mb-2">
-            <input type="password" name="memberPw" id="memberPw" class="form-control col-sm" placeholder="비밀번호를 입력하세요">
+            <input type="password" name="memberPw" id="memberPw" class="form-control col-sm" placeholder="비밀번호를 입력하세요" required>
           </div>
           <div class="row mb-5 mt-4">
             <input type="submit" value="로그인" class="btn btn-primary col ms-1">
