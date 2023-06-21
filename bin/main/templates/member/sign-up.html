@@ -18,7 +18,7 @@
 
 <body>
 	<!-- header start : 로그인 X -->
-	<header th:if="${member} == null">
+	<header th:if="${member} == null or ${duplicateId} == true">
 		<ul class="row px-0 pt-4">
 			<li class="col p-0 pe-1"><a href="/"> <img
 					src="/img/logo2.png" alt="meatmeet 로고" class="logo">
@@ -53,6 +53,8 @@
 				<label for="id" class="col-sm-3 col-form-label">아이디</label> <input
 					type="text" name="memberId" id="memberId"
 					class="form-control col-sm" onkeyup="checkReg(event)" required>
+				<div th:if="${duplicateId}" class="text-danger">이미 존재하는
+					아이디입니다.</div>
 			</div>
 			<div class="row mb-2">
 				<label for="pw" class="col-sm-3 col-form-label">비밀번호</label> <input
@@ -91,14 +93,13 @@
 	<!-- footer end -->
 	<script>
 		function checkReg(event) {
-			const regExp = /[^0-9a-zA-Z]/g; 
+			const regExp = /[^0-9a-zA-Z]/g;
 			const del = event.target;
 			if (regExp.test(del.value)) {
 				del.value = del.value.replace(regExp, '');
 				alert("아이디는 영문 또는 숫자로 입력해주세요");
 			}
 		};
-		
 	</script>
 </body>
 

@@ -30,7 +30,7 @@ public class MemberService {
 		if(findMember.isEmpty()) {
 			return memberRepository.saveMember(member);
 		}
-		
+
 		return Optional.empty();
 	}
 	
