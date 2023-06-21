@@ -108,6 +108,7 @@ public class MemberController {
 
 		if (findRecipe.isPresent()) {
 			model.addAttribute("recipe", findRecipe.get());
+			model.addAttribute(member);
 		}
 
 		return "recipe/edit";
