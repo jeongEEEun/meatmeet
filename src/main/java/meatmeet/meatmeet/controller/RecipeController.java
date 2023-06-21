@@ -1,3 +1,4 @@
+/*
 package meatmeet.meatmeet.controller;
 
 import java.time.LocalDateTime;
@@ -27,7 +28,6 @@ public class RecipeController {
 	private final RecipeService recipeService;
 
 	public RecipeController(RecipeService recipeService) {
-		this.recipeService = recipeService;
 	}
 
 	@GetMapping("/recipe")
@@ -95,10 +95,13 @@ public class RecipeController {
 		comment.setRecipeId(recipeId);
 		comment.setMemberId(member.getMemberId());
 		comment.setComment(commentText);
-		recipeService.saveComment(comment);
-
+	    if (commentText != null && !commentText.isEmpty()) {
+	        recipeService.saveComment(comment);
+	    }
+		
 		redirectAttributes.addAttribute("recipeId", recipeId);
 
 		return "redirect:/recipe/{recipeId}";
 	}
 }
+*/

@@ -15,4 +15,5 @@ public class Item {
 	private String part;
 	private String itemUnit;
 	private String selector;
+	private String imgName;
 }

@@ -67,7 +67,9 @@
 					장바구니</a>
 			</li>
 			<li class="col p-0 row member">
-				<span class="col member-name" th:text="${member.memberName}">사용자명</span>
+				<span class="col p-0">
+					<span class="member-name" th:text="${member.memberName}">사용자명</span><span> 님</span>
+				</span>
 				<button class="btn btn-primary col logout-btn" onclick="location.href='/sign-out'">로그아웃</button>
 			</li>
 		</ul>
@@ -203,12 +205,12 @@
 		/*[# th:each="i : ${items}"]*/
 		var item = new Object();
 		
-		item.name = /*[[${i.itemName}]]*/;
-		item.part = /*[[${i.part}]]*/;
-		item.unit = /*[[${i.itemUnit}]]*/;
-		item.todayPrice = /*[[${i.todayPrice}]]*/;
-		item.yesterdayPrice = /*[[${i.yesterdayPrice}]]*/;
-		item.selector = /*[[${i.selector}]]*/;
+		item.name = /*[[${i.itemName}]]*/
+		item.part = /*[[${i.part}]]*/
+		item.unit = /*[[${i.itemUnit}]]*/
+		item.todayPrice = /*[[${i.todayPrice}]]*/
+		item.yesterdayPrice = /*[[${i.yesterdayPrice}]]*/
+		item.selector = /*[[${i.selector}]]*/
 		
 		items.push(item);
 		/*[/]*/

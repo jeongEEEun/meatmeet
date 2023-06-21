@@ -1,159 +1,157 @@
 @charset "UTF-8";
 
 .container {
-  font-family: 'Noto Sans KR', sans-serif;
-  margin: 0 center;
-  padding: 0;
-  max-width: 1000px;
-  color: #333;
+	font-family: 'Noto Sans KR', sans-serif;
+	margin: 0 center;
+	padding: 0;
+	max-width: 1000px;
+	color: #333;
 }
 
 .view {
-  font-weight: normal;
-  font-size: 16px;
-  color: rgb(127, 127, 127);
-  display: flex;
-  justify-content: flex-end;
-  margin-right: 20px;
+	font-weight: normal;
+	font-size: 16px;
+	color: rgb(127, 127, 127);
+	display: flex;
+	justify-content: flex-end;
+	margin-right: 20px;
 }
 
 .count {
-  margin-left: 5px;
+	margin-left: 5px;
 }
 
 .location {
-  font-weight: bold;
-  font-size: 16px;
-  text-align: left;
-  color: rgb(127, 127, 127);
-  margin-left: 40px;
+	font-weight: bold;
+	font-size: 16px;
+	text-align: left;
+	color: rgb(127, 127, 127);
+	margin-left: 40px;
 }
 
 .container h2 {
-  font-weight: bold;
-  font-size: 28px;
-  text-align: left;
-  margin: 10px 0 10px 40px;
+	font-weight: bold;
+	font-size: 28px;
+	text-align: left;
+	margin: 10px 0 10px 40px;
 }
 
 .container img {
-  float: left;
-  top: 278px;
-  left: 149px;
-  width: 600px;
-  height: 400px;
-  margin-left: 40px;
-  margin-top: 10px;
-  margin-right: 40px;
+	float: left;
+	top: 278px;
+	left: 149px;
+	width: 600px;
+	height: 400px;
+	margin-left: 40px;
+	margin-top: 10px;
+	margin-right: 40px;
 }
 
 .content {
-  text-align: center;
-  font-size: 16px;
+	text-align: center;
+	font-size: 16px;
 }
 
 .content h3 {
-  font-weight: bold;
-  font-size: 18px;
-  text-align: left;
+	font-weight: bold;
+	font-size: 18px;
+	text-align: left;
 }
 
 .content li {
-  list-style-type: none;
-  text-align: left;
-  margin-top: 10px;
+	list-style-type: none;
+	text-align: left;
+	margin-top: 10px;
 }
 
 .ingredient {
-  padding-top: 30px;
+	padding-top: 30px;
 }
 
 .ingredient hr {
-  width: 260px;
-  position: relative;
-  left: -20px;
+	width: 260px;
+	position: relative;
+	left: -20px;
 }
 
 .method {
-  clear: both;
-  padding-top: 20px;
-  padding-left: 10px;
-  margin-right: 20px;
+	clear: both;
+	padding-top: 20px;
+	padding-left: 10px;
+	margin-right: 20px;
 }
 
 .method ul {
-  padding-left: 40px;
+	padding-left: 40px;
 }
 
 .method h3 {
-  font-weight: bold;
-  font-size: 18px;
+	font-weight: bold;
+	font-size: 18px;
 }
 
-.method li {
-  font-size: 16px;
-  list-style-type: decimal;
-  margin-top: 10px;
-  margin-left: 20px;
-  padding-top: 5px;
+
+.method .step {
+	font-size: 16px;
+	margin-top: 10px;
+	margin-left: 20px;
 }
 
 .review {
-  padding-left: 50px;
-  margin-right: 20px;
+	padding-left: 50px;
+	margin-right: 20px;
 }
 
 .review h3 {
-  font-weight: bold;
-  font-size: 18px;
-  padding-top: 20px;
-  float: left;
-  padding-bottom: 10px;
+	font-weight: bold;
+	font-size: 18px;
+	padding-top: 20px;
+	float: left;
+	padding-bottom: 10px;
 }
 
 .review hr {
-  clear: both;
+	clear: both;
 }
 
 .comment .name {
-  font-weight: bold;
-  font-size: 16px;
-  float: left;
-  margin-right: 10px;
+	font-weight: bold;
+	font-size: 16px;
+	float: left;
+	margin-right: 10px;
 }
 
 .comment .text {
-  clear: both;
-  padding-top: 10px;
+	clear: both;
+	padding-top: 10px;
 }
 
 .comment-add {
-  padding: 20px 0 80px 0;
-
+	padding: 20px 0 80px 0;
 }
 
 .comment-add input {
-  padding: 6px 12px;
-  width: 800px;
-  height: 50px;
-  background: #fff;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 14px;
-  margin-right: 20px;
+	padding: 6px 12px;
+	width: 800px;
+	height: 50px;
+	background: #fff;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	font-size: 14px;
+	margin-right: 20px;
 }
 
 .comment-add button {
-  font-size: 16px;
-  color: rgb(64, 64, 64);
-  text-align: center;
-  width: 100px;
-  height: 50px;
-  border-radius: 4px;
-  background-color: #ffb3b3;
-  border: none;
+	font-size: 16px;
+	color: rgb(64, 64, 64);
+	text-align: center;
+	width: 100px;
+	height: 50px;
+	border-radius: 4px;
+	background-color: #ffb3b3;
+	border: none;
 }
 
 .comment-add button:hover {
-  color: #fff;
+	color: #fff;
 }

@@ -131,7 +131,7 @@
           <label for="file">파일 첨부</label>
           <p><input type="file" placeholder="음식 사진을 첨부해주세요." name="imgFile"></p>
         </div>
-        <button class="delete" type="submit">삭제</button>
+        <button class="delete" type="button" th:onclick="|location.href='@{/recipe/{memberId}/{recipeId}/delete(memberId=${recipe.memberId}, recipeId=${recipe.recipeId})}'|">삭제</button>
         <div class="button">
           <button class="cancel" type="reset">취소</button>
           <button class="submit" type="submit">수정</button>
@@ -156,7 +156,7 @@
       </div>
       <div class="col pt-5">
         <a href="#">
-          <img src="../../static/img/logo_white.png" alt="meatmeet로고" class="mt-3">
+          <img src="/img/logo_white.png" alt="meatmeet로고" class="mt-3">
         </a>
       </div>
     </div>

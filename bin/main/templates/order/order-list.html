@@ -94,7 +94,7 @@
             <div class="border-bottom fw-bold mb-2 pb-2">결제정보</div>
             <div class="row">
               <span class="col-auto me-auto">상품 금액</span>
-              <span class="fw-bold col-auto price" th:text="${orderInfo.totalPrice}">0원</span>
+              <span class="fw-bold col-auto price" th:text="${orderInfo.totalPrice} + 원">0원</span>
             </div>
             <div class="row">
               <span class="col-auto me-auto">배송비</span>
@@ -106,7 +106,7 @@
             </div>
             <div class="row pt-4">
               <span class="col-auto me-auto">결제금액</span>
-              <span class="fw-bold total-price col-auto" th:text="${orderInfo.totalPrice} + 3000">0원</span>
+              <span class="fw-bold total-price col-auto" th:text="${orderInfo.totalPrice} + 3000 + 원">0원</span>
             </div>
           </div>
           <button class="btn btn-secondary cancle-btn align-baseline" th:onclick="|location.href='@{/order/{memberId}/{orderId}/cancel(memberId=${member.memberId}, orderId=${orderInfo.orderId})}'|">주문 취소</button>
@@ -120,8 +120,20 @@
   <!-- container end : 주문내역 O -->
   
   <!-- container start : 주문내역 X -->
-  <div th:if="${#lists.size(orderInfo) == 0}">
-  	<span>주문내역 없음</span>
+  <div class="container" th:if="${#lists.size(orderInfo) == 0}">
+    <div>
+      <a href="#" class="title">
+        <img src="/img/order.png" alt="주문내역 아이콘" class="small-icon">
+      </a>
+    </div>
+    <br>
+    <div>
+      주문내역이 없습니다
+    </div>
+    <br>
+    <div>
+      <button class="btn btn-primary" onclick="location.href='/'">홈으로 가기</button>
+    </div>
   </div>
   <!-- container end : 주문내역 X -->
   
@@ -141,7 +153,7 @@
       </div>
       <div class="col pt-5">
         <a href="#">
-          <img src="img/logo_white.png" alt="meatmeet로고" class="mt-3">
+          <img src="/img/logo_white.png" alt="meatmeet로고" class="mt-3">
         </a>
       </div>
     </div>

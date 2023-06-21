@@ -1,57 +1,69 @@
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 
 @font-face {
-  font-family: 'GeekbleMalang2WOFF2';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/GeekbleMalang2WOFF2.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
+	font-family: 'GeekbleMalang2WOFF2';
+	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/GeekbleMalang2WOFF2.woff2') format('woff2');
+	font-weight: normal;
+	font-style: normal;
 }
 
-html, body {
-  height: 100%
+html,
+body {
+	height: 100%
 }
 
 .wrap {
-  min-height: 100%;
-  position: relative;
-  padding-bottom: 60px;
+	min-height: 100%;
+	position: relative;
+	padding-bottom: 60px;
 }
 
 footer.cart {
-  position: absolute;
-  bottom: 0;
+	position: absolute;
+	bottom: 0;
 }
 
 .container {
-  margin: 0 auto;
-  max-width: 1000px;
-  text-align: center;
+	margin: auto;
+	margin-top: 150px;
+	max-width: 1000px;
+	text-align: center;
 }
 
 .container h1 {
-  text-align: center;
+	text-align: center;
 }
 
 .container .table {
-  text-align: center;
-  width: 900px;
+	text-align: center;
+	width: 900px;
+	margin-right: 50px;
 }
 
 .container .box {
-  max-width: 200px;
-  max-height: 255px;
-  font-size: 14px;
+	max-width: 200px;
+	max-height: 255px;
+	font-size: 16px;
 }
 
 .container .box span.price {
-  font-size: 16px;
-  line-height: 14px;
+	font-size: 16px;
+	line-height: 14px;
+	padding-bottom: 10px;
 }
 
 .container .box .total-price {
-  font-size: 20px;
-  line-height: 16px;
-  color: #ff6666;
+	font-size: 20px;
+	float: right;
+	color: #ff6666;
+	margin: 0;
+	padding-left: 0;
+}
+
+.row {
+	display: flex;
+	flex-wrap: nowrap;
+	padding-right: 10px;
 }
 
 .small-icon {
@@ -59,9 +71,9 @@ footer.cart {
 }
 
 .btn.btn-secondary {
-  width: 30px;
-  height: 30px;
-  padding: 0;
+	width: 30px;
+	height: 30px;
+	padding: 0;
 }
 
 .btn-primary {
