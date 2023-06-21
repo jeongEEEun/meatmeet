@@ -13,42 +13,34 @@
 </head>
 
 <body>
-  <!-- header start : 로그인 O -->
-  <header th:if="${member} != null" class="border-bottom">
-    <div class="wrap">
-      <ul class="row px-0 pt-4">
-        <li class="col p-0 pe-1">
-          <a href="/">
-            <img src="/img/logo2.png" alt="meatmeet 로고" class="logo">
-          </a>
-        </li>
-        <li class="col p-0">
-          <a href="/recipe" class="ms-5 title">레시피</a>
-        </li>
-        <li class="col p-0">
-          <a href="/myrecipe" th:href="@{/myrecipe/{memberId}(memberId=${member.memberId})}" class="title">나의 레시피</a>
-        </li>
-        <li class="col p-0">
-          <a href="/order-list" th:href="@{/order/{memberId}(memberId=${member.memberId})}" class="title">
-            <img src="/img/order.png" alt="주문내역 아이콘" class="icon">
-            주문내역
-          </a>
-        </li>
-        <li class="col p-0">
-          <a href="/cart" th:href="@{/cart/{memberId}(memberId=${member.memberId})}" class="title">
-            <img src="/img/cart.png" alt="장바구니 아이콘" class="icon">
-            장바구니</a>
-        </li>
-        <li class="col p-0 row member">
-          <span class="col p-0">
-            <span class="member-name" th:text="${member.memberName}">사용자명</span><span> 님</span>
-          </span>
-          <button class="btn btn-light col logout-btn" onclick="location.href='/sign-out'">로그아웃</button>
-        </li>
-      </ul>
-    </div>
-  </header>
-  <!-- header end : 로그인 O -->
+	<!-- header start : 로그인 O -->
+	<header th:if="${member} != null">
+		<ul class="row px-0 pt-4">
+			<li class="col p-0 pe-1"><a href="/"> <img
+					src="img/logo2.png" alt="meatmeet 로고" class="logo">
+			</a></li>
+			<li class="col p-0"><a href="/recipe" class="ms-5 title">레시피</a>
+			</li>
+			<li class="col p-0"><a href="/myrecipe"
+				th:href="@{/myrecipe/{memberId}(memberId=${member.memberId})}"
+				class="title">나의 레시피</a></li>
+			<li class="col p-0"><a href="/order"
+				th:href="@{/order/{memberId}(memberId=${member.memberId})}"
+				class="title"> <img src="img/order.png" alt="주문내역 아이콘"
+					class="icon"> 주문내역
+			</a></li>
+			<li class="col p-0"><a href="/cart"
+				th:href="@{/cart/{memberId}(memberId=${member.memberId})}"
+				class="title"> <img src="img/cart.png" alt="장바구니 아이콘"
+					class="icon"> 장바구니
+			</a></li>
+			<li class="col p-0 row member"><span href="#"
+				class="col member-name" th:text="${member.memberName}">사용자명</span>
+				<button class="btn btn-primary col logout-btn"
+					onclick="location.href='/sign-out'">로그아웃</button></li>
+		</ul>
+	</header>
+	<!-- header end : 로그인 O -->
 
   <script>
     function handleCategoryChange() {
@@ -139,8 +131,7 @@
           <label for="file">파일 첨부</label>
           <p><input type="file" placeholder="음식 사진을 첨부해주세요." name="imgFile"></p>
         </div>
-        <button class="delete" type="button"
-          th:onclick="|location.href='@{/recipe/{memberId}/{recipeId}/delete(memberId=${recipe.memberId}, recipeId=${recipe.recipeId})}'|">삭제</button>
+        <button class="delete" type="button" th:onclick="|location.href='@{/recipe/{memberId}/{recipeId}/delete(memberId=${recipe.memberId}, recipeId=${recipe.recipeId})}'|">삭제</button>
         <div class="button">
           <button class="cancel" type="reset">취소</button>
           <button class="submit" type="submit">수정</button>
@@ -152,23 +143,21 @@
 
   <!-- footer start -->
   <footer>
-    <div class="wrap">
-      <div class="row mt-5">
-        <div class="col mt-5">
-          <ul>
-            <li class="title">meat meet</li>
-            <li>상호 : 미트미트 | 대표자명 : 홍길동 | <a href="#">개인정보처리방침</a></li>
-            <li>사업자등록번호 : 000-00-00000</li>
-            <li>연락처 : 00-000-0000</li>
-            <li>이메일 : meatmeet@gmail.com</li>
-            <li>주소 : 서울특별시 OO구 OO로O길</li>
-          </ul>
-        </div>
-        <div class="col pt-5">
-          <a href="#">
-            <img src="img/logo_white.png" alt="meatmeet로고" class="mt-3">
-          </a>
-        </div>
+    <div class="row">
+      <div class="col mt-3">
+        <ul>
+          <li class="title">meat meet</li>
+          <li>상호 : 미트미트 | 대표자명 : 홍길동 | <a href="#">개인정보처리방침</a></li>
+          <li>사업자등록번호 : 000-00-00000</li>
+          <li>연락처 : 00-000-0000</li>
+          <li>이메일 : meatmeet@gmail.com</li>
+          <li>주소 : 서울특별시 OO구 OO로O길</li>
+        </ul>
+      </div>
+      <div class="col pt-5">
+        <a href="#">
+          <img src="/img/logo_white.png" alt="meatmeet로고" class="mt-3">
+        </a>
       </div>
     </div>
   </footer>

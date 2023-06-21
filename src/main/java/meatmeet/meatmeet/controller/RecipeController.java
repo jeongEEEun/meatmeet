@@ -1,3 +1,4 @@
+/*
 package meatmeet.meatmeet.controller;
 
 import java.time.LocalDateTime;
@@ -27,7 +28,6 @@ public class RecipeController {
 	private final RecipeService recipeService;
 
 	public RecipeController(RecipeService recipeService) {
-		this.recipeService = recipeService;
 	}
 
 	@GetMapping("/recipe")
@@ -104,3 +104,4 @@ public class RecipeController {
 		return "redirect:/recipe/{recipeId}";
 	}
 }
+*/

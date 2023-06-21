@@ -1,20 +1,14 @@
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
-
 @font-face {
-	font-family: 'GeekbleMalang2WOFF2';
-	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/GeekbleMalang2WOFF2.woff2') format('woff2');
-	font-weight: normal;
-	font-style: normal;
+  font-family: 'GeekbleMalang2WOFF2';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/GeekbleMalang2WOFF2.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
 }
 
 * {
 	font-family: 'Noto Sans KR', sans-serif;
 	font-size: 16px;
-}
-
-.wrap {
-	margin: 0 auto;
-	max-width: 1000px;
 }
 
 .title {
@@ -28,6 +22,7 @@ header {
 	margin: 0 auto;
 	padding: 0;
 	padding-top: 30px;
+	max-width: 1000px;
 }
 
 /* HEADER */
@@ -88,12 +83,8 @@ header ul li .logout-btn {
 }
 
 header ul li .logout-btn:hover {
-	background-color: #ff6666;
-	border-color: #ff6666;
-}
-
-header.border-bottom {
-	max-width: 100%;
+  background-color: #ff6666;
+  border-color: #ff6666;
 }
 
 /* footer */
@@ -103,6 +94,11 @@ footer {
 	height: 250px;
 	bottom: 0;
 	left: 0;
+}
+
+footer div:first-child {
+	max-width: 1000px;
+	margin: 0 auto;
 }
 
 footer div ul {

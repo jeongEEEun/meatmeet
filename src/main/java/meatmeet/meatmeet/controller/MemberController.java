@@ -6,7 +6,6 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -77,10 +76,11 @@ public class MemberController {
 		model.addAttribute("member", member);
 		return "recipe/new";
 	}
-	
-	@PostMapping(value = "/recipe/{memberId}/new", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public String newRecipe(@PathVariable String memberId, @SessionAttribute Member member, 
-			@RequestParam MultipartFile imgFile, Recipe recipe, RedirectAttributes redirectAttributes) throws Exception {
+
+	@PostMapping("/recipe/{memberId}/new")
+	public String newRecipe(@PathVariable String memberId, @SessionAttribute Member member,
+			@RequestParam MultipartFile imgFile, Recipe recipe, RedirectAttributes redirectAttributes)
+			throws Exception {
 
 		Long recipeId = memberService.saveRecipe(recipe, imgFile);
 		redirectAttributes.addAttribute("recipeId", recipeId);
