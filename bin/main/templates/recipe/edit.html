@@ -2,69 +2,71 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <title>recipe edit</title>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../../static/css/reset.css" th:href="@{/css/reset.css}">
-  <link rel="stylesheet" href="../../static/css/header-footer.css" th:href="@{/css/header-footer.css}">
-  <link rel="stylesheet" href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
-  <link rel="stylesheet" href="../../static/css/edit.css" th:href="@{/css/edit.css}">
+<title>recipe edit</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../../static/css/reset.css"
+	th:href="@{/css/reset.css}">
+<link rel="stylesheet" href="../../static/css/header-footer.css"
+	th:href="@{/css/header-footer.css}">
+<link rel="stylesheet" href="../../static/css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" href="../../static/css/edit.css"
+	th:href="@{/css/edit.css}">
 </head>
 
 <body>
-  <!-- header start : 로그인 O -->
-  <header th:if="${member} != null" class="border-bottom">
-    <div class="wrap">
-      <ul class="row px-0 pt-4">
-        <li class="col p-0 pe-1">
-          <a href="/">
-            <img src="/img/logo2.png" alt="meatmeet 로고" class="logo">
-          </a>
-        </li>
-        <li class="col p-0">
-          <a href="/recipe" class="ms-5 title">레시피</a>
-        </li>
-        <li class="col p-0">
-          <a href="/myrecipe" th:href="@{/myrecipe/{memberId}(memberId=${member.memberId})}" class="title">나의 레시피</a>
-        </li>
-        <li class="col p-0">
-          <a href="/order-list" th:href="@{/order/{memberId}(memberId=${member.memberId})}" class="title">
-            <img src="/img/order.png" alt="주문내역 아이콘" class="icon">
-            주문내역
-          </a>
-        </li>
-        <li class="col p-0">
-          <a href="/cart" th:href="@{/cart/{memberId}(memberId=${member.memberId})}" class="title">
-            <img src="/img/cart.png" alt="장바구니 아이콘" class="icon">
-            장바구니</a>
-        </li>
-        <li class="col p-0 row member">
-          <span class="col p-0">
-            <span class="member-name" th:text="${member.memberName}">사용자명</span><span> 님</span>
-          </span>
-          <button class="btn btn-light col logout-btn" onclick="location.href='/sign-out'">로그아웃</button>
-        </li>
-      </ul>
-    </div>
-  </header>
-  <!-- header end : 로그인 O -->
+	<!-- header start : 로그인 O -->
+	<header th:if="${member} != null" class="border-bottom">
+		<div class="wrap">
+			<ul class="row px-0 pt-4">
+				<li class="col p-0 pe-1"><a href="/"> <img
+						src="/img/logo2.png" alt="meatmeet 로고" class="logo">
+				</a></li>
+				<li class="col p-0"><a href="/recipe" class="ms-5 title">레시피</a>
+				</li>
+				<li class="col p-0"><a href="/myrecipe"
+					th:href="@{/myrecipe/{memberId}(memberId=${member.memberId})}"
+					class="title">나의 레시피</a></li>
+				<li class="col p-0"><a href="/order-list"
+					th:href="@{/order/{memberId}(memberId=${member.memberId})}"
+					class="title"> <img src="/img/order.png" alt="주문내역 아이콘"
+						class="icon"> 주문내역
+				</a></li>
+				<li class="col p-0"><a href="/cart"
+					th:href="@{/cart/{memberId}(memberId=${member.memberId})}"
+					class="title"> <img src="/img/cart.png" alt="장바구니 아이콘"
+						class="icon"> 장바구니
+				</a></li>
+				<li class="col p-0 row member"><span class="col p-0"> <span
+						class="member-name" th:text="${member.memberName}">사용자명</span><span>
+							님</span>
+				</span>
+					<button class="btn btn-light col logout-btn"
+						onclick="location.href='/sign-out'">로그아웃</button></li>
+			</ul>
+		</div>
+	</header>
+	<!-- header end : 로그인 O -->
 
-  <script>
-    function handleCategoryChange() {
-      var category = document.getElementById("type").value;
-      var parts = document.querySelectorAll("#part optgroup");
+	<script>
+		function handleCategoryChange() {
+			var category = document.getElementById("type").value;
+			var category2 = document.getElementById("part");
+			var parts = document.querySelectorAll("#part > optgroup");
 
-      parts.forEach(function (part) {
-        part.style.display = "none";
-      });
+			parts.forEach(function(part) {
+				part.style.display = "none";
+			});
 
-      var selectedParts = document.querySelector("#" + category + "-part");
-      selectedParts.style.display = "block";
-    }
-  </script>
-  <!-- container start -->
+			var selectedPart = document
+					.querySelector("#part > optgroup[label='" + category + "']");
+			if (selectedPart) {
+				selectedPart.style.display = "block";
+			}
 
+<<<<<<< HEAD
   <div class="container">
     <div class="category">
       <form action="#"
@@ -89,89 +91,138 @@
               <option value="belly">삼겹살</option>
               <option value="forelegs">앞다리</option>
             </optgroup>
+=======
+			if (category === "돼지") {
+				category2.value = "목심";
+			} else if (category === "소") {
+				category2.value = "갈비";
+			} else {
+				category2.value = "없음";
+			}
+		}
+	</script>
+	<!-- container start -->
+>>>>>>> 635297e01b0cb002cdf79c969b73732a0b269f8c
 
-            <optgroup id="beef-part" label="소" style="display: none;">
-              <option value="rib">갈비</option>
-              <option value="brisket">양지</option>
-              <option value="round">설도</option>
-              <option value="sirloin">등심</option>
-              <option value="tenderloin">안심</option>
-            </optgroup>
+	<div class="container">
+		<div class="category">
+			<form action="#"
+				th:action="@{/recipe/{memberId}/{recipeId}/edit(memberId=${memberId}, recipeId=${recipe.recipeId})}"
+				method="post">
+				<div class="cateory-select">
+					<label for="category-select">카테고리</label> <select class="type"
+						name="category1" id="type" onchange="handleCategoryChange()"
+						th:value="${recipe.category1}" required>
+						<option value="" selected disabled>종류</option>
+							<option value="돼지">돼지</option>
+							<option value="소">소</option>
+							<option value="닭">닭</option>
+							<option value="계란">계란</option>
+							<option value="우유">우유</option>
+					</select> <select class="part" name="category2" id="part"
+						th:value="${recipe.category2}">
+						<option value="" selected disabled>부위</option>
+						<optgroup id="pork-part" label="돼지" style="display: none;">
+							<option value="목심">목심</option>
+								<option value="갈비">갈비</option>
+								<option value="삼겹살">삼겹살</option>
+								<option value="앞다리">앞다리</option>
+						</optgroup>
 
-            <optgroup id="chicken-part" label="닭" style="display: none;">
-              <option value="none" selected>없음</option>
-            </optgroup>
+						<optgroup id="beef-part" label="소" style="display: none;">
+							<option value="갈비">갈비</option>
+								<option value="양지">양지</option>
+								<option value="설도">설도</option>
+								<option value="등심">등심</option>
+								<option value="안심">안심</option>
+						</optgroup>
 
-            <optgroup id="egg-part" label="계란" style="display: none;">
-              <option value="none" selected>없음</option>
-            </optgroup>
+						<optgroup id="chicken-part" label="닭" style="display: none;">
+							<option value="없음" selected>없음</option>
+						</optgroup>
 
-            <optgroup id="milk-part" label="우유" style="display: none;">
-              <option value="none" selected>없음</option>
-            </optgroup>
-          </select>
+						<optgroup id="egg-part" label="계란" style="display: none;">
+							<option value="없음" selected>없음</option>
+						</optgroup>
 
-        </div>
-        <br>
-        <div class="recipe">
-          <label for="title">제목</label>
-          <input type="text" name="title" id="title" placeholder="레시피 제목을 입력해주세요." th:value="${recipe.title}">
-        </div>
-        <hr>
-        <div class="ingredient">
-          <label for="ingre">재료</label>
-          <p><textarea name="ingre" id="ingre" cols="50" rows="5"
-              placeholder="필요한 재료와 무게/수량을 적어주세요. 예) 채끝 등심 400g, 미니 파프리카 3~4개" th:text="${recipe.ingre}"></textarea></p>
-        </div>
-        <div class="source">
-          <label for="sauce">양념</label>
-          <p><textarea name="sauce" id="sauce" cols="50" rows="7" placeholder="필요한 양념과 양을 적어주세요. 예) 소금 약간, 간장 1스푼"
-              th:text="${recipe.sauce}"></textarea></p>
-        </div>
-        <hr>
-        <div class="method">
-          <label for="step">만드는 법</label>
-          <p><textarea name="step" id="step" cols="50" rows="10" placeholder="요리 소개와 정보, 만드는 과정과 요리 팁을 자유롭게 적어주세요."
-              th:text="${recipe.step}"></textarea></p>
-        </div>
-        <div class="file">
-          <label for="file">파일 첨부</label>
-          <p><input type="file" placeholder="음식 사진을 첨부해주세요." name="imgFile"></p>
-        </div>
-        <button class="delete" type="button"
-          th:onclick="|location.href='@{/recipe/{memberId}/{recipeId}/delete(memberId=${recipe.memberId}, recipeId=${recipe.recipeId})}'|">삭제</button>
-        <div class="button">
-          <button class="cancel" type="reset">취소</button>
-          <button class="submit" type="submit">수정</button>
-        </div>
-      </form>
-    </div>
-  </div>
-  <!-- container end -->
+						<optgroup id="milk-part" label="우유" style="display: none;">
+							<option value="없음" selected>없음</option>
+						</optgroup>
+					</select>
 
-  <!-- footer start -->
-  <footer>
-    <div class="wrap">
-      <div class="row mt-5">
-        <div class="col mt-5">
-          <ul>
-            <li class="title">meat meet</li>
-            <li>상호 : 미트미트 | 대표자명 : 홍길동 | <a href="#">개인정보처리방침</a></li>
-            <li>사업자등록번호 : 000-00-00000</li>
-            <li>연락처 : 00-000-0000</li>
-            <li>이메일 : meatmeet@gmail.com</li>
-            <li>주소 : 서울특별시 OO구 OO로O길</li>
-          </ul>
-        </div>
-        <div class="col pt-5">
-          <a href="#">
-            <img src="img/logo_white.png" alt="meatmeet로고" class="mt-3">
-          </a>
-        </div>
-      </div>
-    </div>
-  </footer>
-  <!-- footer end -->
+				</div>
+				<br>
+				<div class="recipe">
+					<label for="title">제목</label> <input type="text" name="title"
+						id="title" placeholder="레시피 제목을 입력해주세요."
+						th:value="${recipe.title}">
+				</div>
+				<hr>
+				<div class="ingredient">
+					<label for="ingre">재료</label>
+					<p>
+						<textarea name="ingre" id="ingre" cols="50" rows="5"
+							placeholder="필요한 재료와 무게/수량을 적어주세요. 예) 채끝 등심 400g, 미니 파프리카 3~4개"
+							th:text="${recipe.ingre}"></textarea>
+					</p>
+				</div>
+				<div class="source">
+					<label for="sauce">양념</label>
+					<p>
+						<textarea name="sauce" id="sauce" cols="50" rows="7"
+							placeholder="필요한 양념과 양을 적어주세요. 예) 소금 약간, 간장 1스푼"
+							th:text="${recipe.sauce}"></textarea>
+					</p>
+				</div>
+				<hr>
+				<div class="method">
+					<label for="step">만드는 법</label>
+					<p>
+						<textarea name="step" id="step" cols="50" rows="10"
+							placeholder="요리 소개와 정보, 만드는 과정과 요리 팁을 자유롭게 적어주세요."
+							th:text="${recipe.step}"></textarea>
+					</p>
+				</div>
+				<div class="file">
+					<label for="file">파일 첨부</label>
+					<p>
+						<input type="file" placeholder="음식 사진을 첨부해주세요." name="imgFile">
+					</p>
+				</div>
+				<button class="delete" type="button"
+					th:onclick="|location.href='@{/recipe/{memberId}/{recipeId}/delete(memberId=${recipe.memberId}, recipeId=${recipe.recipeId})}'|">삭제</button>
+				<div class="button">
+					<button class="cancel" type="reset">취소</button>
+					<button class="submit" type="submit">수정</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<!-- container end -->
+
+	<!-- footer start -->
+	<footer>
+		<div class="wrap">
+			<div class="row mt-5">
+				<div class="col mt-5">
+					<ul>
+						<li class="title">meat meet</li>
+						<li>상호 : 미트미트 | 대표자명 : 홍길동 | <a href="#">개인정보처리방침</a></li>
+						<li>사업자등록번호 : 000-00-00000</li>
+						<li>연락처 : 00-000-0000</li>
+						<li>이메일 : meatmeet@gmail.com</li>
+						<li>주소 : 서울특별시 OO구 OO로O길</li>
+					</ul>
+				</div>
+				<div class="col pt-5">
+					<a href="#"> <img src="/img/logo_white.png" alt="meatmeet로고"
+						class="mt-3">
+					</a>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- footer end -->
 </body>
 
 </html>

@@ -12,11 +12,6 @@
   padding: 10px 0 10px 50px;
 }
 
-.category hr {
-  width: 900px;
-  margin: 20px 0;
-}
-
 .category label {
   font-weight: bold;
   font-size: 18px;
@@ -107,18 +102,15 @@
   border: 0 solid #ccc;
 }
 
-button {
-  margin: 30px 20px 50px 20px;
-  padding: 6px 12px;
-  font-size: 20px;
-}
-
 .cancel {
   width: 400px;
   height: 80px;
   background: #fff;
   border: 1px solid #ccc;
   border-radius: 4px;
+  margin: 30px 20px 50px 20px;
+  padding: 6px 12px;
+  font-size: 20px;
 }
 
 .cancel:hover {
@@ -133,6 +125,9 @@ button {
   color: rgb(255, 255, 255);
   background-color: rgb(255, 102, 102);
   border: 1px solid rgb(255, 102, 102);
+  margin: 30px 20px 50px 20px;
+  padding: 6px 12px;
+  font-size: 20px;
 }
 
 .submit:hover {
