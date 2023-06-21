@@ -52,6 +52,7 @@
 		<script>
 			function handleCategoryChange() {
 				var category = document.getElementById("type").value;
+				var category2 = document.getElementById("part");
 				var parts = document.querySelectorAll("#part > optgroup");
 
 				parts.forEach(function(part) {
@@ -64,6 +65,14 @@
 				if (selectedPart) {
 					selectedPart.style.display = "block";
 				}
+				
+				if (category === "돼지") {
+		            category2.value = "목심";
+		        } else if (category === "소") {
+		            category2.value = "갈비";
+		        } else {
+		            category2.value = "없음";
+		        }
 			}
 		</script>
 
@@ -86,14 +95,14 @@
 						</select> <select class="part" name="category2" id="part">
 							<option value="" selected disabled>부위</option>
 							<optgroup id="pork-part" label="돼지" style="display: none;">
-								<option value="목심" selected>목심</option>
+								<option value="목심">목심</option>
 								<option value="갈비">갈비</option>
 								<option value="삼겹살">삼겹살</option>
 								<option value="앞다리">앞다리</option>
 							</optgroup>
 
 							<optgroup id="beef-part" label="소" style="display: none;">
-								<option value="갈비" selected>갈비</option>
+								<option value="갈비">갈비</option>
 								<option value="양지">양지</option>
 								<option value="설도">설도</option>
 								<option value="등심">등심</option>
