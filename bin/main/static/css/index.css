@@ -37,6 +37,24 @@
 	font-size: 18px;
 }
 
+.price-tooltip .price {
+	color: #ff6666;
+	font-size: 18px;
+}
+
+.price-tooltip .increase {
+	color: #ff6666;
+	font-size: 18px;
+}
+
+.price-tooltip .blue {
+	color: RoyalBlue;
+}
+
+.price-tooltip .red {
+	color: #ff3333;
+}
+
 /* CONTAINER */
 .container {
 	max-width: 100% !important;

@@ -120,16 +120,16 @@
 				<h3 class="title">소</h3>
 				<img src="img/소.png" alt="소고기 부위별 시세" usemap="#cow-map">
 				<map name="cow-map">
-					<area id="rib-cow" target="_blank" alt="등심" href="등심" coords="289,88,9" shape="circle">
-					<area id="brisket" target="_blank" alt="등심" href="등심" coords="393,5,428,27" shape="rect">
-					<area target="_blank" alt="안심" href="안심" coords="347,121,9" shape="circle">
-					<area target="_blank" alt="안심" href="안심" coords="449,43,484,62" shape="rect">
-					<area target="_blank" alt="설도" href="설도" coords="394,179,9" shape="circle">
-					<area target="_blank" alt="설도" href="설도" coords="498,237,535,257" shape="rect">
-					<area target="_blank" alt="갈비" href="갈비" coords="238,145,9" shape="circle">
-					<area target="_blank" alt="갈비" href="갈비" coords="64,239,98,258" shape="rect">
-					<area target="_blank" alt="양지" href="양지" coords="279,207,8" shape="circle">
-					<area target="_blank" alt="양지" href="양지" coords="64,301,98,320" shape="rect">
+					<area id="sirloin" target="_blank" alt="등심" href="등심" coords="289,88,9" shape="circle">
+					<area id="sirloin" target="_blank" alt="등심" href="등심" coords="393,5,428,27" shape="rect">
+					<area id="tenderloin" target="_blank" alt="안심" href="안심" coords="347,121,9" shape="circle">
+					<area id="tenderloin" target="_blank" alt="안심" href="안심" coords="449,43,484,62" shape="rect">
+					<area id="round" target="_blank" alt="설도" href="설도" coords="394,179,9" shape="circle">
+					<area id="round" target="_blank" alt="설도" href="설도" coords="498,237,535,257" shape="rect">
+					<area id="rib-cow" target="_blank" alt="갈비" href="갈비" coords="238,145,9" shape="circle">
+					<area id="rib-cow" target="_blank" alt="갈비" href="갈비" coords="64,239,98,258" shape="rect">
+					<area id="brisket" target="_blank" alt="양지" href="양지" coords="279,207,8" shape="circle">
+					<area id="brisket" target="_blank" alt="양지" href="양지" coords="64,301,98,320" shape="rect">
 				</map>
 				<div class="analysis-box">
 					<h4 class="mt-5 title">소도체의 시기별 가격 변동</h4>
@@ -139,40 +139,82 @@
 			</div>
 			<hr>
 			<div class="box pt-5 pb-5">
-				<div class="chicken-egg-milk" id="chicken-egg-milk">
+				<div class="chicken-egg-milk price-tooltip" id="chicken-egg-milk">
 					<h3 class="title">닭</h3>
 					<a href="#"><img src="img/닭.png" alt="닭고기 시세"></a>
 					<div>
-						<span>1kg</span>
-						<span>1,000원</span>
+						<span>육계 1kg</span>
+						<b class="price" th:text="${chicken.todayPrice}">1,000</b><span>원</span>
+					</div>
+					<div th:if="${chicken.todayPrice} - ${chicken.yesterdayPrice} == 0">
+						어제랑
+						<b> 똑같아요</b>
 					</div>
 					<div>
-						<span>어제랑</span>
-						<span>똑같아요</span>
+						<span th:if="${chicken.todayPrice} - ${chicken.yesterdayPrice} > 0">
+							<span>어제보다</span>
+							<b class="increase" th:text="${chicken.todayPrice} - ${chicken.yesterdayPrice}"></b>
+							<span>원</span>
+							<b class="blue">비싸요</b>
+						</span>
+						<span th:if="${chicken.todayPrice} - ${chicken.yesterdayPrice} < 0">
+							<span>어제보다</span>
+							<b class="increase" th:text="(${chicken.todayPrice} - ${chicken.yesterdayPrice}) * -1"></b>
+							<span>원</span>
+							<b class="red">싸요</b>
+						</span>
 					</div>
 				</div>
-				<div class="chicken-egg-milk">
+				<div class="chicken-egg-milk price-tooltip" id="chicken-egg-milk">
 					<h3 class="title">계란</h3>
 					<a href="#"><img src="img/계란.png" alt="계란 시세"></a>
 					<div>
-						<span>15개</span>
-						<span>1,000원</span>
+						<span>특란 30구</span>
+						<b class="price" th:text="${egg.todayPrice}">1,000</b><span>원</span>
+					</div>
+					<div th:if="${egg.todayPrice} - ${egg.yesterdayPrice} == 0">
+						어제랑
+						<b> 똑같아요</b>
 					</div>
 					<div>
-						<span>어제랑</span>
-						<span>똑같아요</span>
+						<span th:if="${egg.todayPrice} - ${egg.yesterdayPrice} > 0">
+							<span>어제보다</span>
+							<b class="increase" th:text="${egg.todayPrice} - ${egg.yesterdayPrice}"></b>
+							<span>원</span>
+							<b class="blue">비싸요</b>
+						</span>
+						<span th:if="${egg.todayPrice} - ${egg.yesterdayPrice} < 0">
+							<span>어제보다</span>
+							<b class="increase" th:text="(${egg.todayPrice} - ${egg.yesterdayPrice}) * -1"></b>
+							<span>원</span>
+							<b class="red">싸요</b>
+						</span>
 					</div>
 				</div>
-				<div class="chicken-egg-milk">
+				<div class="chicken-egg-milk price-tooltip" id="chicken-egg-milk">
 					<h3 class="title">우유</h3>
 					<a href="#"><img src="img/우유.png" alt="우유 시세"></a>
 					<div>
-						<span>1L</span>
-						<span>1,000원</span>
+						<span>흰우유 1L</span>
+						<b class="price" th:text="${milk.todayPrice}">1,000</b><span>원</span>
+					</div>
+					<div th:if="${milk.todayPrice} - ${milk.yesterdayPrice} == 0">
+						어제랑
+						<b> 똑같아요</b>
 					</div>
 					<div>
-						<span>어제랑</span>
-						<span>똑같아요</span>
+						<span th:if="${milk.todayPrice} - ${milk.yesterdayPrice} > 0">
+							<span>어제보다</span>
+							<b class="increase" th:text="${milk.todayPrice} - ${milk.yesterdayPrice}"></b>
+							<span>원</span>
+							<b class="blue">비싸요</b>
+						</span>
+						<span th:if="${milk.todayPrice} - ${milk.yesterdayPrice} < 0">
+							<span>어제보다</span>
+							<b class="increase" th:text="(${milk.todayPrice} - ${milk.yesterdayPrice}) * -1"></b>
+							<span>원</span>
+							<b class="red">싸요</b>
+						</span>
 					</div>
 				</div>
 			</div>
@@ -223,28 +265,32 @@
 
 		jQuery(document).ready(function (e) {
 			var targetItem = new Object();
-			var map = document.querySelector('map');
+			var map = document.querySelectorAll('map');
 
-			map.addEventListener('mouseover', function (e) {
-				for (let item of items) {
-					if (item.selector == e.target.id) {
-						targetItem = item;
+			map.forEach((m) => m.addEventListener('mouseover', function (e) {
+					for (let item of items) {
+						if (item.selector == e.target.id) {
+							targetItem = item;
+						}
 					}
-				}
-
-				let increase = parseInt(targetItem.todayPrice) - parseInt(targetItem.yesterdayPrice);
-				let increaseTag = '';
-
-				if (increase > 0) {
-					increaseTag = '<br>어제보다 ' + increase + '원 비싸요</div>';
-				} else {
-					increaseTag = '<br>어제보다 ' + increase * -1 + '원 싸요</div>';
-
-				}
-
-				let tooltipTag = '<div class="price-tooltip"><b>' + targetItem.part + '</b><br>' + targetItem.unit + ' ' + targetItem.todayPrice + increaseTag;
-				$('area').qtip('option', 'content.text', tooltipTag);
-			})
+	
+					let increase = parseInt(targetItem.todayPrice) - parseInt(targetItem.yesterdayPrice);
+					let increaseTag = '';
+	
+					if (increase > 0) {
+						increaseTag = '<br>어제보다 <b class="increase">' + increase.toLocaleString() + '</b>원 <b class="blue">비싸요</b></div>';
+					} else if (increase < 0) {
+						increaseTag = '<br>어제보다 <b class="increase">' + (increase * -1).toLocaleString() + '</b>원 <b class="red">싸요</b></div>';
+					} else {
+						increaseTag = '<br>어제랑 <b>똑같아요</b>';
+					}
+	
+					let tooltipTag = '<div class="price-tooltip"><b>' + targetItem.part + '</b><br>' 
+						+ targetItem.unit + ' <b class="price">' + parseInt(targetItem.todayPrice).toLocaleString() + '</b>원' + increaseTag;
+					
+					$('area').qtip('option', 'content.text', tooltipTag);
+				})
+			)
 		});
 
 		$('area').qtip({

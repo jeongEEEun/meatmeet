@@ -86,7 +86,7 @@ public class MemberController {
 			@RequestParam MultipartFile imgFile, Recipe recipe, RedirectAttributes redirectAttributes)
 			throws Exception {
 
-		Long recipeId = memberService.saveRecipe(recipe, imgFile);
+		Long recipeId = memberService.saveRecipe(imgFile, recipe);
 		redirectAttributes.addAttribute("recipeId", recipeId);
 		return "redirect:/recipe/{recipeId}";
 	}

@@ -41,10 +41,12 @@ public class ItemRepository {
 	}
 		
 	public void updateItem(List<Item> items) {
-		String sql = "update item set today_price = ?, yesterday_price = ? where part = ?";
+		String sql = "update item set today_price = ?, yesterday_price = ? where item_name = ? and part = ?";
 		
 		for(Item item: items) {
-			jdbcTemplate.update(sql, item.getPart(), item.getTodayPrice(), item.getYesterdayPrice());
+			jdbcTemplate.update(sql, 
+					item.getTodayPrice(), item.getYesterdayPrice(), 
+					item.getItemName(), item.getPart());
 		}
 	}
 }

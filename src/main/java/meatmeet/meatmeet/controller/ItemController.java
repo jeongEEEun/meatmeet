@@ -1,6 +1,7 @@
 package meatmeet.meatmeet.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,8 +26,23 @@ public class ItemController {
 	public String index(@SessionAttribute(required = false) Member member, Model model) {
 		List<Item> items = itemService.findAllItem();
 		
+		Optional<Item> chicken = items.stream()
+				.filter(i -> "닭".equals(i.getItemName()))
+				.findAny();
+		
+		Optional<Item> egg = items.stream()
+				.filter(i -> "계란".equals(i.getItemName()))
+				.findAny();
+		
+		Optional<Item> milk = items.stream()
+				.filter(i -> "우유".equals(i.getItemName()))
+				.findAny();
+		
 		model.addAttribute("member", member);
 		model.addAttribute("items", items);
+		model.addAttribute("chicken", chicken.get());
+		model.addAttribute("egg", egg.get());
+		model.addAttribute("milk", milk.get());
 		
 		return "index";
 	}

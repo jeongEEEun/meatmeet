@@ -3,15 +3,14 @@ package meatmeet.meatmeet.service;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.IOException;
-
-import javax.xml.parsers.ParserConfigurationException;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.xml.sax.SAXException;
 
 import lombok.extern.slf4j.Slf4j;
+import meatmeet.meatmeet.domain.Item;
 
 @SpringBootTest
 @Slf4j
@@ -20,22 +19,17 @@ class ItemServiceTest {
 	@Autowired private ItemService itemService;
 		
 	@Test
-	void requestApi() {
-		String date = "20220630";
-		String breedingCode = "4301";
-		String itemCode = "21";
-		
-		itemService.requestApi(date, breedingCode, itemCode);
+	void readCsv() throws IOException {
+		List<Item> result = itemService.readCsv();
+		assertThat(result.size()).isEqualTo(12);
 	}
 	
 	@Test
-	void xmlToJson() {
-		String date = "20220630";
-		String breedingCode = "4301";
-		String itemCode = "21";
+	void updateItemPrice() throws IOException {
+		itemService.updateItemPrice();
 		
-		String xml = itemService.requestApi(date, breedingCode, itemCode);
-		itemService.xmlToItemObject(xml);
+		List<Item> result = itemService.findAllItem();
 		
+		assertThat(result.get(0).getTodayPrice()).isNotEqualTo(1000);
 	}
 }
