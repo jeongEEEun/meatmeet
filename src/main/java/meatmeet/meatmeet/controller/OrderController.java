@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.mysql.cj.x.protobuf.MysqlxCrud.Collection;
-
 import lombok.extern.slf4j.Slf4j;
 import meatmeet.meatmeet.domain.Member;
 import meatmeet.meatmeet.domain.Order;

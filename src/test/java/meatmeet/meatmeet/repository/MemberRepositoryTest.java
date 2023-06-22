@@ -16,6 +16,7 @@ import meatmeet.meatmeet.domain.Recipe;
 @Slf4j
 class MemberRepositoryTest {
 	@Autowired private MemberRepository memberRepository;
+	@Autowired private RecipeRepository recipeRepository;
 
 	@Test
 	void findByMetmberId() {
@@ -38,6 +39,8 @@ class MemberRepositoryTest {
 	
 	@Test
 	void saveRecipe() {
+		int beforeSize = recipeRepository.findAll().size();
+		
 		Member member = new Member("테스트", "a@a.com", "test", "1111");
 		Optional<Member> savedMember = memberRepository.saveMember(member);
 		Recipe recipe = new Recipe(savedMember.get().getMemberId(), "돼지", "목심", "제목", "재료", "양념", "만드는법");
@@ -46,6 +49,8 @@ class MemberRepositoryTest {
 		
 		Long result = memberRepository.saveRecipe(recipe);
 		
-		assertThat(result).isEqualTo(1);
+		int afterSize = recipeRepository.findAll().size();
+		
+		assertThat(afterSize - 1).isEqualTo(beforeSize);
 	}
 }

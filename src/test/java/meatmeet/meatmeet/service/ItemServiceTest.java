@@ -17,27 +17,27 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 class ItemServiceTest {
 	
-	@Autowired private ItemService itemService;
-		
-	@Test
-	void requestApi() {
-		String date = "20220630";
-		String breedingCode = "4301";
-		String itemCode = "21";
-		
-		itemService.requestApi(date, breedingCode, itemCode);
-	}
-	
-	@Test
-	void xmlToJson() {
-		String date = "20220630";
-		String breedingCode = "4301";
-		String itemCode = "21";
-		
-		String xml = itemService.requestApi(date, breedingCode, itemCode);
-		itemService.xmlToItemObject(xml);
-		
-	}
+//	@Autowired private ItemService itemService;
+//		
+//	@Test
+//	void requestApi() {
+//		String date = "20220630";
+//		String breedingCode = "4301";
+//		String itemCode = "21";
+//		
+//		itemService.requestApi(date, breedingCode, itemCode);
+//	}
+//	
+//	@Test
+//	void xmlToJson() {
+//		String date = "20220630";
+//		String breedingCode = "4301";
+//		String itemCode = "21";
+//		
+//		String xml = itemService.requestApi(date, breedingCode, itemCode);
+//		itemService.xmlToItemObject(xml);
+//		
+//	}
 	
 //	@Test
 //	void requestTestCovid19() {

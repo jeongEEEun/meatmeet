@@ -60,6 +60,7 @@ public class RecipeRepository {
 		item.setPart(rs.getString("part"));
 		item.setItemUnit(rs.getString("item_unit"));
 		item.setSelector(rs.getString("selector"));
+		item.setImgName(rs.getString("img_name"));
 		return item;
 
 	};
