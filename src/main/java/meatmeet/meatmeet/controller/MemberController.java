@@ -80,11 +80,10 @@ public class MemberController {
 		model.addAttribute("member", member);
 		return "recipe/new";
 	}
-
+	
 	@PostMapping("/recipe/{memberId}/new")
-	public String newRecipe(@PathVariable String memberId, @SessionAttribute Member member,
-			@RequestParam MultipartFile imgFile, Recipe recipe, RedirectAttributes redirectAttributes)
-			throws Exception {
+	public String newRecipe(@PathVariable String memberId, @SessionAttribute Member member, 
+			@RequestParam MultipartFile imgFile, Recipe recipe, RedirectAttributes redirectAttributes) throws Exception {
 
 		Long recipeId = memberService.saveRecipe(imgFile, recipe);
 		redirectAttributes.addAttribute("recipeId", recipeId);
@@ -94,7 +93,7 @@ public class MemberController {
 	@GetMapping("/myrecipe/{memberId}")
 	public String myRecipe(@PathVariable String memberId, @SessionAttribute Member member, Model model) {
 		List<Recipe> myRecipe = memberService.findRecipeByMemberId(memberId);
-
+		
 		model.addAttribute("member", member);
 		model.addAttribute("myRecipe", myRecipe);
 

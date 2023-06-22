@@ -267,6 +267,7 @@
 			var targetItem = new Object();
 			var map = document.querySelectorAll('map');
 
+<<<<<<< HEAD
 			map.forEach((m) => m.addEventListener('mouseover', function (e) {
 					for (let item of items) {
 						if (item.selector == e.target.id) {
@@ -291,6 +292,29 @@
 					$('area').qtip('option', 'content.text', tooltipTag);
 				})
 			)
+=======
+			map.forEach((m) => {
+				m.addEventListener('mouseover', function (e) {
+				for (let item of items) {
+					if (item.selector == e.target.id) {
+						targetItem = item;
+					}
+				}
+
+				let increase = parseInt(targetItem.todayPrice) - parseInt(targetItem.yesterdayPrice);
+				let increaseTag = '';
+
+				if (increase > 0) {
+					increaseTag = '<br>어제보다 ' + increase + '원 비싸요</div>';
+				} else {
+					increaseTag = '<br>어제보다 ' + increase * -1 + '원 싸요</div>';
+
+				}
+
+				let tooltipTag = '<div class="price-tooltip"><b>' + targetItem.part + '</b><br>' + targetItem.unit + ' ' + targetItem.todayPrice + increaseTag;
+				$('area').qtip('option', 'content.text', tooltipTag);
+			})})
+>>>>>>> origin/aws
 		});
 
 		$('area').qtip({

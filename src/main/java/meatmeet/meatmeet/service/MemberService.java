@@ -28,12 +28,11 @@ import meatmeet.meatmeet.repository.MemberRepository;
 @Slf4j
 public class MemberService {
 	private final MemberRepository memberRepository;
+	private final S3Uploader s3Uploader;
 	
-	@Autowired
-	private S3Uploader s3Uploader;
-	
-	public MemberService(MemberRepository memberRepository) {
+	public MemberService(MemberRepository memberRepository, S3Uploader s3Uploader) {
 		this.memberRepository = memberRepository;
+		this.s3Uploader = s3Uploader;
 	}
 	
 	// 회원가입
@@ -61,7 +60,6 @@ public class MemberService {
 	}
 
 	// 글 작성 -> 저장
-	@Transactional
 	public Long saveRecipe(MultipartFile imgFile, Recipe recipe) throws IOException {
 		if(!imgFile.isEmpty()) {
 			String storedFileName = s3Uploader.upload(imgFile, "images");

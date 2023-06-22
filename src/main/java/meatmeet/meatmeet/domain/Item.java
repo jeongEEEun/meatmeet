@@ -4,11 +4,14 @@ import com.opencsv.bean.CsvBindByName;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@RequiredArgsConstructor
 public class Item {
 	private int itemId;
 	
@@ -24,5 +27,6 @@ public class Item {
 	private int yesterdayPrice;
 	
 	private String selector;
+	
 	private String imgName;
 }

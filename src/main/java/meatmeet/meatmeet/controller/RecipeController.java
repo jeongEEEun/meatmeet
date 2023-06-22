@@ -38,6 +38,7 @@ public class RecipeController {
 		model.addAttribute("member", member);
 		model.addAttribute("recipes", recipes);
 		model.addAttribute("items", items);
+		
 		return "recipe/recipe";
 	}
 

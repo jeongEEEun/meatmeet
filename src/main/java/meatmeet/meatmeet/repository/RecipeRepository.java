@@ -39,7 +39,6 @@ public class RecipeRepository {
 		recipe.setSauce(rs.getString("sauce"));
 		recipe.setStep(rs.getString("step"));
 		recipe.setView(rs.getInt("view"));
-		recipe.setImgName(rs.getString("img_name"));
 		recipe.setImgPath(rs.getString("img_path"));
 		return recipe;
 	};

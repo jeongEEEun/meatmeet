@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -30,40 +31,14 @@ public class S3Uploader {
 	@Value("${cloud.aws.s3.bucket}")
 	private String bucket;
 	
-	public Optional<File> convert(MultipartFile file) throws FileNotFoundException, IOException {
-		File convertFile = new File(file.getOriginalFilename());
+	public String upload(MultipartFile multipartFile, String dirName) throws IllegalArgumentException, FileNotFoundException, IOException {
+		File uploadFile = convert(multipartFile)
+				.orElseThrow(() -> new IllegalArgumentException("[S4Uploader] MultipartFile -> File 전환 실패"));
 		
-		if(convertFile.createNewFile()) {
-			try (FileOutputStream fos = new FileOutputStream(convertFile)) {
-				fos.write(file.getBytes());
-			}
-			return Optional.of(convertFile);
-		}
-		return Optional.empty();
-	}
-	
-	private String putS3(File uploadFile, String fileName) {
-		amazonS3Client.putObject(new PutObjectRequest(bucket, fileName, uploadFile)
-				.withCannedAcl(CannedAccessControlList.PublicRead));
-		return amazonS3Client.getUrl(bucket, fileName).toString();
-	}
-	
-	private void removeNewFile(File targetFile) {
-		// convert() 실행되며 로컬 프로젝트에 파일 저장됨 -> removeNewFile() 실행해 삭제
-		if(targetFile.delete()) {
-			log.info("[MemberService - removeNewFile] 파일 삭제 완료");
-		} else {
-			log.info("[MemberService - removeNewFile] 파일 삭제 실패");
-		}
-	}
-	
-	public String upload(MultipartFile imgFile, String dirName) throws IOException {
-		File uploadFile = convert(imgFile)
-				.orElseThrow(() -> new IllegalArgumentException("[MemberService - upload] MultipartFile -> File 전환 실패"));
 		return upload(uploadFile, dirName);
 	}
 	
-	public String upload(File uploadFile, String dirName) {
+	private String upload(File uploadFile, String dirName) {
 		String fileName = dirName + "/" + uploadFile.getName();
 		String uploadImageUrl = putS3(uploadFile, fileName);
 		
@@ -71,4 +46,35 @@ public class S3Uploader {
 		
 		return uploadImageUrl;
 	}
+	
+	private void removeNewFile(File targetFile) {
+		if(targetFile.delete()) {
+			log.info("[S3Uploader] 로컬 프로젝트에 저장된 파일 삭제");
+		} else {
+			log.info("[S3Uploader] 로컬 프로젝트에 저장된 파일 삭제 실패");
+		}
+	}
+	
+	private String putS3(File uploadFile, String fileName) {
+		amazonS3Client.putObject(
+				new PutObjectRequest(bucket, fileName, uploadFile)
+					.withCannedAcl(CannedAccessControlList.PublicRead)
+		);
+		return amazonS3Client.getUrl(bucket, fileName).toString();
+	}
+	
+    private Optional<File> convert(MultipartFile file) throws  IOException {
+    	String fileName = UUID.randomUUID() + file.getOriginalFilename();
+        File convertFile = new File(fileName);
+        
+        log.info("[S3Uploader] fileName >> " + fileName);
+        
+        if(convertFile.createNewFile()) {
+            try (FileOutputStream fos = new FileOutputStream(convertFile)) {
+                fos.write(file.getBytes());
+            }
+            return Optional.of(convertFile);
+        }
+        return Optional.empty();
+    }
 }
