@@ -32,6 +32,7 @@ public class RecipeController {
 
 	@GetMapping("/recipe")
 	public String recipeAll(@SessionAttribute(required = false) Member member, Model model) {
+		
 		List<Recipe> recipes = recipeService.findAll();
 		List<Item> items = recipeService.findItemAll();
 		model.addAttribute("member", member);
@@ -95,10 +96,13 @@ public class RecipeController {
 		comment.setRecipeId(recipeId);
 		comment.setMemberId(member.getMemberId());
 		comment.setComment(commentText);
-		recipeService.saveComment(comment);
-
+	    if (commentText != null && !commentText.isEmpty()) {
+	        recipeService.saveComment(comment);
+	    }
+		
 		redirectAttributes.addAttribute("recipeId", recipeId);
 
 		return "redirect:/recipe/{recipeId}";
 	}
 }
+

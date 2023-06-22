@@ -38,11 +38,4 @@ class ItemServiceTest {
 		itemService.xmlToItemObject(xml);
 		
 	}
-	
-//	@Test
-//	void requestTestCovid19() {
-//		String xml = itemService.requestApi();
-//		itemService.xmlToItemObject(xml);
-//	}
-	
 }

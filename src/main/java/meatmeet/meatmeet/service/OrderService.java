@@ -40,10 +40,6 @@ public class OrderService {
     	order.setOrderDate(LocalDate.now());
     	order.setTotalPrice(cartRepository.totalPrice(order.getMemberId()));
     	
-    	log.info("[service] orderId >> " + orderId);
-    	log.info("[service] OrderDate >> " + order.getOrderDate());
-    	log.info("[service] OrderAddress >> " + order.getAddress());
-    	
     	for(Cart cart: cartItems) {
     		Order orderItem = new Order(order);
     		
@@ -56,6 +52,7 @@ public class OrderService {
     	}
     	
     	orderRepository.saveOrder(orders);
+    	cartRepository.resetCart(order.getMemberId());
     }
 
     public List<Order> findOrderInfoByMemberId(String memberId) {

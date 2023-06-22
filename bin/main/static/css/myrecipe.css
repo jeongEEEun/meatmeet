@@ -1,57 +1,98 @@
 @charset "UTF-8";
 
 .container {
-    width: 1000px;
-    min-height: 50vh;
-    margin: 30px auto;
+	width: 1000px;
+	min-height: 100vh;
+	margin: 0 auto;
 }
 
-.container h1 {
-    text-align: center;
-    margin-bottom: 30px;
-    margin-top: 20px;
+nav {
+	position: relative;
+	background-color: #ffb3b3;
+	padding-top: 20px;
+	padding-bottom: 1px;
+	width: 100%;
+	height: 156px;
 }
+
+nav h1 {
+	text-align: center;
+	font-size: 28px;
+	color: #ffffff;
+	margin-bottom: 80px;
+	padding-bottom: 1px;
+	padding-top: 40px;
+	text-align: center;
+	width: 100%;
+}
+
 
 .content {
-    text-align: center;
-    width: 1000px;
-    height: auto;
-    position: relative;
+	top: 50px;
+	text-align: center;
+	width: 1000px;
+	height: auto;
+	position: relative;
+	bottom: 20px;
 }
 
 .content .recipe {
-    position: relative;
-    height: 150px;
-    text-align: left;
+	position: relative;
+	height: 150px;
+	text-align: left;
 }
 
 .content .recipe img {
-    width: 256px;
-    height: 144px;
+	width: 256px;
+	height: 144px;
 }
 
+.content .mytitle {
+	font-weight: 500;
+	font-size: 20px;
+}
+
+
 .btn-primary {
-    width: 100px;
-    height: 40px;
-    background-color: #ff6666;
-    border: none;
+	width: 100px;
+	height: 40px;
+	background-color: #ff6666;
+	border: none;
 }
 
 .btn-primary:hover {
-    background-color: #ff3333;
-    border: none;
+	background-color: #ff3333;
+	border: none;
+}
+
+.write {
+	position: fixed;
+	right: 100px;
+	width: 100px;
+	height: 50px;
+	bottom: 120px;
+	border-radius: 30px;
+	background-color: #ff3333;
+	border-color: #ffb3b3;
+	color: #fff;
+}
+
+.write:hover {
+	background-color: #ff6666;
+	border-color: #ffb3b3;
+	color: #fff;
 }
 
 .btn-secondary {
-    width: 100px;
-    height: 40px;
-    background-color: #fff;
-    border-color: #ff6666;
-    color: #ff3333;
+	width: 100px;
+	height: 40px;
+	background-color: #fff;
+	border-color: #ff6666;
+	color: #ff3333;
 }
 
 .btn-secondary:hover {
-    background-color: #ff6666;
-    border-color: #ff6666;
-    color: #fff;
+	background-color: #ffb3b3;
+	border-color: #ffb3b3;
+	color: #fff;
 }

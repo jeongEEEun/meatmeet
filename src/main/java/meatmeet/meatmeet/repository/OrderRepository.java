@@ -42,7 +42,7 @@ public class OrderRepository {
     	return orderInfo;
     };
     
-    RowMapper<Order> orderItemRowMapprt = (rs, rowNum) -> {
+    RowMapper<Order> orderItemRowMapper = (rs, rowNum) -> {
     	Order orderItem = new Order();
     	
     	orderItem.setOrderId(rs.getString("order_id"));
@@ -87,9 +87,9 @@ public class OrderRepository {
     	String sql = "select * from orders where member_id = ?";
     	List<Order> orderInfo = jdbcTemplate.query(sql, OrderInfoRowMapper, memberId);
     	
-    	for(int i=0; i<orderInfo.size(); i++) {
+    	for(int i=0; i<orderInfo.size() -1 ; i++) {
     		if(orderInfo.get(i).getOrderId().equals(orderInfo.get(i + 1).getOrderId())) {
-    			orderInfo.remove(i);
+    			orderInfo.remove(i + 1);
     		}
     	}
     	
@@ -98,11 +98,11 @@ public class OrderRepository {
     
     public List<Order> findByOrderId(String orderId) {
     	String sql = "select * from orders where order_id = ?";
-    	return jdbcTemplate.query(sql, orderItemRowMapprt, orderId);
+    	return jdbcTemplate.query(sql, orderItemRowMapper, orderId);
     }
     
     public void deleteOrder(String orderId) {
     	String sql = "delete from orders where order_id = ?";
     	jdbcTemplate.update(sql, orderId);
     }
-} 
+}

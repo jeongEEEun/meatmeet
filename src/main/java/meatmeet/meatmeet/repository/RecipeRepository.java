@@ -61,6 +61,7 @@ public class RecipeRepository {
 		item.setPart(rs.getString("part"));
 		item.setItemUnit(rs.getString("item_unit"));
 		item.setSelector(rs.getString("selector"));
+		item.setImgName(rs.getString("img_name"));
 		return item;
 
 	};
@@ -140,5 +141,11 @@ public class RecipeRepository {
 	public List<Comment> findCommentByRecipeId(Long recipeId) {
 		String sql = "select * from comment where recipe_id = ?";
 		return jdbcTemplate.query(sql, commentRowMapper, recipeId);
+	}
+	
+	public void deleteCommentsByRecipeId(Long recipeId) {
+		String sql = "delete from comment where recipe_id = ?";
+		jdbcTemplate.update(sql, recipeId);
+		
 	}
 }
