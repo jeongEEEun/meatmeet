@@ -32,6 +32,7 @@ public class RecipeController {
 
 	@GetMapping("/recipe")
 	public String recipeAll(@SessionAttribute(required = false) Member member, Model model) {
+		
 		List<Recipe> recipes = recipeService.findAll();
 		List<Item> items = recipeService.findItemAll();
 		model.addAttribute("member", member);
