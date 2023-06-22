@@ -6,7 +6,6 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,8 +40,12 @@ public class MemberController {
 	}
 
 	@PostMapping("/sign-up")
-	public String signUp(@ModelAttribute Member member) {
-		memberService.saveMember(member);
+	public String signUp(@ModelAttribute Member member, Model model) {
+		Optional<Member> savedMember = memberService.saveMember(member);
+		if (savedMember.isEmpty()) {
+	        model.addAttribute("duplicateId", true); 
+	        return "member/sign-up";
+	    }
 		return "redirect:/sign-in";
 	}
 
@@ -52,7 +55,7 @@ public class MemberController {
 	}
 
 	@PostMapping("/sign-in")
-	public String signIn(Member member, HttpServletRequest request) {
+	public String signIn(Member member, HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
 		Optional<Member> loginMember = memberService.login(member);
 
@@ -78,7 +81,7 @@ public class MemberController {
 		return "recipe/new";
 	}
 	
-	@PostMapping(value = "/recipe/{memberId}/new", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	@PostMapping("/recipe/{memberId}/new")
 	public String newRecipe(@PathVariable String memberId, @SessionAttribute Member member, 
 			@RequestParam MultipartFile imgFile, Recipe recipe, RedirectAttributes redirectAttributes) throws Exception {
 
@@ -90,7 +93,7 @@ public class MemberController {
 	@GetMapping("/myrecipe/{memberId}")
 	public String myRecipe(@PathVariable String memberId, @SessionAttribute Member member, Model model) {
 		List<Recipe> myRecipe = memberService.findRecipeByMemberId(memberId);
-
+		
 		model.addAttribute("member", member);
 		model.addAttribute("myRecipe", myRecipe);
 
@@ -104,6 +107,7 @@ public class MemberController {
 
 		if (findRecipe.isPresent()) {
 			model.addAttribute("recipe", findRecipe.get());
+			model.addAttribute(member);
 		}
 
 		return "recipe/edit";

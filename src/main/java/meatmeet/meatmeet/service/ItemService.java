@@ -69,7 +69,7 @@ public class ItemService {
 				.retrieve()
 				.bodyToMono(String.class)
 				.block();
-		
+
 		// covid19 데이터 테스트
 //		String response = webclient.get()
 //				.uri(uriBuileder -> uriBuileder

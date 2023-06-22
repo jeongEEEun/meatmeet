@@ -104,3 +104,4 @@ public class RecipeController {
 		return "redirect:/recipe/{recipeId}";
 	}
 }
+

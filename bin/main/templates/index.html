@@ -6,10 +6,10 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="../../static/css/header-footer.css" th:href="@{/css/header-footer.css}">
-	<link rel="stylesheet" href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
-	<link rel="stylesheet" href="../../static/css/index.css" th:href="@{/css/index.css}">
-	<link rel="stylesheet" href="../../static/css/jquery.qtip.min.css" th:href="@{/css/jquery.qtip.min.css}">
+	<link rel="stylesheet" href="css/header-footer.css" th:href="@{/css/header-footer.css}">
+	<link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+	<link rel="stylesheet" href="css/index.css" th:href="@{/css/index.css}">
+	<link rel="stylesheet" href="css/jquery.qtip.min.css" th:href="@{/css/jquery.qtip.min.css}">
 	<script src="js/jquery.min.js"></script>
 	<script src="js/jquery.qtip.min.js"></script>
 </head>
@@ -120,8 +120,8 @@
 				<h3 class="title">소</h3>
 				<img src="img/소.png" alt="소고기 부위별 시세" usemap="#cow-map">
 				<map name="cow-map">
-					<area target="_blank" alt="등심" href="등심" coords="289,88,9" shape="circle">
-					<area target="_blank" alt="등심" href="등심" coords="393,5,428,27" shape="rect">
+					<area id="rib-cow" target="_blank" alt="등심" href="등심" coords="289,88,9" shape="circle">
+					<area id="brisket" target="_blank" alt="등심" href="등심" coords="393,5,428,27" shape="rect">
 					<area target="_blank" alt="안심" href="안심" coords="347,121,9" shape="circle">
 					<area target="_blank" alt="안심" href="안심" coords="449,43,484,62" shape="rect">
 					<area target="_blank" alt="설도" href="설도" coords="394,179,9" shape="circle">
@@ -206,7 +206,7 @@
 
 	<script th:inline="javascript">
 		/*<![CDATA[*/
-		let items = new Array();
+		var items = new Array();
 
 		/*[# th:each="i : ${items}"]*/
 		var item = new Object();
@@ -231,8 +231,18 @@
 						targetItem = item;
 					}
 				}
+
 				let increase = parseInt(targetItem.todayPrice) - parseInt(targetItem.yesterdayPrice);
-				let tooltipTag = '<div class="price-tooltip"><b>' + targetItem.part + '</b><br>' + targetItem.unit + ' ' + targetItem.todayPrice + '<br>전일대비 ' + increase + '</div>';
+				let increaseTag = '';
+
+				if (increase > 0) {
+					increaseTag = '<br>어제보다 ' + increase + '원 비싸요</div>';
+				} else {
+					increaseTag = '<br>어제보다 ' + increase * -1 + '원 싸요</div>';
+
+				}
+
+				let tooltipTag = '<div class="price-tooltip"><b>' + targetItem.part + '</b><br>' + targetItem.unit + ' ' + targetItem.todayPrice + increaseTag;
 				$('area').qtip('option', 'content.text', tooltipTag);
 			})
 		});
@@ -250,10 +260,6 @@
 		});
 	/*]]>*/
 	</script>
-</body>
-
-</html>
-
 </body>
 
 </html>

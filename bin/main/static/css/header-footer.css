@@ -12,6 +12,18 @@
 	font-size: 16px;
 }
 
+html,
+body {
+	height: 100%;
+	padding-bottom: 0;
+}
+
+.wrap-body {
+	min-height: 100%;
+	position: relative;
+	padding-bottom: 0px;
+}
+
 .wrap {
 	margin: 0 auto;
 	max-width: 1000px;
@@ -103,6 +115,14 @@ footer {
 	height: 250px;
 	bottom: 0;
 	left: 0;
+}
+
+.footer-absolute {
+	position: absolute;
+}
+
+footer a {
+	font-size: 14px;
 }
 
 footer div ul {

@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -61,15 +62,18 @@ public class S3Uploader {
 		return amazonS3Client.getUrl(bucket, fileName).toString();
 	}
 	
-	private Optional<File> convert(MultipartFile file) throws IOException {
-		File convertFile = new File(file.getOriginalFilename());
-		
-		if(convertFile.createNewFile()) {
-			try(FileOutputStream fos = new FileOutputStream(convertFile)) {
-				fos.write(file.getBytes());
-			} 
-			return Optional.of(convertFile);
-		}
-		return Optional.empty();
-	}
+    private Optional<File> convert(MultipartFile file) throws  IOException {
+    	String fileName = UUID.randomUUID() + file.getOriginalFilename();
+        File convertFile = new File(fileName);
+        
+        log.info("[S3Uploader] fileName >> " + fileName);
+        
+        if(convertFile.createNewFile()) {
+            try (FileOutputStream fos = new FileOutputStream(convertFile)) {
+                fos.write(file.getBytes());
+            }
+            return Optional.of(convertFile);
+        }
+        return Optional.empty();
+    }
 }
