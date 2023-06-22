@@ -2,17 +2,33 @@
 
 .container {
 	width: 1000px;
-	min-height: 50vh;
+	min-height: 100vh;
 	margin: 0 auto;
 }
 
-.container h1 {
-	text-align: center;
-	margin-bottom: 30px;
-	margin-top: 20px;
+nav {
+	position: relative;
+	background-color: #ffb3b3;
+	padding-top: 20px;
+	padding-bottom: 1px;
+	width: 100%;
+	height: 156px;
 }
 
+nav h1 {
+	text-align: center;
+	font-size: 28px;
+	color: #ffffff;
+	margin-bottom: 80px;
+	padding-bottom: 1px;
+	padding-top: 40px;
+	text-align: center;
+	width: 100%;
+}
+
+
 .content {
+	top: 50px;
 	text-align: center;
 	width: 1000px;
 	height: auto;
@@ -51,11 +67,20 @@
 
 .write {
 	position: fixed;
-	top: 13%;
-	right: 18%;
-	width: 70px;
-	height: 70px;
-	
+	right: 100px;
+	width: 100px;
+	height: 50px;
+	bottom: 120px;
+	border-radius: 30px;
+	background-color: #ff3333;
+	border-color: #ffb3b3;
+	color: #fff;
+}
+
+.write:hover {
+	background-color: #ff6666;
+	border-color: #ffb3b3;
+	color: #fff;
 }
 
 .btn-secondary {
@@ -67,7 +92,7 @@
 }
 
 .btn-secondary:hover {
-	background-color: #ff6666;
-	border-color: #ff6666;
+	background-color: #ffb3b3;
+	border-color: #ffb3b3;
 	color: #fff;
 }
