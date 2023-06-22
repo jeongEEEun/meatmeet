@@ -37,6 +37,10 @@ public class RecipeController {
 		model.addAttribute("member", member);
 		model.addAttribute("recipes", recipes);
 		model.addAttribute("items", items);
+		
+		log.info("/recipe 핸들러 실행");
+		log.info("recipes size >> " + recipes.size());
+		
 		return "recipe/recipe";
 	}
 

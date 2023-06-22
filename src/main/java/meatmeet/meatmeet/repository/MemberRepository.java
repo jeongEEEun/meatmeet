@@ -50,7 +50,6 @@ public class MemberRepository {
 		recipe.setSauce(rs.getString("sauce"));
 		recipe.setStep(rs.getString("step"));
 		recipe.setView(rs.getInt("view"));
-		recipe.setImgName(rs.getString("img_name"));
 		recipe.setImgPath(rs.getString("img_path"));
 		
 		return recipe;
@@ -91,7 +90,6 @@ public class MemberRepository {
 		parameter.put("ingre", recipe.getIngre());
 		parameter.put("sauce", recipe.getSauce());
 		parameter.put("step", recipe.getStep());
-		parameter.put("img_name", recipe.getImgName());
 		parameter.put("img_path", recipe.getImgPath());
 		
 		Number returnKey = jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameter));

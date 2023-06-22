@@ -17,9 +17,11 @@ import meatmeet.meatmeet.repository.MemberRepository;
 @Slf4j
 public class MemberService {
 	private final MemberRepository memberRepository;
+	private final S3Uploader s3Uploader;
 	
-	public MemberService(MemberRepository memberRepository) {
+	public MemberService(MemberRepository memberRepository, S3Uploader s3Uploader) {
 		this.memberRepository = memberRepository;
+		this.s3Uploader = s3Uploader;
 	}
 	
 	// 회원가입
@@ -48,36 +50,8 @@ public class MemberService {
 	
 	// 글 작성 -> 저장
 	public Long saveRecipe(Recipe recipe, MultipartFile imgFile) throws Exception {
-		log.info("[MemberService - saveRecipe] 저장");
-		
-		// 기존 파일명 변수에 저장, 
-		String originImgName = imgFile.getOriginalFilename();
-		
-		// 파일 저장 경로
-		String imgFilePath = System.getProperty("user.dir") + "/src/main/resources/static/img/recipe-img/";
-		
-		// 파일명 중복 방지
-		// 현재 시간을 기준으로 난수화시킨 이름 + 기존 파일명
-		UUID uuid = UUID.randomUUID();
-		String saveFileName = uuid + "_" + originImgName;
-		
-		// 만들어진 이름 imgName변수에 저장
-		String imgName = saveFileName;
-		
-		// File 객체 생성(저장 경로 + 파일명)
-		File saveFile = new File(imgFilePath, imgName);
-		
-		// 이미지 파일 저장
-		imgFile.transferTo(saveFile);
-		
-		// 전달받은 recipe파일에 imgName, imgPath 저장
-		recipe.setImgName(imgName);
-		recipe.setImgPath("/img/recipe-img/" + imgName);
-		
-		log.info("[MemberService - saveRecipe] 파일명 >>" + recipe.getImgName());
-		log.info("[MemberService - saveRecipe] 저장경로 >>" + recipe.getImgPath());
-		
-		// recipe 테이블에 저장 후 리턴받은 recipeId 리턴
+		String imgPath = s3Uploader.upload(imgFile, "images");
+		recipe.setImgPath(imgPath);
 		return memberRepository.saveRecipe(recipe);
 	}
 	

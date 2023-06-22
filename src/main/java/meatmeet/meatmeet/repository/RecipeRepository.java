@@ -39,7 +39,6 @@ public class RecipeRepository {
 		recipe.setSauce(rs.getString("sauce"));
 		recipe.setStep(rs.getString("step"));
 		recipe.setView(rs.getInt("view"));
-		recipe.setImgName(rs.getString("img_name"));
 		recipe.setImgPath(rs.getString("img_path"));
 		return recipe;
 	};
@@ -61,7 +60,6 @@ public class RecipeRepository {
 		item.setPart(rs.getString("part"));
 		item.setItemUnit(rs.getString("item_unit"));
 		item.setSelector(rs.getString("selector"));
-		item.setImgName(rs.getString("img_name"));
 		return item;
 
 	};
