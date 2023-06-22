@@ -100,8 +100,8 @@ header ul li .logout-btn {
 }
 
 header ul li .logout-btn:hover {
-	background-color: #ff6666;
-	border-color: #ff6666;
+	background-color: rgb(128, 128, 128);
+	border-color: rgb(128, 128, 128);
 }
 
 header.border-bottom {

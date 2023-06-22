@@ -52,13 +52,16 @@
 		<!-- header end : 로그인 O -->
 
 		<!-- container start : 작성한 글 O -->
-		<div class="container" th:if="${#lists.size(myRecipe) > 0}">
+		<nav th:if="${#lists.size(myRecipe) > 0}">
 			<h1 class="title">나의 레시피</h1>
-			<img class="write" src="/img/글쓰기아이콘.png"
-				th:onclick="|location.href='@{/recipe/{memberId}/new(memberId=${member.memberId})}'|"></img>
+			<button class="btn btn-light write" th:onclick="|location.href='@{/recipe/{memberId}/new(memberId=${member.memberId})}'|">
+				글쓰기
+			</button>
+		</nav>
+		<div class="container" th:if="${#lists.size(myRecipe) > 0}">
 			<div class="content">
 				<div>
-					<div class="recipe mb-3 row" th:each="recipe: ${myRecipe}">
+					<div class="recipe mb-4 row" th:each="recipe: ${myRecipe}">
 						<div class="col-3 me-3">
 							<a href="#" th:href="@{|/recipe/${recipe.recipeId}|}"><img src="http://via.placeholder.com/1080x720"
 									th:src="@{${recipe.imgPath}}" onerror="this.onerror=null; this.src='/img/no-image.png';"
@@ -96,53 +99,53 @@
 		</div>
 		<!-- container end : 작성한 글 X -->
 
-    <!-- footer start : 주문내역 X  -->
-    <footer class="footer-absolute" th:if="${#lists.size(myRecipe) <= 3}">
-      <div class="wrap">
-        <div class="row">
-          <div class="col mt-5">
-            <ul>
-              <li class="title">meat meet</li>
-              <li>상호 : 미트미트 | 대표자명 : 홍길동 | <a href="#">개인정보처리방침</a></li>
-              <li>사업자등록번호 : 000-00-00000</li>
-              <li>연락처 : 00-000-0000</li>
-              <li>이메일 : meatmeet@gmail.com</li>
-              <li>주소 : 서울특별시 OO구 OO로O길</li>
-            </ul>
-          </div>
-          <div class="col pt-5">
-            <a href="#">
-              <img src="/img/logo_white.png" alt="meatmeet로고" class="mt-3">
-            </a>
-          </div>
-        </div>
-      </div>
-    </footer>
-    <!-- footer end : 주문내역 X -->
-		
-    <!-- footer start : 주문내역 O -->
-    <footer th:if="${#lists.size(myRecipe) > 3}">
-      <div class="wrap">
-        <div class="row">
-          <div class="col mt-5">
-            <ul>
-              <li class="title">meat meet</li>
-              <li>상호 : 미트미트 | 대표자명 : 홍길동 | <a href="#">개인정보처리방침</a></li>
-              <li>사업자등록번호 : 000-00-00000</li>
-              <li>연락처 : 00-000-0000</li>
-              <li>이메일 : meatmeet@gmail.com</li>
-              <li>주소 : 서울특별시 OO구 OO로O길</li>
-            </ul>
-          </div>
-          <div class="col pt-5">
-            <a href="#">
-              <img src="/img/logo_white.png" alt="meatmeet로고" class="mt-3">
-            </a>
-          </div>
-        </div>
-      </div>
-    </footer>
-    <!-- footer end : 주문내역 O -->
+		<!-- footer start : 주문내역 X  -->
+		<footer class="footer-absolute" th:if="${#lists.size(myRecipe) <= 3}">
+			<div class="wrap">
+				<div class="row">
+					<div class="col mt-5">
+						<ul>
+							<li class="title">meat meet</li>
+							<li>상호 : 미트미트 | 대표자명 : 홍길동 | <a href="#">개인정보처리방침</a></li>
+							<li>사업자등록번호 : 000-00-00000</li>
+							<li>연락처 : 00-000-0000</li>
+							<li>이메일 : meatmeet@gmail.com</li>
+							<li>주소 : 서울특별시 OO구 OO로O길</li>
+						</ul>
+					</div>
+					<div class="col pt-5">
+						<a href="#">
+							<img src="/img/logo_white.png" alt="meatmeet로고" class="mt-3">
+						</a>
+					</div>
+				</div>
+			</div>
+		</footer>
+		<!-- footer end : 주문내역 X -->
+
+		<!-- footer start : 주문내역 O -->
+		<footer th:if="${#lists.size(myRecipe) > 3}">
+			<div class="wrap">
+				<div class="row">
+					<div class="col mt-5">
+						<ul>
+							<li class="title">meat meet</li>
+							<li>상호 : 미트미트 | 대표자명 : 홍길동 | <a href="#">개인정보처리방침</a></li>
+							<li>사업자등록번호 : 000-00-00000</li>
+							<li>연락처 : 00-000-0000</li>
+							<li>이메일 : meatmeet@gmail.com</li>
+							<li>주소 : 서울특별시 OO구 OO로O길</li>
+						</ul>
+					</div>
+					<div class="col pt-5">
+						<a href="#">
+							<img src="/img/logo_white.png" alt="meatmeet로고" class="mt-3">
+						</a>
+					</div>
+				</div>
+			</div>
+		</footer>
+		<!-- footer end : 주문내역 O -->
 	</div>
 </body>
 
