@@ -74,6 +74,7 @@ public class MemberService {
 	
 	public Optional<Recipe> findByRecipeId(String memberId, Long recipeId) {
 		List<Recipe> recipe = memberRepository.findRecipeByMemberId(memberId);
+		
 		return recipe.stream().filter(r -> r.getRecipeId() == recipeId).findFirst();
 	}
 	

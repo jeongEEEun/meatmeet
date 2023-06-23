@@ -75,39 +75,39 @@
 				<div class="cateory-select">
 					<label for="category-select">카테고리</label> <select class="type" name="category1" id="type"
 						onchange="handleCategoryChange()" th:value="${recipe.category1}" required>
-						<option value="" selected disabled>종류</option>
-						<option value="돼지">돼지</option>
-						<option value="소">소</option>
-						<option value="닭">닭</option>
-						<option value="계란">계란</option>
-						<option value="우유">우유</option>
+						<option value="" disabled>종류</option>
+						<option value="돼지" th:selected="${recipe.category1 == '돼지'}">돼지</option>
+						<option value="소" th:selected="${recipe.category1 == '소'}">소</option>
+						<option value="닭" th:selected="${recipe.category1 == '닭'}">닭</option>
+						<option value="계란" th:selected="${recipe.category1 == '계란'}">계란</option>
+						<option value="우유" th:selected="${recipe.category1 == '우유'}">우유</option>
 					</select> <select class="part" name="category2" id="part" th:value="${recipe.category2}">
 						<option value="" disabled>부위</option>
 						<optgroup id="pork-part" label="돼지" style="display: none;">
-							<option value="목심">목심</option>
-							<option value="갈비">갈비</option>
-							<option value="삼겹살">삼겹살</option>
-							<option value="앞다리">앞다리</option>
+							<option value="목심" th:selected="${recipe.category2 == '목심'}">목심</option>
+							<option value="갈비" th:selected="${recipe.category2 == '갈비'}">갈비</option>
+							<option value="삼겹살" th:selected="${recipe.category2 == '삼겹살'}">삼겹살</option>
+							<option value="앞다리" th:selected="${recipe.category2 == '앞다리'}">앞다리</option>
 						</optgroup>
 
 						<optgroup id="beef-part" label="소" style="display: none;">
-							<option value="갈비">갈비</option>
-							<option value="양지">양지</option>
-							<option value="설도">설도</option>
-							<option value="등심">등심</option>
-							<option value="안심">안심</option>
+							<option value="갈비" th:selected="${recipe.category2 == '갈비'}">갈비</option>
+							<option value="양지" th:selected="${recipe.category2 == '양지'}">양지</option>
+							<option value="설도" th:selected="${recipe.category2 == '설도'}">설도</option>
+							<option value="등심" th:selected="${recipe.category2 == '등심'}">등심</option>
+							<option value="안심" th:selected="${recipe.category2 == '안심'}">안심</option>
 						</optgroup>
 
 						<optgroup id="chicken-part" label="닭" style="display: none;">
-							<option value="없음" selected>없음</option>
+							<option value="없음" th:selected="${recipe.category2 == '없음'}">없음</option>
 						</optgroup>
 
 						<optgroup id="egg-part" label="계란" style="display: none;">
-							<option value="없음" selected>없음</option>
+							<option value="없음" th:selected="${recipe.category2 == '없음'}">없음</option>
 						</optgroup>
 
 						<optgroup id="milk-part" label="우유" style="display: none;">
-							<option value="없음" selected>없음</option>
+							<option value="없음" th:selected="${recipe.category2 == '없음'}">없음</option>
 						</optgroup>
 					</select>
 
@@ -149,7 +149,7 @@
 				<button class="delete" type="button"
 					th:onclick="|location.href='@{/recipe/{memberId}/{recipeId}/delete(memberId=${recipe.memberId}, recipeId=${recipe.recipeId})}'|">삭제</button>
 				<div class="button">
-					<button class="cancel" type="reset">취소</button>
+					<button class="cancel" type="button" th:onclick="|location.href='@{/myrecipe/{memberId}(memberId=${recipe.memberId})}'|">취소</button>
 					<button class="submit" type="submit">수정</button>
 				</div>
 			</form>
