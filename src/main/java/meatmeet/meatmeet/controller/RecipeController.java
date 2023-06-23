@@ -1,6 +1,7 @@
 package meatmeet.meatmeet.controller;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,6 +36,9 @@ public class RecipeController {
 		
 		List<Recipe> recipes = recipeService.findAll();
 		List<Item> items = recipeService.findItemAll();
+		
+		Collections.reverse(recipes);
+		
 		model.addAttribute("member", member);
 		model.addAttribute("recipes", recipes);
 		model.addAttribute("items", items);
