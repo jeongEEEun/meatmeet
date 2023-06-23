@@ -52,7 +52,7 @@ public class RecipeService {
 	public void cartAdd(Cart cart) {
 	    if (cart.getQuantity() <= 0) {
 	        cart.setQuantity(1);
-	    }
+	    } 
 	    recipeRepository.cartAdd(cart);
 	}
 	

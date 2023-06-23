@@ -47,7 +47,7 @@ class MemberRepositoryTest {
 		recipe.setImgName("img.jpg");
 		recipe.setImgPath("img/img.jpg");
 		
-		Long result = memberRepository.saveRecipe(recipe);
+		memberRepository.saveRecipe(recipe);
 		
 		int afterSize = recipeRepository.findAll().size();
 		

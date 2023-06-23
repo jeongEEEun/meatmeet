@@ -127,8 +127,10 @@ public class MemberController {
 	@GetMapping("/recipe/{memberId}/{recipeId}/delete")
 	public String recipeDelete(@PathVariable String memberId, @PathVariable Long recipeId,
 			@SessionAttribute Member member) {
+		
 		recipeService.deleteCommentsByRecipeId(recipeId);
-		memberService.deleteRecipe(recipeId);
+		memberService.deleteRecipe(memberId, recipeId);
+		
 		return "redirect:/myrecipe/" + memberId;
 	}
 }

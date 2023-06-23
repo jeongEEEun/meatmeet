@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.GetObjectRequest;
@@ -42,13 +43,6 @@ public class S3Service {
 	@Value("${cloud.aws.s3.bucket}")
 	private String bucket;
 	
-	public String upload(MultipartFile multipartFile, String dirName) throws IllegalArgumentException, FileNotFoundException, IOException {
-		File uploadFile = convert(multipartFile)
-				.orElseThrow(() -> new IllegalArgumentException("[S4Uploader] MultipartFile -> File 전환 실패"));
-		
-		return upload(uploadFile, dirName);
-	}
-	
 	private String upload(File uploadFile, String dirName) {
 		String fileName = dirName + "/" + uploadFile.getName();
 		String uploadImageUrl = putS3(uploadFile, fileName);
@@ -56,6 +50,13 @@ public class S3Service {
 		removeNewFile(uploadFile);
 		
 		return uploadImageUrl;
+	}
+	
+	public String upload(MultipartFile multipartFile, String dirName) throws IllegalArgumentException, FileNotFoundException, IOException {
+		File uploadFile = convert(multipartFile)
+				.orElseThrow(() -> new IllegalArgumentException("[S4Uploader] MultipartFile -> File 전환 실패"));
+		
+		return upload(uploadFile, dirName);
 	}
 	
 	private void removeNewFile(File targetFile) {
@@ -87,6 +88,16 @@ public class S3Service {
             return Optional.of(convertFile);
         }
         return Optional.empty();
+    }
+    
+    public void deleteImgFile(String imgUrl) {
+    	log.info(imgUrl);
+    	
+    	try {
+    		amazonS3Client.deleteObject(bucket, imgUrl);
+    	} catch (AmazonServiceException e) {
+    		log.info(e.getErrorMessage());
+		}
     }
     
 	public String getCsv(String fileName) throws IOException {

@@ -1,9 +1,7 @@
 package meatmeet.meatmeet.service;
 
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.StringReader;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -42,5 +40,7 @@ public class ItemService {
 				.withType(Item.class).build().parse();
 		
 		itemRepository.updateItem(readCsvItems);
+		
+		log.info("[ItemService] 상품 가격 업데이트 >> " + uploadDate);
 	}
 }

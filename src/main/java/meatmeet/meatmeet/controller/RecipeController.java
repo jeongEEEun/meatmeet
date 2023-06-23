@@ -20,15 +20,18 @@ import meatmeet.meatmeet.domain.Comment;
 import meatmeet.meatmeet.domain.Item;
 import meatmeet.meatmeet.domain.Member;
 import meatmeet.meatmeet.domain.Recipe;
+import meatmeet.meatmeet.service.CartService;
 import meatmeet.meatmeet.service.RecipeService;
 
 @Slf4j
 @Controller
 public class RecipeController {
 	private final RecipeService recipeService;
+	private final CartService cartService;
 
-	public RecipeController(RecipeService recipeService) {
+	public RecipeController(RecipeService recipeService, CartService cartService) {
 		this.recipeService = recipeService;
+		this.cartService = cartService;
 	}
 
 	@GetMapping("/recipe")
@@ -80,13 +83,16 @@ public class RecipeController {
 			Item item = optionalItem.get();
 			cart.setPrice(item.getTodayPrice());
 		}
+		
 		boolean itemExists = recipeService.itemExist(memberId, itemId);
 		if (itemExists) {
-			return "redirect:/cart/" + memberId;
+			cartService.updateQuantity(memberId, itemId, 1);
+		} else {
+			recipeService.cartAdd(cart);
 		}
 
-		recipeService.cartAdd(cart);
-		return "redirect:/recipe";
+		
+		return "redirect:/cart/" + memberId;
 	}
 
 	@PostMapping("/recipe/{recipeId}/comment")

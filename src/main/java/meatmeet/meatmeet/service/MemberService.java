@@ -81,7 +81,14 @@ public class MemberService {
 		memberRepository.updateRecipe(recipe);
 	}
 	
-	public void deleteRecipe(Long recipeId) {
-		memberRepository.deleteRecipe(recipeId);
+	public void deleteRecipe(String memberId, Long recipeId) {
+		Optional<Recipe> recipe = findByRecipeId(memberId, recipeId);
+		
+		if(recipe.isPresent()) {
+			String imgUrl = recipe.get().getImgPath();
+			s3Uploader.deleteImgFile(imgUrl);
+			
+			memberRepository.deleteRecipe(recipeId);
+		}
 	}
 }

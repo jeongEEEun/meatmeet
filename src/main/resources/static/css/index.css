@@ -105,6 +105,12 @@ div .wrap .box p {
 	color: #888;
 }
 
+div .wrap .analysis-box img {
+	
+	width: 1000px;
+	height: 300px;
+}
+
 div .wrap .chicken-egg-milk {
 	display: inline-block;
 	margin: 0 25px;
