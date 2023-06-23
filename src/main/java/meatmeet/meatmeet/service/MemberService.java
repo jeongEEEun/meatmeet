@@ -28,9 +28,9 @@ import meatmeet.meatmeet.repository.MemberRepository;
 @Slf4j
 public class MemberService {
 	private final MemberRepository memberRepository;
-	private final S3Uploader s3Uploader;
+	private final S3Service s3Uploader;
 	
-	public MemberService(MemberRepository memberRepository, S3Uploader s3Uploader) {
+	public MemberService(MemberRepository memberRepository, S3Service s3Uploader) {
 		this.memberRepository = memberRepository;
 		this.s3Uploader = s3Uploader;
 	}

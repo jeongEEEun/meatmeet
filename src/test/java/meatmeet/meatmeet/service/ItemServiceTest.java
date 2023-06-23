@@ -3,6 +3,9 @@ package meatmeet.meatmeet.service;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -17,19 +20,24 @@ import meatmeet.meatmeet.domain.Item;
 class ItemServiceTest {
 	
 	@Autowired private ItemService itemService;
+	@Autowired private S3Service s3Service;
 		
 	@Test
-	void readCsv() throws IOException {
-		List<Item> result = itemService.readCsv();
+	void UpdateItemPrice() throws IOException {
+		itemService.readCsv();
+		
+		List<Item> result = itemService.findAllItem();
+		
 		assertThat(result.size()).isEqualTo(12);
 	}
 	
 	@Test
-	void updateItemPrice() throws IOException {
-		itemService.updateItemPrice();
+	void getCsv() throws IOException {
+		String uploadDate = LocalDate.now().format(DateTimeFormatter.BASIC_ISO_DATE);
+		String fileName = "csv/price" + uploadDate + ".csv";
 		
-		List<Item> result = itemService.findAllItem();
+		log.info("fileName >> " + fileName);
 		
-		assertThat(result.get(0).getTodayPrice()).isNotEqualTo(1000);
+		s3Service.getCsv(fileName);
 	}
 }

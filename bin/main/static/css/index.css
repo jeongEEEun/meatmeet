@@ -14,7 +14,7 @@
 	font-size: 12px;
 }
 
-.remote-box .btn {
+.btn {
 	margin: 0 auto;
 	display: block;
 	background-color: #ff6666;
@@ -22,7 +22,7 @@
 	border: none;
 }
 
-.remote-box .btn:hover {
+.btn:hover {
 	background-color: #ff3333;
 	border: none;
 }
@@ -30,7 +30,7 @@
 /* TOOLTIP BOX - 축산물 부위에 호버 시 표시되는 툴팁 */
 .price-tooltip {
 	text-align: center;
-	padding: 20px 0;
+	padding: 10px 0;
 }
 
 .price-tooltip b {

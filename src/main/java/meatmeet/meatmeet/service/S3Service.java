@@ -1,9 +1,14 @@
 package meatmeet.meatmeet.service;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -14,17 +19,23 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.services.s3.model.S3ObjectInputStream;
+import com.opencsv.bean.CsvToBeanBuilder;
 
+import io.netty.channel.unix.Buffer;
 import lombok.extern.slf4j.Slf4j;
+import meatmeet.meatmeet.domain.Item;
 
 @Slf4j
 @Component
 @Service
-public class S3Uploader {
+public class S3Service {
 	private final AmazonS3Client amazonS3Client;
 	
-	public S3Uploader(AmazonS3Client amazonS3Client) {
+	public S3Service(AmazonS3Client amazonS3Client) {
 		this.amazonS3Client = amazonS3Client;
 	}
 	
@@ -77,4 +88,17 @@ public class S3Uploader {
         }
         return Optional.empty();
     }
+    
+	public String getCsv(String fileName) throws IOException {
+		S3Object o = amazonS3Client.getObject(new GetObjectRequest(bucket, fileName));
+		BufferedReader br = new BufferedReader(new InputStreamReader(o.getObjectContent()));
+		String readCsv = "";
+		
+		String line;
+		while ((line = br.readLine()) != null) {
+			readCsv += line + "\n";
+		}
+		
+		return readCsv;
+	}
 }

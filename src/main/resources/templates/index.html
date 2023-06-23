@@ -100,14 +100,14 @@
 				<h3 class="title">돼지</h3>
 				<img src="img/돼지.png" usemap="#pig-map">
 				<map name="pig-map">
-					<area id="neck" target="_blank" alt="목살" href="#" coords="210,82,8" shape="circle">
-					<area id="neck" target="_blank" alt="목살" href="#" coords="315,4,351,25" shape="rect">
-					<area id="rib" target="_blank" alt="갈비" href="#" coords="221,146,9" shape="circle">
-					<area id="rib" target="_blank" alt="갈비" href="#" coords="24,261,60,283" shape="rect">
-					<area id="leg" target="_blank" alt="앞다리" href="#" coords="217,213,8" shape="circle">
-					<area id="leg" target="_blank" alt="앞다리" href="#" coords="8,296,59,317" shape="rect">
-					<area id="belly" target="_blank" alt="삼겹살" href="#" coords="303,213,9" shape="circle">
-					<area id="belly" target="_blank" alt="삼겹살" href="#" coords="460,269,510,290" shape="rect">
+					<area id="neck" target="_blank" alt="목살" coords="210,82,8" shape="circle">
+					<area id="neck" target="_blank" alt="목살" coords="315,4,351,25" shape="rect">
+					<area id="rib" target="_blank" alt="갈비" coords="221,146,9" shape="circle">
+					<area id="rib" target="_blank" alt="갈비" coords="24,261,60,283" shape="rect">
+					<area id="leg" target="_blank" alt="앞다리" coords="217,213,8" shape="circle">
+					<area id="leg" target="_blank" alt="앞다리" coords="8,296,59,317" shape="rect">
+					<area id="belly" target="_blank" alt="삼겹살" coords="303,213,9" shape="circle">
+					<area id="belly" target="_blank" alt="삼겹살" coords="460,269,510,290" shape="rect">
 				</map>
 				<div class="analysis-box">
 					<h4 class="mt-5 title">돼지도체의 시기별 가격 변동</h4>
@@ -120,16 +120,16 @@
 				<h3 class="title">소</h3>
 				<img src="img/소.png" alt="소고기 부위별 시세" usemap="#cow-map">
 				<map name="cow-map">
-					<area id="sirloin" target="_blank" alt="등심" href="등심" coords="289,88,9" shape="circle">
-					<area id="sirloin" target="_blank" alt="등심" href="등심" coords="393,5,428,27" shape="rect">
-					<area id="tenderloin" target="_blank" alt="안심" href="안심" coords="347,121,9" shape="circle">
-					<area id="tenderloin" target="_blank" alt="안심" href="안심" coords="449,43,484,62" shape="rect">
-					<area id="round" target="_blank" alt="설도" href="설도" coords="394,179,9" shape="circle">
-					<area id="round" target="_blank" alt="설도" href="설도" coords="498,237,535,257" shape="rect">
-					<area id="rib-cow" target="_blank" alt="갈비" href="갈비" coords="238,145,9" shape="circle">
-					<area id="rib-cow" target="_blank" alt="갈비" href="갈비" coords="64,239,98,258" shape="rect">
-					<area id="brisket" target="_blank" alt="양지" href="양지" coords="279,207,8" shape="circle">
-					<area id="brisket" target="_blank" alt="양지" href="양지" coords="64,301,98,320" shape="rect">
+					<area id="sirloin" target="_blank" alt="등심" coords="289,88,9" shape="circle">
+					<area id="sirloin" target="_blank" alt="등심" coords="393,5,428,27" shape="rect">
+					<area id="tenderloin" target="_blank" alt="안심" coords="347,121,9" shape="circle">
+					<area id="tenderloin" target="_blank" alt="안심" coords="449,43,484,62" shape="rect">
+					<area id="round" target="_blank" alt="설도" coords="394,179,9" shape="circle">
+					<area id="round" target="_blank" alt="설도" coords="498,237,535,257" shape="rect">
+					<area id="rib-cow" target="_blank" alt="갈비" coords="238,145,9" shape="circle">
+					<area id="rib-cow" target="_blank" alt="갈비" coords="64,239,98,258" shape="rect">
+					<area id="brisket" target="_blank" alt="양지" coords="279,207,8" shape="circle">
+					<area id="brisket" target="_blank" alt="양지" coords="64,301,98,320" shape="rect">
 				</map>
 				<div class="analysis-box">
 					<h4 class="mt-5 title">소도체의 시기별 가격 변동</h4>
@@ -141,7 +141,7 @@
 			<div class="box pt-5 pb-5">
 				<div class="chicken-egg-milk price-tooltip" id="chicken-egg-milk">
 					<h3 class="title">닭</h3>
-					<a href="#"><img src="img/닭.png" alt="닭고기 시세"></a>
+					<img src="img/닭.png" alt="닭고기 시세">
 					<div>
 						<span>육계 1kg</span>
 						<b class="price" th:text="${chicken.todayPrice}">1,000</b><span>원</span>
@@ -164,10 +164,12 @@
 							<b class="red">싸요</b>
 						</span>
 					</div>
+					<button th:if="${member} != null" class="btn btn-primary mt-2" th:onclick="|location.href='@{/cart/{memberId}/{itemId}(memberId=${member.memberId}, itemId=${chicken.itemId})}'|">장바구니에 담기</button>
+					<button th:if="${member} == null" class="btn btn-primary mt-2" onclick="location.href='/sign-in'">장바구니에 담기</button>
 				</div>
 				<div class="chicken-egg-milk price-tooltip" id="chicken-egg-milk">
 					<h3 class="title">계란</h3>
-					<a href="#"><img src="img/계란.png" alt="계란 시세"></a>
+					<img src="img/계란.png" alt="계란 시세">
 					<div>
 						<span>특란 30구</span>
 						<b class="price" th:text="${egg.todayPrice}">1,000</b><span>원</span>
@@ -190,10 +192,12 @@
 							<b class="red">싸요</b>
 						</span>
 					</div>
+					<button th:if="${member} != null" class="btn btn-primary mt-2" th:onclick="|location.href='@{/cart/{memberId}/{itemId}(memberId=${member.memberId}, itemId=${egg.itemId})}'|">장바구니에 담기</button>
+					<button th:if="${member} == null" class="btn btn-primary mt-2" onclick="location.href='/sign-in'">장바구니에 담기</button>
 				</div>
 				<div class="chicken-egg-milk price-tooltip" id="chicken-egg-milk">
 					<h3 class="title">우유</h3>
-					<a href="#"><img src="img/우유.png" alt="우유 시세"></a>
+					<img src="img/우유.png" alt="우유 시세">
 					<div>
 						<span>흰우유 1L</span>
 						<b class="price" th:text="${milk.todayPrice}">1,000</b><span>원</span>
@@ -216,6 +220,8 @@
 							<b class="red">싸요</b>
 						</span>
 					</div>
+					<button th:if="${member} != null" class="btn btn-primary mt-2" th:onclick="|location.href='@{/cart/{memberId}/{itemId}(memberId=${member.memberId}, itemId=${milk.itemId})}'|">장바구니에 담기</button>
+					<button th:if="${member} == null" class="btn btn-primary mt-2" onclick="location.href='/sign-in'">장바구니에 담기</button>
 				</div>
 			</div>
 		</div>
@@ -249,18 +255,26 @@
 	<script th:inline="javascript">
 		/*<![CDATA[*/
 		var items = new Array();
-
+		var memberId = null;
+		
+		/*[# th:if="${member} != null"]*/
+		memberId = /*[[${member.memberId}]]*/;		
+		/*[/]*/
+		
+		console.log(memberId);
+		
 		/*[# th:each="i : ${items}"]*/
 		var item = new Object();
-
+		
+		item.id = /*[[${i.itemId}]]*/
 		item.name = /*[[${i.itemName}]]*/
-			item.part = /*[[${i.part}]]*/
-			item.unit = /*[[${i.itemUnit}]]*/
-			item.todayPrice = /*[[${i.todayPrice}]]*/
-			item.yesterdayPrice = /*[[${i.yesterdayPrice}]]*/
-			item.selector = /*[[${i.selector}]]*/
+		item.part = /*[[${i.part}]]*/
+		item.unit = /*[[${i.itemUnit}]]*/
+		item.todayPrice = /*[[${i.todayPrice}]]*/
+		item.yesterdayPrice = /*[[${i.yesterdayPrice}]]*/
+		item.selector = /*[[${i.selector}]]*/
 
-			items.push(item);
+		items.push(item);
 		/*[/]*/
 
 		jQuery(document).ready(function (e) {
@@ -278,16 +292,27 @@
 					let increaseTag = '';
 	
 					if (increase > 0) {
-						increaseTag = '<br>어제보다 <b class="increase">' + increase.toLocaleString() + '</b>원 <b class="blue">비싸요</b></div>';
+						increaseTag = '<br>어제보다 <b class="increase">' + increase.toLocaleString() + '</b>원 <b class="blue">비싸요</b>';
 					} else if (increase < 0) {
-						increaseTag = '<br>어제보다 <b class="increase">' + (increase * -1).toLocaleString() + '</b>원 <b class="red">싸요</b></div>';
+						increaseTag = '<br>어제보다 <b class="increase">' + (increase * -1).toLocaleString() + '</b>원 <b class="red">싸요</b>';
 					} else {
 						increaseTag = '<br>어제랑 <b>똑같아요</b>';
 					}
-	
-					let tooltipTag = '<div class="price-tooltip"><b>' + targetItem.part + '</b><br>' 
-						+ targetItem.unit + ' <b class="price">' + parseInt(targetItem.todayPrice).toLocaleString() + '</b>원' + increaseTag;
 					
+					let onclickAttr = "";
+					
+					if (memberId === null) {
+						onclickAttr = "location.href='/sign-in'";
+					} else {
+						onclickAttr = "location.href='/cart/" + memberId + "/" + targetItem.id + "'";
+					}
+					
+					let addToCartBtn = '<button class="btn btn-primary mt-2" onclick=' + onclickAttr + '>장바구니에 담기</button>'
+					
+					let tooltipTag = '<div class="price-tooltip"><b>' + targetItem.part + '</b><br>' + targetItem.unit 
+						+ ' <b class="price">' + parseInt(targetItem.todayPrice).toLocaleString() + '</b>원' + increaseTag 
+						+ addToCartBtn + "</div>";
+						
 					$('area').qtip('option', 'content.text', tooltipTag);
 				})
 			)
@@ -301,7 +326,10 @@
 				text: '-'
 			},
 			hide: {
-				fixed: true
+		        delay: 3000
+			}, 
+			show: {
+				solo: true
 			}
 		});
 	/*]]>*/

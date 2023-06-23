@@ -2,16 +2,13 @@ package meatmeet.meatmeet.service;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.StringReader;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-<<<<<<< HEAD
-=======
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.scheduling.annotation.Scheduled;
->>>>>>> origin/aws
 import org.springframework.stereotype.Service;
 
 import com.opencsv.bean.CsvToBeanBuilder;
@@ -24,25 +21,26 @@ import meatmeet.meatmeet.repository.ItemRepository;
 @Slf4j
 public class ItemService {
 	private final ItemRepository itemRepository;
+	private final S3Service s3Service;
 	
-	public ItemService(ItemRepository itemRepository) {
+	public ItemService(ItemRepository itemRepository, S3Service s3Service) {
 		this.itemRepository = itemRepository;
+		this.s3Service = s3Service;
 	}
 	
 	public List<Item> findAllItem() {
 		return itemRepository.findAllItem();
 	}
-	
-	public List<Item> readCsv() throws IOException {
-		String filePath = "C:\\web\\final_project\\축산물 시세.csv";
-		List<Item> readCsvItems = new CsvToBeanBuilder<Item>(new FileReader(filePath))
+
+	@Scheduled(cron = "0 0 9 * * *")
+	public void readCsv() throws IOException {
+		String uploadDate = LocalDate.now().format(DateTimeFormatter.BASIC_ISO_DATE);
+		String fileName = "csv/price" + uploadDate + ".csv";
+		String csv = s3Service.getCsv(fileName);
+		
+		List<Item> readCsvItems = new CsvToBeanBuilder<Item>(new StringReader(csv))
 				.withType(Item.class).build().parse();
 		
-		return readCsvItems;
-	}
-	
-	public void updateItemPrice() throws IOException {
-		List<Item> items = this.readCsv();
-		itemRepository.updateItem(items);
+		itemRepository.updateItem(readCsvItems);
 	}
 }
