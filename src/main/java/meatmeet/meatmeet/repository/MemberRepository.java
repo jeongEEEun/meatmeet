@@ -44,7 +44,7 @@ public class MemberRepository {
 		recipe.setRecipeId(rs.getLong("recipe_id"));
 		recipe.setMemberId(rs.getString("member_id"));
 		recipe.setCategory1(rs.getString("category1"));
-		recipe.setCategory1(rs.getString("category2"));
+		recipe.setCategory2(rs.getString("category2"));
 		recipe.setTitle(rs.getString("title"));
 		recipe.setIngre(rs.getString("ingre"));
 		recipe.setSauce(rs.getString("sauce"));

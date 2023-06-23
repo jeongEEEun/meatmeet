@@ -110,7 +110,11 @@ public class MemberController {
 			model.addAttribute("recipe", findRecipe.get());
 			model.addAttribute(member);
 		}
-
+		
+		log.info("recipe.category1 >> {}", findRecipe.get().getCategory1());
+		log.info("recipe.category2 >> {}", findRecipe.get().getCategory2());
+		log.info("recipe.title >> {}", findRecipe.get().getTitle());
+		
 		return "recipe/edit";
 	}
 
