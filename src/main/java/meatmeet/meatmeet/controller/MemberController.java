@@ -1,5 +1,7 @@
 package meatmeet.meatmeet.controller;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -93,6 +95,8 @@ public class MemberController {
 	@GetMapping("/myrecipe/{memberId}")
 	public String myRecipe(@PathVariable String memberId, @SessionAttribute Member member, Model model) {
 		List<Recipe> myRecipe = memberService.findRecipeByMemberId(memberId);
+		
+		Collections.reverse(myRecipe);
 		
 		model.addAttribute("member", member);
 		model.addAttribute("myRecipe", myRecipe);
