@@ -2,7 +2,9 @@ package meatmeet.meatmeet.service;
 
 import java.io.IOException;
 import java.io.StringReader;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -30,9 +32,12 @@ public class ItemService {
 		return itemRepository.findAllItem();
 	}
 
-	@Scheduled(cron = "0 0 9 * * *")
+	@Scheduled(cron = "0 0 9 * * * ", zone = "Asia/Seoul")
 	public void readCsv() throws IOException {
-		String uploadDate = LocalDate.now().format(DateTimeFormatter.BASIC_ISO_DATE);
+		LocalDateTime dateTime = LocalDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+		String uploadDate = ZonedDateTime.of(dateTime, ZoneId.of("Asia/Seoul")).format(formatter);
+		
 		String fileName = "csv/price" + uploadDate + ".csv";
 		String csv = s3Service.getCsv(fileName);
 		

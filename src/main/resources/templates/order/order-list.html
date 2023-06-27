@@ -2,201 +2,209 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <title>meatmeet | 주문내역</title>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../../static/css/reset.css">
-  <link rel="stylesheet" href="../../static/css/header-footer.css" th:href="@{/css/header-footer.css}">
-  <link rel="stylesheet" href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
-  <link rel="stylesheet" href="../../static/css/cart.css" th:href="@{/css/cart.css}">
-  <link rel="stylesheet" href="../../static/css/order.css" th:href="@{/css/order.css}">
-  <link rel="stylesheet" href="../../static/css/order-list.css" th:href="@{/css/order-list.css}">
+	<title>meatmeet | 주문내역</title>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../../static/css/reset.css">
+	<link rel="stylesheet" href="../../static/css/header-footer.css" th:href="@{/css/header-footer.css}">
+	<link rel="stylesheet" href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+	<link rel="stylesheet" href="../../static/css/cart.css" th:href="@{/css/cart.css}">
+	<link rel="stylesheet" href="../../static/css/order.css" th:href="@{/css/order.css}">
+	<link rel="stylesheet" href="../../static/css/order-list.css" th:href="@{/css/order-list.css}">
 	<link rel="icon" href="../../static/img/favicon.png" th:href="@{/img/favicon.png}" type="image/x-icon">
 </head>
 
 <body>
 	<div class="wrap-body">
-		  <!-- header start : 로그인 O -->
-		  <header th:if="${member} != null" class="border-bottom">
-		    <div class="wrap">
-		      <ul class="row px-0 pt-4">
-		        <li class="col p-0 pe-1">
-		          <a href="/">
-		            <img src="/img/logo2.png" alt="meatmeet 로고" class="logo">
-		          </a>
-		        </li>
-		        <li class="col p-0">
-		          <a href="/recipe" class="ms-5 title">레시피</a>
-		        </li>
-		        <li class="col p-0">
-		          <a href="/myrecipe" th:href="@{/myrecipe/{memberId}(memberId=${member.memberId})}" class="title">나의 레시피</a>
-		        </li>
-		        <li class="col p-0">
-		          <a href="/order-list" th:href="@{/order/{memberId}(memberId=${member.memberId})}" class="title">
-		            <img src="/img/order.png" alt="주문내역 아이콘" class="icon">
-		            주문내역
-		          </a>
-		        </li>
-		        <li class="col p-0">
-		          <a href="/cart" th:href="@{/cart/{memberId}(memberId=${member.memberId})}" class="title">
-		            <img src="/img/cart.png" alt="장바구니 아이콘" class="icon">
-		            장바구니</a>
-		        </li>
-		        <li class="col p-0 row member">
-		          <span class="col p-0">
-		            <span class="member-name" th:text="${member.memberName}">사용자명</span><span> 님</span>
-		          </span>
-		          <button class="btn btn-light col logout-btn" onclick="location.href='/sign-out'">로그아웃</button>
-		        </li>
-		      </ul>
-		    </div>
-		  </header>
-		  <!-- header end : 로그인 O -->
-		
-		  <!-- container start : 주문내역 O -->
-		  <div class="container mb-5 mt-5 pb-5" th:if="${#lists.size(orderInfo) > 0}">
-		    <h1 class="title">주문내역</h1>
-		    <div th:each="orderInfo: ${orderInfo}">
-		      <div class="order-date">
-		        <span th:text="${orderInfo.orderDate}">2023. 06. 06</span>
-		        <span class="ms-3">주문번호
-		          <span th:text="${orderInfo.orderId}">202306061234</span>
-		        </span>
-		      </div>
-		      <table class="table mt-3 mb-4 col">
-		        <thead>
-		          <tr>
-		            <th>상품명</th>
-		            <th>수량</th>
-		            <th>가격</th>
-		          </tr>
-		        </thead>
-		        <tbody>
-		          <tr th:each="orderItem, status: ${orderItems}" th:if="${orderInfo.orderId == orderItem.orderId}">
-		            <td th:text="${orderItem.itemName}">상품명</td>
-		            <td>
-		              <span class="ms-2 me-2 quantity" th:text="${orderItem.quantity}">1</span>
-		            </td>
-		            <td th:text="${orderItem.price}">가격</td>
-		          </tr>
-		        </tbody>
-		      </table>
-		      <div class="row">
-		        <div class="col form-box">
-		          <h3>주문자 정보</h3>
-		          <label for="name" class="form-label">이름</label>
-		          <input class="form-control" type="text" th:value="${orderInfo.userName}" disabled>
-		          <br>
-		          <label for="phone" class="form-label">전화번호</label>
-		          <input class="form-control" type="tel" th:value="${orderInfo.phone}" disabled>
-		          <br>
-		          <label for="address" class="form-label">주소</label>
-		          <input class="form-control" type="address" th:value="${orderInfo.address}" disabled>
-		          <br>
-		          <label for="request" class="form-label" disabled>요청사항</label>
-		          <select class="form-select" name="request" id="request">
-		            <option th:text="${orderInfo.request}" selected>배송 시 요청사항을 선택해 주세요</option>
-		          </select>
-		        </div>
-		        <div class="box p-0 ms-4">
-		          <div class="border rounded p-3 mb-3">
-		            <div class="border-bottom fw-bold mb-2 pb-2">결제정보</div>
-		            <div class="row">
-		              <span class="col-auto me-auto">상품 금액</span>
-		              <span class="fw-bold col-auto price" th:text="${orderInfo.totalPrice} + 원">0원</span>
-		            </div>
-		            <div class="row">
-		              <span class="col-auto me-auto">배송비</span>
-		              <span class="fw-bold col-auto price">3000원</span>
-		            </div>
-		            <div class="row mb-5">
-		              <span class="col-auto me-auto">결제수단</span>
-		              <span class="fw-bold col-auto price" th:text="${orderInfo.payment}">카카오페이</span>
-		            </div>
-		            <div class="row pt-4">
-		              <span class="col-auto me-auto">결제금액</span>
-		              <span class="fw-bold total-price col-auto" th:text="${orderInfo.totalPrice} + 3000 + 원">0원</span>
-		            </div>
-		          </div>
-		          <button class="btn btn-secondary cancle-btn align-baseline"
-		            th:onclick="|location.href='@{/order/{memberId}/{orderId}/cancel(memberId=${member.memberId}, orderId=${orderInfo.orderId})}'|">주문
-		            취소</button>
-		        </div>
-		      </div>
-		      <div>
-		        <hr class="mt-5">
-		      </div>
-		    </div>
-		  </div>
-		  <!-- container end : 주문내역 O -->
-		
-		  <!-- container start : 주문내역 X -->
-		  <div class="container" th:if="${#lists.size(orderInfo) == 0}">
-		    <div>
-		      <a href="#" class="title">
-		        <img src="/img/order.png" alt="주문내역 아이콘" class="small-icon">
-		      </a>
-		    </div>
-		    <br>
-		    <div>
-		      주문내역이 없습니다
-		    </div>
-		    <br>
-		    <div>
-		      <button class="btn btn-primary" onclick="location.href='/'">홈으로 가기</button>
-		    </div>
-		  </div>
-		  <!-- container end : 주문내역 X -->
-		
-    <!-- footer start : 주문내역 X  -->
-    <footer class="footer-absolute" th:if="${#lists.size(orderInfo) == 0}">
-      <div class="wrap">
-        <div class="row">
-          <div class="col mt-5">
-            <ul>
-              <li class="title">meat meet</li>
-              <li>상호 : 미트미트 | 대표자명 : 홍길동 | <a href="#">개인정보처리방침</a></li>
-              <li>사업자등록번호 : 000-00-00000</li>
-              <li>연락처 : 00-000-0000</li>
-              <li>이메일 : meatmeet@gmail.com</li>
-              <li>주소 : 서울특별시 OO구 OO로O길</li>
-            </ul>
-          </div>
-          <div class="col pt-5">
-            <a href="#">
-              <img src="/img/logo_white.png" alt="meatmeet로고" class="mt-3">
-            </a>
-          </div>
-        </div>
-      </div>
-    </footer>
-    <!-- footer end : 주문내역 X -->
-		
-    <!-- footer start : 주문내역 O -->
-    <footer th:if="${#lists.size(orderInfo) > 0}">
-      <div class="wrap">
-        <div class="row">
-          <div class="col mt-5">
-            <ul>
-              <li class="title">meat meet</li>
-              <li>상호 : 미트미트 | 대표자명 : 홍길동 | <a href="#">개인정보처리방침</a></li>
-              <li>사업자등록번호 : 000-00-00000</li>
-              <li>연락처 : 00-000-0000</li>
-              <li>이메일 : meatmeet@gmail.com</li>
-              <li>주소 : 서울특별시 OO구 OO로O길</li>
-            </ul>
-          </div>
-          <div class="col pt-5">
-            <a href="#">
-              <img src="/img/logo_white.png" alt="meatmeet로고" class="mt-3">
-            </a>
-          </div>
-        </div>
-      </div>
-    </footer>
-    <!-- footer end : 주문내역 O -->
-  </div>
+		<!-- header start : 로그인 O -->
+		<header th:if="${member} != null" class="border-bottom">
+			<div class="wrap">
+				<ul class="row px-0 pt-4">
+					<li class="col p-0 pe-1">
+						<a href="/">
+							<img src="/img/logo2.png" alt="meatmeet 로고" class="logo">
+						</a>
+					</li>
+					<li class="col p-0">
+						<a href="/recipe" class="ms-5 title">레시피</a>
+					</li>
+					<li class="col p-0">
+						<a href="/myrecipe" th:href="@{/myrecipe/{memberId}(memberId=${member.memberId})}" class="title">나의 레시피</a>
+					</li>
+					<li class="col p-0">
+						<a href="/order-list" th:href="@{/order/{memberId}(memberId=${member.memberId})}" class="title">
+							<img src="/img/order.png" alt="주문내역 아이콘" class="icon">
+							주문내역
+						</a>
+					</li>
+					<li class="col p-0">
+						<a href="/cart" th:href="@{/cart/{memberId}(memberId=${member.memberId})}" class="title">
+							<img src="/img/cart.png" alt="장바구니 아이콘" class="icon">
+							장바구니</a>
+					</li>
+					<li class="col p-0 row member">
+						<span class="col p-0">
+							<span class="member-name" th:text="${member.memberName}">사용자명</span><span> 님</span>
+						</span>
+						<button class="btn btn-light col logout-btn" onclick="location.href='/sign-out'">로그아웃</button>
+					</li>
+				</ul>
+			</div>
+		</header>
+		<!-- header end : 로그인 O -->
+
+		<!-- container start : 주문내역 O -->
+		<div class="container mb-5 mt-5 pb-5" th:if="${#lists.size(orderInfo) > 0}">
+			<h1 class="title">주문내역</h1>
+			<div th:each="orderInfo: ${orderInfo}">
+				<div class="order-date">
+					<span th:text="${orderInfo.orderDate}">2023. 06. 06</span>
+					<span class="ms-3">주문번호
+						<span th:text="${orderInfo.orderId}">202306061234</span>
+					</span>
+				</div>
+				<table class="table mt-3 mb-4 col">
+					<thead>
+						<tr>
+							<th>상품명</th>
+							<th>수량</th>
+							<th>가격</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="orderItem, status: ${orderItems}" th:if="${orderInfo.orderId == orderItem.orderId}">
+							<td th:text="${orderItem.itemName}">상품명</td>
+							<td>
+								<span class="ms-2 me-2 quantity" th:text="${orderItem.quantity}">1</span>
+							</td>
+							<td th:text="${orderItem.price}">가격</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="row">
+					<div class="col form-box">
+						<h3>주문자 정보</h3>
+						<label for="name" class="form-label">이름</label>
+						<input class="form-control" type="text" th:value="${orderInfo.userName}" disabled>
+						<br>
+						<label for="phone" class="form-label">전화번호</label>
+						<input class="form-control" type="tel" th:value="${orderInfo.phone}" disabled>
+						<br>
+						<label for="address" class="form-label">주소</label>
+						<input class="form-control" type="address" th:value="${orderInfo.address}" disabled>
+						<br>
+						<label for="request" class="form-label" disabled>요청사항</label>
+						<select class="form-select" name="request" id="request">
+							<option th:text="${orderInfo.request}" selected>배송 시 요청사항을 선택해 주세요</option>
+						</select>
+					</div>
+					<div class="box p-0 ms-4">
+						<div class="border rounded p-3 mb-3">
+							<div class="border-bottom fw-bold mb-2 pb-2">결제정보</div>
+							<div class="row">
+								<span class="col-auto me-auto">상품 금액</span>
+								<span class="fw-bold col-auto price to-locale-string" th:text="${orderInfo.totalPrice} + 원">0원</span>
+							</div>
+							<div class="row">
+								<span class="col-auto me-auto">배송비</span>
+								<span class="fw-bold col-auto price to-locale-string">3000원</span>
+							</div>
+							<div class="row mb-5">
+								<span class="col-auto me-auto">결제수단</span>
+								<span class="fw-bold col-auto price" th:text="${orderInfo.payment}">카카오페이</span>
+							</div>
+							<div class="row pt-4">
+								<span class="col-auto me-auto">결제금액</span>
+								<span class="fw-bold total-price col-auto to-locale-string"
+									th:text="${orderInfo.totalPrice} + 3000 + 원">0원</span>
+							</div>
+						</div>
+						<button class="btn btn-secondary cancle-btn align-baseline"
+							th:onclick="|location.href='@{/order/{memberId}/{orderId}/cancel(memberId=${member.memberId}, orderId=${orderInfo.orderId})}'|">주문
+							취소</button>
+					</div>
+				</div>
+				<div>
+					<hr class="mt-5">
+				</div>
+			</div>
+		</div>
+		<!-- container end : 주문내역 O -->
+
+		<!-- container start : 주문내역 X -->
+		<div class="container" th:if="${#lists.size(orderInfo) == 0}">
+			<div>
+				<a href="#" class="title">
+					<img src="/img/order.png" alt="주문내역 아이콘" class="small-icon">
+				</a>
+			</div>
+			<br>
+			<div>
+				주문내역이 없습니다
+			</div>
+			<br>
+			<div>
+				<button class="btn btn-primary" onclick="location.href='/'">홈으로 가기</button>
+			</div>
+		</div>
+		<!-- container end : 주문내역 X -->
+
+		<!-- footer start : 주문내역 X  -->
+		<footer class="footer-absolute" th:if="${#lists.size(orderInfo) == 0}">
+			<div class="wrap">
+				<div class="row">
+					<div class="col mt-5">
+						<ul>
+							<li class="title">meat meet</li>
+							<li>상호 : 미트미트 | 대표자명 : 홍길동 | <a href="#">개인정보처리방침</a></li>
+							<li>사업자등록번호 : 000-00-00000</li>
+							<li>연락처 : 00-000-0000</li>
+							<li>이메일 : meatmeet@gmail.com</li>
+							<li>주소 : 서울특별시 OO구 OO로O길</li>
+						</ul>
+					</div>
+					<div class="col pt-5">
+						<a href="#">
+							<img src="/img/logo_white.png" alt="meatmeet로고" class="mt-3">
+						</a>
+					</div>
+				</div>
+			</div>
+		</footer>
+		<!-- footer end : 주문내역 X -->
+
+		<!-- footer start : 주문내역 O -->
+		<footer th:if="${#lists.size(orderInfo) > 0}">
+			<div class="wrap">
+				<div class="row">
+					<div class="col mt-5">
+						<ul>
+							<li class="title">meat meet</li>
+							<li>상호 : 미트미트 | 대표자명 : 홍길동 | <a href="#">개인정보처리방침</a></li>
+							<li>사업자등록번호 : 000-00-00000</li>
+							<li>연락처 : 00-000-0000</li>
+							<li>이메일 : meatmeet@gmail.com</li>
+							<li>주소 : 서울특별시 OO구 OO로O길</li>
+						</ul>
+					</div>
+					<div class="col pt-5">
+						<a href="#">
+							<img src="/img/logo_white.png" alt="meatmeet로고" class="mt-3">
+						</a>
+					</div>
+				</div>
+			</div>
+		</footer>
+		<!-- footer end : 주문내역 O -->
+	</div>
+	<script>
+		var priceElements = document.querySelectorAll('.to-locale-string');
+
+		for (let p of priceElements) {
+			p.innerText = parseInt(p.innerText).toLocaleString();
+		}
+	</script>
 </body>
 
 </html>
