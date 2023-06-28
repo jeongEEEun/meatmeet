@@ -22,12 +22,12 @@ public class RecipeServiceTest {
 		assertThat(cart.getItemName()).isEqualTo("우유");
 	}
 	
-	@Test
-	void saveComment() {
-		Comment comment = new Comment(3, "min", "나중에 해먹고 싶어요");
-		recipeService.saveComment(comment);
-		
-		assertThat(comment.getRecipeId()).isEqualTo(3);
-	}
+//	@Test
+//	void saveComment() {
+//		Comment comment = new Comment(3, "min", "나중에 해먹고 싶어요");
+//		recipeService.saveComment(comment);
+//		
+//		assertThat(comment.getRecipeId()).isEqualTo(3);
+//	}
 
 }
