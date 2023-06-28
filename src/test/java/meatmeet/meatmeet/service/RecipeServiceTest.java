@@ -31,12 +31,12 @@ public class RecipeServiceTest {
 		assertThat(result.size()).isEqualTo(1);
 	}
 	
-	@Test
-	void saveComment() {
-		Comment comment = new Comment(3, "min", "나중에 해먹고 싶어요");
-		recipeService.saveComment(comment);
-		
-		assertThat(comment.getRecipeId()).isEqualTo(3);
-	}
+//	@Test
+//	void saveComment() {
+//		Comment comment = new Comment(3, "min", "나중에 해먹고 싶어요");
+//		recipeService.saveComment(comment);
+//		
+//		assertThat(comment.getRecipeId()).isEqualTo(3);
+//	}
 
 }

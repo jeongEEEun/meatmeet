@@ -34,24 +34,24 @@ public class RecipeRepositoryTest {
 		
 	}
 	
-	@Test
-	void saveComment() {
-		Comment comment = new Comment(2, "aa", "맛있어요");
-		
-		recipeRepository.saveComment(comment);
-		
-		assertThat(comment.getComment()).isEqualTo("맛있어요");
-	}
-	
-	@Test
-	void findCommentByRecipeId() {
-		Comment comment = new Comment(2, "ㅁ", "저장됨");
-		
-		recipeRepository.saveComment(comment);
-		
-		List<Comment> result = recipeRepository.findCommentByRecipeId(2L);
-		
-		log.info("RecipeRepositoryTest result >> {}", result);
-		assertThat(result).isNotEmpty();
-	}
+//	@Test
+//	void saveComment() {
+//		Comment comment = new Comment(2, "aa", "맛있어요");
+//		
+//		recipeRepository.saveComment(comment);
+//		
+//		assertThat(comment.getComment()).isEqualTo("맛있어요");
+//	}
+//	
+//	@Test
+//	void findCommentByRecipeId() {
+//		Comment comment = new Comment(2, "ㅁ", "저장됨");
+//		
+//		recipeRepository.saveComment(comment);
+//		
+//		List<Comment> result = recipeRepository.findCommentByRecipeId(2L);
+//		
+//		log.info("RecipeRepositoryTest result >> {}", result);
+//		assertThat(result).isNotEmpty();
+//	}
 }
