@@ -1,5 +1,7 @@
 package meatmeet.meatmeet.domain;
 
+import java.time.LocalDateTime;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,5 +19,6 @@ public class Comment {
 	@NonNull
 	private String memberId;
 	private String comment;
+	private LocalDateTime commentDate;
 	
 }

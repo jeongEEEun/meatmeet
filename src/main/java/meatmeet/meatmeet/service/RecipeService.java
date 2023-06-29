@@ -61,7 +61,6 @@ public class RecipeService {
 	}
 	
 	public void saveComment(Comment comment) {
-		log.info("service");
 		recipeRepository.saveComment(comment);
 	}
 	

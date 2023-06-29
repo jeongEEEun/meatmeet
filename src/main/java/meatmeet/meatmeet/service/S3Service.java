@@ -101,7 +101,11 @@ public class S3Service {
     }
     
 	public String getCsv(String fileName) throws IOException {
+		log.info("bucket >> " + bucket);
+		log.info("fileName >> " + fileName);
+		
 		S3Object o = amazonS3Client.getObject(new GetObjectRequest(bucket, fileName));
+		
 		BufferedReader br = new BufferedReader(new InputStreamReader(o.getObjectContent()));
 		String readCsv = "";
 		

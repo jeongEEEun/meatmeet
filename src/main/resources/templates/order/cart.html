@@ -76,7 +76,7 @@
 								<button type="submit" class="btn btn-secondary"
 									th:onclick="|location.href='@{/cart/{memberId}/{itemId}/1(memberId=${member.memberId}, itemId=${cart.itemId})}'|">+</button>
 							</td>
-							<td th:text="${cart.price}">가격</td>
+							<td class="to-locale-string" th:text="${cart.price}">가격</td>
 						</tr>
 					</tbody>
 				</table>
@@ -84,15 +84,15 @@
 					<div class="border-bottom fw-bold mb-2 pb-2">결제정보</div>
 					<div class="row">
 						<span class="col-auto me-auto">상품 금액</span>
-						<span class="fw-bold col-auto price" th:text="${itemPrice}">0원</span>
+						<span class="fw-bold col-auto price to-locale-string" th:text="${itemPrice}">0원</span>
 					</div>
 					<div class="row mb-5">
 						<span class="col-auto me-auto">배송비</span>
-						<span class="fw-bold col-auto price">3000원</span>
+						<span class="fw-bold col-auto price to-locale-string">3000원</span>
 					</div>
 					<div class="row mb-1">
 						<span class="col-auto me-auto">결제예정금액</span>
-						<span class="fw-bold total-price col-auto" th:text="${totalPrice}">0원</span>
+						<span class="fw-bold total-price col-auto to-locale-string" th:text="${totalPrice}">0원</span>
 					</div>
 					<button class="btn btn-primary col-12 mt-2"
 						th:onclick="|location.href='@{/neworder/{memberId}(memberId=${member.memberId})}'|">구매하기</button>
@@ -147,21 +147,21 @@
 	<script th:inline="javascript">
 		/*<![CDATA[*/
 		var items = new Array();
-			
+
 		/*[# th:if="${#lists.size(cartItems) > 0}"]*/
 		/*[# th:each="i : ${cartItems}"]*/
 		var item = new Object();
 		var itemId = /*[[${i.itemId}]]*/
 
-		item.id = '#quantity-item' + itemId;
+			item.id = '#quantity-item' + itemId;
 		item.minusBtnId = '#minus-btn' + itemId;
 
 		items.push(item);
 		/*[/]*/
-		
+
 		for (let item of items) {
-			
-			
+
+
 			itemQuantityElement = document.querySelector(item.id);
 			minusBtnElement = document.querySelector(item.minusBtnId);
 
@@ -173,6 +173,12 @@
 			}
 		}
 		/*[/]*/
+
+		var priceElements = document.querySelectorAll('.to-locale-string');
+
+		for (let p of priceElements) {
+			p.innerText = parseInt(p.innerText).toLocaleString();
+		}
 		/*]]>*/
 	</script>
 </body>

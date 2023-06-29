@@ -145,7 +145,7 @@
 					<img src="img/닭.png" alt="닭고기 시세">
 					<div>
 						<span>육계 1kg</span>
-						<b class="price" th:text="${chicken.todayPrice}">1,000</b><span>원</span>
+						<b class="price to-locale-string" th:text="${chicken.todayPrice}">1,000</b><span>원</span>
 					</div>
 					<div th:if="${chicken.todayPrice} - ${chicken.yesterdayPrice} == 0">
 						어제랑
@@ -165,15 +165,18 @@
 							<b class="red">싸요</b>
 						</span>
 					</div>
-					<button th:if="${member} != null" class="btn btn-primary mt-2" th:onclick="|location.href='@{/cart/{memberId}/{itemId}(memberId=${member.memberId}, itemId=${chicken.itemId})}'|">장바구니에 담기</button>
-					<button th:if="${member} == null" class="btn btn-primary mt-2" onclick="location.href='/sign-in'">장바구니에 담기</button>
+					<button th:if="${member} != null" class="btn btn-primary mt-2"
+						th:onclick="|location.href='@{/cart/{memberId}/{itemId}(memberId=${member.memberId}, itemId=${chicken.itemId})}'|">장바구니에
+						담기</button>
+					<button th:if="${member} == null" class="btn btn-primary mt-2" onclick="location.href='/sign-in'">장바구니에
+						담기</button>
 				</div>
 				<div class="chicken-egg-milk price-tooltip" id="chicken-egg-milk">
 					<h3 class="title">계란</h3>
 					<img src="img/계란.png" alt="계란 시세">
 					<div>
 						<span>특란 30구</span>
-						<b class="price" th:text="${egg.todayPrice}">1,000</b><span>원</span>
+						<b class="price to-locale-string" th:text="${egg.todayPrice}">1,000</b><span>원</span>
 					</div>
 					<div th:if="${egg.todayPrice} - ${egg.yesterdayPrice} == 0">
 						어제랑
@@ -193,15 +196,18 @@
 							<b class="red">싸요</b>
 						</span>
 					</div>
-					<button th:if="${member} != null" class="btn btn-primary mt-2" th:onclick="|location.href='@{/cart/{memberId}/{itemId}(memberId=${member.memberId}, itemId=${egg.itemId})}'|">장바구니에 담기</button>
-					<button th:if="${member} == null" class="btn btn-primary mt-2" onclick="location.href='/sign-in'">장바구니에 담기</button>
+					<button th:if="${member} != null" class="btn btn-primary mt-2"
+						th:onclick="|location.href='@{/cart/{memberId}/{itemId}(memberId=${member.memberId}, itemId=${egg.itemId})}'|">장바구니에
+						담기</button>
+					<button th:if="${member} == null" class="btn btn-primary mt-2" onclick="location.href='/sign-in'">장바구니에
+						담기</button>
 				</div>
 				<div class="chicken-egg-milk price-tooltip" id="chicken-egg-milk">
 					<h3 class="title">우유</h3>
 					<img src="img/우유.png" alt="우유 시세">
 					<div>
 						<span>흰우유 1L</span>
-						<b class="price" th:text="${milk.todayPrice}">1,000</b><span>원</span>
+						<b class="price to-locale-string" th:text="${milk.todayPrice}">1,000</b><span>원</span>
 					</div>
 					<div th:if="${milk.todayPrice} - ${milk.yesterdayPrice} == 0">
 						어제랑
@@ -221,8 +227,11 @@
 							<b class="red">싸요</b>
 						</span>
 					</div>
-					<button th:if="${member} != null" class="btn btn-primary mt-2" th:onclick="|location.href='@{/cart/{memberId}/{itemId}(memberId=${member.memberId}, itemId=${milk.itemId})}'|">장바구니에 담기</button>
-					<button th:if="${member} == null" class="btn btn-primary mt-2" onclick="location.href='/sign-in'">장바구니에 담기</button>
+					<button th:if="${member} != null" class="btn btn-primary mt-2"
+						th:onclick="|location.href='@{/cart/{memberId}/{itemId}(memberId=${member.memberId}, itemId=${milk.itemId})}'|">장바구니에
+						담기</button>
+					<button th:if="${member} == null" class="btn btn-primary mt-2" onclick="location.href='/sign-in'">장바구니에
+						담기</button>
 				</div>
 			</div>
 		</div>
@@ -257,25 +266,29 @@
 		/*<![CDATA[*/
 		var items = new Array();
 		var memberId = null;
-		
+
 		/*[# th:if="${member} != null"]*/
+<<<<<<< HEAD
 		memberId = /*[[${member.memberId}]]*/	
+=======
+		memberId = /*[[${member.memberId}]]*/;
+>>>>>>> origin/aws
 		/*[/]*/
-		
+
 		console.log(memberId);
-		
+
 		/*[# th:each="i : ${items}"]*/
 		var item = new Object();
-		
-		item.id = /*[[${i.itemId}]]*/
-		item.name = /*[[${i.itemName}]]*/
-		item.part = /*[[${i.part}]]*/
-		item.unit = /*[[${i.itemUnit}]]*/
-		item.todayPrice = /*[[${i.todayPrice}]]*/
-		item.yesterdayPrice = /*[[${i.yesterdayPrice}]]*/
-		item.selector = /*[[${i.selector}]]*/
 
-		items.push(item);
+		item.id = /*[[${i.itemId}]]*/
+			item.name = /*[[${i.itemName}]]*/
+			item.part = /*[[${i.part}]]*/
+			item.unit = /*[[${i.itemUnit}]]*/
+			item.todayPrice = /*[[${i.todayPrice}]]*/
+			item.yesterdayPrice = /*[[${i.yesterdayPrice}]]*/
+			item.selector = /*[[${i.selector}]]*/
+
+			items.push(item);
 		/*[/]*/
 
 		jQuery(document).ready(function (e) {
@@ -283,11 +296,11 @@
 			var map = document.querySelectorAll('map');
 
 			map.forEach((m) => m.addEventListener('mouseover', function (e) {
-					for (let item of items) {
-						if (item.selector == e.target.id) {
-							targetItem = item;
-						}
+				for (let item of items) {
+					if (item.selector == e.target.id) {
+						targetItem = item;
 					}
+<<<<<<< HEAD
 	
 					let increase = parseInt(targetItem.todayPrice) - parseInt(targetItem.yesterdayPrice);
 					let increaseTag = '';
@@ -320,6 +333,37 @@
 						
 					$('area').qtip('option', 'content.text', tooltipTag);
 				})
+=======
+				}
+
+				let increase = parseInt(targetItem.todayPrice) - parseInt(targetItem.yesterdayPrice);
+				let increaseTag = '';
+
+				if (increase > 0) {
+					increaseTag = '<br>어제보다 <b class="increase">' + increase.toLocaleString() + '</b>원 <b class="blue">비싸요</b>';
+				} else if (increase < 0) {
+					increaseTag = '<br>어제보다 <b class="increase">' + (increase * -1).toLocaleString() + '</b>원 <b class="red">싸요</b>';
+				} else {
+					increaseTag = '<br>어제랑 <b>똑같아요</b>';
+				}
+
+				let onclickAttr = "";
+
+				if (memberId === null) {
+					onclickAttr = "location.href='/sign-in'";
+				} else {
+					onclickAttr = "location.href='/cart/" + memberId + "/" + targetItem.id + "'";
+				}
+
+				let addToCartBtn = '<button class="btn btn-primary mt-2" onclick=' + onclickAttr + '>장바구니에 담기</button>'
+
+				let tooltipTag = '<div class="price-tooltip"><b>' + targetItem.part + '</b><br>' + targetItem.unit
+					+ ' <b class="price">' + parseInt(targetItem.todayPrice).toLocaleString() + '</b>원' + increaseTag
+					+ addToCartBtn + "</div>";
+
+				$('area').qtip('option', 'content.text', tooltipTag);
+			})
+>>>>>>> origin/aws
 			)
 		});
 
@@ -331,12 +375,18 @@
 				text: '-'
 			},
 			hide: {
-		        delay: 3000
-			}, 
+				delay: 3000
+			},
 			show: {
 				solo: true
 			}
 		});
+
+		var priceElements = document.querySelectorAll('.to-locale-string');
+
+		for (let p of priceElements) {
+			p.innerText = parseInt(p.innerText).toLocaleString();
+		}
 	/*]]>*/
 	</script>
 </body>
