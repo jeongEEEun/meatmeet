@@ -259,7 +259,7 @@
 		var memberId = null;
 		
 		/*[# th:if="${member} != null"]*/
-		memberId = /*[[${member.memberId}]]*/;		
+		memberId = /*[[${member.memberId}]]*/	
 		/*[/]*/
 		
 		console.log(memberId);
@@ -293,9 +293,13 @@
 					let increaseTag = '';
 	
 					if (increase > 0) {
-						increaseTag = '<br>어제보다 <b class="increase">' + increase.toLocaleString() + '</b>원 <b class="blue">비싸요</b>';
+						increaseTag = '<br>어제보다 <b class="increase">' 
+						+ increase.toLocaleString() 
+						+ '</b>원 <b class="blue">비싸요</b>';
 					} else if (increase < 0) {
-						increaseTag = '<br>어제보다 <b class="increase">' + (increase * -1).toLocaleString() + '</b>원 <b class="red">싸요</b>';
+						increaseTag = '<br>어제보다 <b class="increase">' 
+						+ (increase * -1).toLocaleString() 
+						+ '</b>원 <b class="red">싸요</b>';
 					} else {
 						increaseTag = '<br>어제랑 <b>똑같아요</b>';
 					}
