@@ -95,6 +95,7 @@ public class RecipeController {
 		comment.setMemberId(member.getMemberId());
 		comment.setComment(commentText);
 		comment.setCommentDate(LocalDateTime.now());
+		
 	    if (commentText != null && !commentText.isEmpty()) {
 	        recipeService.saveComment(comment);
 	    }
