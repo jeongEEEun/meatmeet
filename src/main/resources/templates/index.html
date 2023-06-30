@@ -12,7 +12,148 @@
 	<link rel="stylesheet" href="css/jquery.qtip.min.css" th:href="@{/css/jquery.qtip.min.css}">
 	<script src="js/jquery.min.js"></script>
 	<script src="js/jquery.qtip.min.js"></script>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<link rel="icon" href="../../static/img/favicon.png" th:href="@{/img/favicon.png}" type="image/x-icon">
+	<script type="text/javascript">
+		google.charts.load('current', { 'packages': ['corechart'] });
+		google.charts.setOnLoadCallback(fetchCSVData);
+
+		function fetchCSVData() {
+			const pigCsvURL = '/csv/pig_analysis.csv';
+			const cowCsvURL = '/csv/cow_analysis.csv';
+
+			Promise.all([fetch(pigCsvURL), fetch(cowCsvURL)])
+				.then(responses => Promise.all(responses.map(response => response.text())))
+				.then(csvTexts => {
+					const pigData = parseCSV(csvTexts[0]);
+					const cowData = parseCSV(csvTexts[1]);
+					console.log(pigData);
+					drawPigChart('pig-chart', pigData);
+					drawCowChart('cow-chart', cowData);
+				})
+				.catch(error => {
+					console.error('Error fetching CSV files:', error);
+				});
+		}
+		function parseCSV(csvText) {
+			const lines = csvText.split('\n');
+			const csvData = [];
+
+			for (let i = 0; i < lines.length; i++) {
+				const row = lines[i].replace(/\r\n/g, '').split(',');
+				row[1] = parseInt(row[1]);
+				csvData.push(row);
+			}
+			return csvData;
+		}
+
+		function drawPigChart(containerId, csvData) {
+			var pigData = new google.visualization.DataTable();
+			pigData.addColumn('string', '년월');
+			console.log(pigData);
+			pigData.addColumn('number', '1등급');
+			pigData.addRows(csvData);
+			var pigOptions = {
+				width: 1000,
+				height: 500,
+				curveType: 'function',
+				legend: { position: 'in' },
+				hAxis: {
+					textStyle: {
+						fontName: 'Noto Sans KR',
+						fontSize: 10,
+						color: 'black',
+						margin: 30,
+						padding: 30
+					},
+					titleTextStyle: {
+						fontName: 'Noto Sans KR',
+						fontSize: 12,
+						bold: true,
+						italic: false,
+						color: 'black'
+					},
+					slantedText: true,
+					maxAlternation: 1,
+					maxTextLines: 1,
+					title: '년도',
+				},
+				vAxis: {
+					textStyle: {
+						fontName: 'Noto Sans KR',
+						fontSize: 10,
+						color: 'black'
+					},
+					titleTextStyle: {
+						fontName: 'Noto Sans KR',
+						fontSize: 12,
+						bold: true,
+						italic: false,
+						color: 'black',
+					},
+					title: '가격 (원/kg)',
+				},
+				series: {
+					0: { color: '#ff6666' }
+				},
+			};
+
+			var pigChart = new google.visualization.LineChart(document.getElementById('pig-chart'));
+			pigChart.draw(pigData, pigOptions);
+		}
+		function drawCowChart(containerId, csvData) {
+			var cowData = new google.visualization.DataTable();
+			cowData.addColumn('string', '년월');
+			cowData.addColumn('number', '1A등급');
+			cowData.addRows(csvData);
+
+			var cowOptions = {
+				width: 1000,
+				height: 500,
+				curveType: 'function',
+				legend: { position: 'in' },
+				hAxis: {
+					textStyle: {
+						fontName: 'Noto Sans KR',
+						fontSize: 10,
+						color: 'black'
+					},
+					titleTextStyle: {
+						fontName: 'Noto Sans KR',
+						fontSize: 12,
+						bold: true,
+						italic: false,
+						color: 'black'
+					},
+					slantedText: true,
+					maxAlternation: 1,
+					maxTextLines: 1,
+					title: '년도',
+				},
+				vAxis: {
+					textStyle: {
+						fontName: 'Noto Sans KR',
+						fontSize: 10,
+						color: 'black'
+					},
+					titleTextStyle: {
+						fontName: 'Noto Sans KR',
+						fontSize: 12,
+						bold: true,
+						italic: false,
+						color: 'black',
+					},
+					title: '가격 (원/kg)',
+				},
+				series: {
+					0: { color: '#ff6666' }
+				},
+			};
+
+			var cowChart = new google.visualization.LineChart(document.getElementById('cow-chart'));
+			cowChart.draw(cowData, cowOptions);
+		}
+	</script>
 </head>
 
 <body>
@@ -20,24 +161,15 @@
 	<header th:if="${member} == null" class="border-bottom">
 		<div class="wrap">
 			<ul class="row px-0 pt-4">
-				<li class="col p-0 pe-1">
-					<a href="/">
-						<img src="/img/logo2.png" alt="meatmeet 로고" class="logo">
-					</a>
-				</li>
-				<li class="col p-0">
-					<a href="/recipe" class="ms-5 title">레시피</a>
+				<li class="col p-0 pe-1"><a href="/"> <img src="/img/logo2.png" alt="meatmeet 로고" class="logo">
+					</a></li>
+				<li class="col p-0"><a href="/recipe" class="ms-5 title">레시피</a>
 				</li>
 				<div class="col-5 m-0 p-0">
-					<li class="me-5">
-						<a href="/sign-in" class="title">
-							<img src="/img/icon_login.png" alt="로그인 아이콘" class="icon">
+					<li class="me-5"><a href="/sign-in" class="title"> <img src="/img/icon_login.png" alt="로그인 아이콘" class="icon">
 							로그인
-						</a>
-					</li>
-					<li>
-						<a href="/sign-up" class="title">회원가입</a>
-					</li>
+						</a></li>
+					<li><a href="/sign-up" class="title">회원가입</a></li>
 				</div>
 			</ul>
 		</div>
@@ -48,31 +180,21 @@
 	<header th:if="${member} != null" class="border-bottom">
 		<div class="wrap">
 			<ul class="row px-0 pt-4">
-				<li class="col p-0 pe-1">
-					<a href="/">
-						<img src="/img/logo2.png" alt="meatmeet 로고" class="logo">
-					</a>
+				<li class="col p-0 pe-1"><a href="/"> <img src="/img/logo2.png" alt="meatmeet 로고" class="logo">
+					</a></li>
+				<li class="col p-0"><a href="/recipe" class="ms-5 title">레시피</a>
 				</li>
-				<li class="col p-0">
-					<a href="/recipe" class="ms-5 title">레시피</a>
-				</li>
-				<li class="col p-0">
-					<a href="/myrecipe" th:href="@{/myrecipe/{memberId}(memberId=${member.memberId})}" class="title">나의 레시피</a>
-				</li>
-				<li class="col p-0">
-					<a href="/order-list" th:href="@{/order/{memberId}(memberId=${member.memberId})}" class="title">
-						<img src="/img/order.png" alt="주문내역 아이콘" class="icon">
-						주문내역
-					</a>
-				</li>
-				<li class="col p-0">
-					<a href="/cart" th:href="@{/cart/{memberId}(memberId=${member.memberId})}" class="title">
-						<img src="/img/cart.png" alt="장바구니 아이콘" class="icon">
-						장바구니</a>
-				</li>
-				<li class="col p-0 row member">
-					<span class="col p-0">
-						<span class="member-name" th:text="${member.memberName}">사용자명</span><span> 님</span>
+				<li class="col p-0"><a href="/myrecipe" th:href="@{/myrecipe/{memberId}(memberId=${member.memberId})}"
+						class="title">나의 레시피</a></li>
+				<li class="col p-0"><a href="/order-list" th:href="@{/order/{memberId}(memberId=${member.memberId})}"
+						class="title"> <img src="/img/order.png" alt="주문내역 아이콘" class="icon"> 주문내역
+					</a></li>
+				<li class="col p-0"><a href="/cart" th:href="@{/cart/{memberId}(memberId=${member.memberId})}" class="title">
+						<img src="/img/cart.png" alt="장바구니 아이콘" class="icon"> 장바구니
+					</a></li>
+				<li class="col p-0 row member"><span class="col p-0"> <span class="member-name"
+							th:text="${member.memberName}">사용자명</span><span>
+							님</span>
 					</span>
 					<button class="btn btn-light col logout-btn" onclick="location.href='/sign-out'">로그아웃</button>
 				</li>
@@ -90,7 +212,9 @@
 			<a class="btn btn-primary btn-sm m-1" href="#cow" role="button">소</a>
 			<a class="btn btn-primary btn-sm m-1" href="#chicken-egg-milk" role="button">닭/계란/우유</a>
 		</div>
-		<div class="banner-box mt-5"><img src="img/banner.png" alt="메인 배너" class="banner"></div>
+		<div class="banner-box mt-5">
+			<img src="img/banner.png" alt="메인 배너" class="banner">
+		</div>
 		<div class="title-box mb-5">
 			<h2 class="title mt-5">축산물 시세</h2>
 			<div class="sub-title pt-0">빨간 점에 마우스를 올려 시세를 확인해보세요.</div>
@@ -101,18 +225,18 @@
 				<h3 class="title">돼지</h3>
 				<img src="img/돼지.png" usemap="#pig-map">
 				<map name="pig-map">
-					<area id="neck" target="_blank" alt="목살" coords="210,82,8" shape="circle">
-					<area id="neck" target="_blank" alt="목살" coords="315,4,351,25" shape="rect">
-					<area id="rib" target="_blank" alt="갈비" coords="221,146,9" shape="circle">
-					<area id="rib" target="_blank" alt="갈비" coords="24,261,60,283" shape="rect">
-					<area id="leg" target="_blank" alt="앞다리" coords="217,213,8" shape="circle">
-					<area id="leg" target="_blank" alt="앞다리" coords="8,296,59,317" shape="rect">
-					<area id="belly" target="_blank" alt="삼겹살" coords="303,213,9" shape="circle">
-					<area id="belly" target="_blank" alt="삼겹살" coords="460,269,510,290" shape="rect">
+					<area id="neck" target="_blank" alt="목살" href="#" coords="210,82,8" shape="circle">
+					<area id="neck" target="_blank" alt="목살" href="#" coords="315,4,351,25" shape="rect">
+					<area id="rib" target="_blank" alt="갈비" href="#" coords="221,146,9" shape="circle">
+					<area id="rib" target="_blank" alt="갈비" href="#" coords="24,261,60,283" shape="rect">
+					<area id="leg" target="_blank" alt="앞다리" href="#" coords="217,213,8" shape="circle">
+					<area id="leg" target="_blank" alt="앞다리" href="#" coords="8,296,59,317" shape="rect">
+					<area id="belly" target="_blank" alt="삼겹살" href="#" coords="303,213,9" shape="circle">
+					<area id="belly" target="_blank" alt="삼겹살" href="#" coords="460,269,510,290" shape="rect">
 				</map>
 				<div class="analysis-box">
 					<h4 class="mt-5 title">돼지도체의 시기별 가격 변동</h4>
-					<img src="img/돼지_그래프.png" alt="">
+					<div id="pig-chart" class="chart"></div>
 					<p>* '도체'란 잘 먹지 않는 부위와 가죽, 내장 등을 제거한 나머지를 말합니다.</p>
 				</div>
 			</div>
@@ -121,20 +245,20 @@
 				<h3 class="title">소</h3>
 				<img src="img/소.png" alt="소고기 부위별 시세" usemap="#cow-map">
 				<map name="cow-map">
-					<area id="sirloin" target="_blank" alt="등심" coords="289,88,9" shape="circle">
-					<area id="sirloin" target="_blank" alt="등심" coords="393,5,428,27" shape="rect">
-					<area id="tenderloin" target="_blank" alt="안심" coords="347,121,9" shape="circle">
-					<area id="tenderloin" target="_blank" alt="안심" coords="449,43,484,62" shape="rect">
-					<area id="round" target="_blank" alt="설도" coords="394,179,9" shape="circle">
-					<area id="round" target="_blank" alt="설도" coords="498,237,535,257" shape="rect">
-					<area id="rib-cow" target="_blank" alt="갈비" coords="238,145,9" shape="circle">
-					<area id="rib-cow" target="_blank" alt="갈비" coords="64,239,98,258" shape="rect">
-					<area id="brisket" target="_blank" alt="양지" coords="279,207,8" shape="circle">
-					<area id="brisket" target="_blank" alt="양지" coords="64,301,98,320" shape="rect">
+					<area id="rib-cow" target="_blank" alt="등심" href="등심" coords="289,88,9" shape="circle">
+					<area id="brisket" target="_blank" alt="등심" href="등심" coords="393,5,428,27" shape="rect">
+					<area target="_blank" alt="안심" href="안심" coords="347,121,9" shape="circle">
+					<area target="_blank" alt="안심" href="안심" coords="449,43,484,62" shape="rect">
+					<area target="_blank" alt="설도" href="설도" coords="394,179,9" shape="circle">
+					<area target="_blank" alt="설도" href="설도" coords="498,237,535,257" shape="rect">
+					<area target="_blank" alt="갈비" href="갈비" coords="238,145,9" shape="circle">
+					<area target="_blank" alt="갈비" href="갈비" coords="64,239,98,258" shape="rect">
+					<area target="_blank" alt="양지" href="양지" coords="279,207,8" shape="circle">
+					<area target="_blank" alt="양지" href="양지" coords="64,301,98,320" shape="rect">
 				</map>
 				<div class="analysis-box">
 					<h4 class="mt-5 title">소도체의 시기별 가격 변동</h4>
-					<img src="img/소_그래프.png" alt="">
+					<div id="cow-chart" class="chart"></div>
 					<p>* '도체'란 잘 먹지 않는 부위와 가죽, 내장 등을 제거한 나머지를 말합니다.</p>
 				</div>
 			</div>
@@ -144,36 +268,23 @@
 					<h3 class="title">닭</h3>
 					<img src="img/닭.png" alt="닭고기 시세">
 					<div>
-						<span>육계 1kg</span>
-						<b class="price" th:text="${chicken.todayPrice}">1,000</b><span>원</span>
-					</div>
-					<div th:if="${chicken.todayPrice} - ${chicken.yesterdayPrice} == 0">
-						어제랑
-						<b> 똑같아요</b>
+						<span>1kg</span> <span>1,000원</span>
 					</div>
 					<div>
-						<span th:if="${chicken.todayPrice} - ${chicken.yesterdayPrice} > 0">
-							<span>어제보다</span>
-							<b class="increase" th:text="${chicken.todayPrice} - ${chicken.yesterdayPrice}"></b>
-							<span>원</span>
-							<b class="blue">비싸요</b>
-						</span>
-						<span th:if="${chicken.todayPrice} - ${chicken.yesterdayPrice} < 0">
-							<span>어제보다</span>
-							<b class="increase" th:text="(${chicken.todayPrice} - ${chicken.yesterdayPrice}) * -1"></b>
-							<span>원</span>
-							<b class="red">싸요</b>
-						</span>
+						<span>어제랑</span> <span>똑같아요</span>
 					</div>
-					<button th:if="${member} != null" class="btn btn-primary mt-2" th:onclick="|location.href='@{/cart/{memberId}/{itemId}(memberId=${member.memberId}, itemId=${chicken.itemId})}'|">장바구니에 담기</button>
-					<button th:if="${member} == null" class="btn btn-primary mt-2" onclick="location.href='/sign-in'">장바구니에 담기</button>
+					<button th:if="${member} != null" class="btn btn-primary mt-2"
+						th:onclick="|location.href='@{/cart/{memberId}/{itemId}(memberId=${member.memberId}, itemId=${chicken.itemId})}'|">장바구니에
+						담기</button>
+					<button th:if="${member} == null" class="btn btn-primary mt-2" onclick="location.href='/sign-in'">장바구니에
+						담기</button>
 				</div>
 				<div class="chicken-egg-milk price-tooltip" id="chicken-egg-milk">
 					<h3 class="title">계란</h3>
 					<img src="img/계란.png" alt="계란 시세">
 					<div>
 						<span>특란 30구</span>
-						<b class="price" th:text="${egg.todayPrice}">1,000</b><span>원</span>
+						<b class="price to-locale-string" th:text="${egg.todayPrice}">1,000</b><span>원</span>
 					</div>
 					<div th:if="${egg.todayPrice} - ${egg.yesterdayPrice} == 0">
 						어제랑
@@ -193,15 +304,18 @@
 							<b class="red">싸요</b>
 						</span>
 					</div>
-					<button th:if="${member} != null" class="btn btn-primary mt-2" th:onclick="|location.href='@{/cart/{memberId}/{itemId}(memberId=${member.memberId}, itemId=${egg.itemId})}'|">장바구니에 담기</button>
-					<button th:if="${member} == null" class="btn btn-primary mt-2" onclick="location.href='/sign-in'">장바구니에 담기</button>
+					<button th:if="${member} != null" class="btn btn-primary mt-2"
+						th:onclick="|location.href='@{/cart/{memberId}/{itemId}(memberId=${member.memberId}, itemId=${egg.itemId})}'|">장바구니에
+						담기</button>
+					<button th:if="${member} == null" class="btn btn-primary mt-2" onclick="location.href='/sign-in'">장바구니에
+						담기</button>
 				</div>
 				<div class="chicken-egg-milk price-tooltip" id="chicken-egg-milk">
 					<h3 class="title">우유</h3>
 					<img src="img/우유.png" alt="우유 시세">
 					<div>
 						<span>흰우유 1L</span>
-						<b class="price" th:text="${milk.todayPrice}">1,000</b><span>원</span>
+						<b class="price to-locale-string" th:text="${milk.todayPrice}">1,000</b><span>원</span>
 					</div>
 					<div th:if="${milk.todayPrice} - ${milk.yesterdayPrice} == 0">
 						어제랑
@@ -221,8 +335,11 @@
 							<b class="red">싸요</b>
 						</span>
 					</div>
-					<button th:if="${member} != null" class="btn btn-primary mt-2" th:onclick="|location.href='@{/cart/{memberId}/{itemId}(memberId=${member.memberId}, itemId=${milk.itemId})}'|">장바구니에 담기</button>
-					<button th:if="${member} == null" class="btn btn-primary mt-2" onclick="location.href='/sign-in'">장바구니에 담기</button>
+					<button th:if="${member} != null" class="btn btn-primary mt-2"
+						th:onclick="|location.href='@{/cart/{memberId}/{itemId}(memberId=${member.memberId}, itemId=${milk.itemId})}'|">장바구니에
+						담기</button>
+					<button th:if="${member} == null" class="btn btn-primary mt-2" onclick="location.href='/sign-in'">장바구니에
+						담기</button>
 				</div>
 			</div>
 		</div>
@@ -244,8 +361,7 @@
 					</ul>
 				</div>
 				<div class="col pt-5">
-					<a href="#">
-						<img src="img/logo_white.png" alt="meatmeet로고" class="mt-3">
+					<a href="#"> <img src="img/logo_white.png" alt="meatmeet로고" class="mt-3">
 					</a>
 				</div>
 			</div>
@@ -257,25 +373,25 @@
 		/*<![CDATA[*/
 		var items = new Array();
 		var memberId = null;
-		
+
 		/*[# th:if="${member} != null"]*/
-		memberId = /*[[${member.memberId}]]*/	
-		/*[/]*/
-		
-		console.log(memberId);
-		
+		memberId = /*[[${member.memberId}]]*/
+			/*[/]*/
+
+			console.log(memberId);
+
 		/*[# th:each="i : ${items}"]*/
 		var item = new Object();
-		
-		item.id = /*[[${i.itemId}]]*/
-		item.name = /*[[${i.itemName}]]*/
-		item.part = /*[[${i.part}]]*/
-		item.unit = /*[[${i.itemUnit}]]*/
-		item.todayPrice = /*[[${i.todayPrice}]]*/
-		item.yesterdayPrice = /*[[${i.yesterdayPrice}]]*/
-		item.selector = /*[[${i.selector}]]*/
 
-		items.push(item);
+		item.id = /*[[${i.itemId}]]*/
+			item.name = /*[[${i.itemName}]]*/
+			item.part = /*[[${i.part}]]*/
+			item.unit = /*[[${i.itemUnit}]]*/
+			item.todayPrice = /*[[${i.todayPrice}]]*/
+			item.yesterdayPrice = /*[[${i.yesterdayPrice}]]*/
+			item.selector = /*[[${i.selector}]]*/
+
+			items.push(item);
 		/*[/]*/
 
 		jQuery(document).ready(function (e) {
@@ -283,43 +399,39 @@
 			var map = document.querySelectorAll('map');
 
 			map.forEach((m) => m.addEventListener('mouseover', function (e) {
-					for (let item of items) {
-						if (item.selector == e.target.id) {
-							targetItem = item;
-						}
+				for (let item of items) {
+					if (item.selector == e.target.id) {
+						targetItem = item;
 					}
-	
-					let increase = parseInt(targetItem.todayPrice) - parseInt(targetItem.yesterdayPrice);
-					let increaseTag = '';
-	
-					if (increase > 0) {
-						increaseTag = '<br>어제보다 <b class="increase">' 
-						+ increase.toLocaleString() 
-						+ '</b>원 <b class="blue">비싸요</b>';
-					} else if (increase < 0) {
-						increaseTag = '<br>어제보다 <b class="increase">' 
-						+ (increase * -1).toLocaleString() 
-						+ '</b>원 <b class="red">싸요</b>';
-					} else {
-						increaseTag = '<br>어제랑 <b>똑같아요</b>';
-					}
-					
-					let onclickAttr = "";
-					
-					if (memberId === null) {
-						onclickAttr = "location.href='/sign-in'";
-					} else {
-						onclickAttr = "location.href='/cart/" + memberId + "/" + targetItem.id + "'";
-					}
-					
-					let addToCartBtn = '<button class="btn btn-primary mt-2" onclick=' + onclickAttr + '>장바구니에 담기</button>'
-					
-					let tooltipTag = '<div class="price-tooltip"><b>' + targetItem.part + '</b><br>' + targetItem.unit 
-						+ ' <b class="price">' + parseInt(targetItem.todayPrice).toLocaleString() + '</b>원' + increaseTag 
-						+ addToCartBtn + "</div>";
-						
-					$('area').qtip('option', 'content.text', tooltipTag);
-				})
+				}
+
+				let increase = parseInt(targetItem.todayPrice) - parseInt(targetItem.yesterdayPrice);
+				let increaseTag = '';
+
+				if (increase > 0) {
+					increaseTag = '<br>어제보다 <b class="increase">' + increase.toLocaleString() + '</b>원 <b class="blue">비싸요</b>';
+				} else if (increase < 0) {
+					increaseTag = '<br>어제보다 <b class="increase">' + (increase * -1).toLocaleString() + '</b>원 <b class="red">싸요</b>';
+				} else {
+					increaseTag = '<br>어제랑 <b>똑같아요</b>';
+				}
+
+				let onclickAttr = "";
+
+				if (memberId === null) {
+					onclickAttr = "location.href='/sign-in'";
+				} else {
+					onclickAttr = "location.href='/cart/" + memberId + "/" + targetItem.id + "'";
+				}
+
+				let addToCartBtn = '<button class="btn btn-primary mt-2" onclick=' + onclickAttr + '>장바구니에 담기</button>'
+
+				let tooltipTag = '<div class="price-tooltip"><b>' + targetItem.part + '</b><br>' + targetItem.unit
+					+ ' <b class="price">' + parseInt(targetItem.todayPrice).toLocaleString() + '</b>원' + increaseTag
+					+ addToCartBtn + "</div>";
+
+				$('area').qtip('option', 'content.text', tooltipTag);
+			})
 			)
 		});
 
@@ -331,12 +443,18 @@
 				text: '-'
 			},
 			hide: {
-		        delay: 3000
-			}, 
+				delay: 3000
+			},
 			show: {
 				solo: true
 			}
 		});
+
+		var priceElements = document.querySelectorAll('.to-locale-string');
+
+		for (let p of priceElements) {
+			p.innerText = parseInt(p.innerText).toLocaleString();
+		}
 	/*]]>*/
 	</script>
 </body>

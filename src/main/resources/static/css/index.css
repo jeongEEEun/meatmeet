@@ -14,7 +14,7 @@
 	font-size: 12px;
 }
 
-.btn {
+.remote-box .btn {
 	margin: 0 auto;
 	display: block;
 	background-color: #ff6666;
@@ -22,7 +22,7 @@
 	border: none;
 }
 
-.btn:hover {
+.remote-box .btn:hover {
 	background-color: #ff3333;
 	border: none;
 }
@@ -30,29 +30,11 @@
 /* TOOLTIP BOX - 축산물 부위에 호버 시 표시되는 툴팁 */
 .price-tooltip {
 	text-align: center;
-	padding: 10px 0;
+	padding: 20px 0;
 }
 
 .price-tooltip b {
 	font-size: 18px;
-}
-
-.price-tooltip .price {
-	color: #ff6666;
-	font-size: 18px;
-}
-
-.price-tooltip .increase {
-	color: #ff6666;
-	font-size: 18px;
-}
-
-.price-tooltip .blue {
-	color: RoyalBlue;
-}
-
-.price-tooltip .red {
-	color: #ff3333;
 }
 
 /* CONTAINER */
@@ -103,12 +85,6 @@ div .wrap .box {
 
 div .wrap .box p {
 	color: #888;
-}
-
-div .wrap .analysis-box img {
-	
-	width: 1000px;
-	height: 300px;
 }
 
 div .wrap .chicken-egg-milk {
