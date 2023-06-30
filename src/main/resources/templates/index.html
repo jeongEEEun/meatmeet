@@ -41,6 +41,7 @@
 
 			for (let i = 0; i < lines.length; i++) {
 				const row = lines[i].replace(/\r\n/g, '').split(',');
+				row[0] = new Date(row[0].split('-')[0], row[0].split('-')[1]);
 				row[1] = parseInt(row[1]);
 				csvData.push(row);
 			}
@@ -49,7 +50,7 @@
 
 		function drawPigChart(containerId, csvData) {
 			var pigData = new google.visualization.DataTable();
-			pigData.addColumn('string', '년월');
+			pigData.addColumn('date', '년월');
 			console.log(pigData);
 			pigData.addColumn('number', '1등급');
 			pigData.addRows(csvData);
@@ -59,6 +60,20 @@
 				curveType: 'function',
 				legend: { position: 'in' },
 				hAxis: {
+					ticks: [
+						new Date(2013, 1),
+						new Date(2014, 1),
+						new Date(2015, 1),
+						new Date(2016, 1),
+						new Date(2017, 1),
+						new Date(2018, 1),
+						new Date(2019, 1),
+						new Date(2020, 1),
+						new Date(2021, 1),
+						new Date(2022, 1),
+						new Date(2023, 1),
+					],
+					format: 'yyyy-dd',
 					textStyle: {
 						fontName: 'Noto Sans KR',
 						fontSize: 10,
@@ -68,7 +83,7 @@
 					},
 					titleTextStyle: {
 						fontName: 'Noto Sans KR',
-						fontSize: 12,
+						fontSize: 10,
 						bold: true,
 						italic: false,
 						color: 'black'
@@ -103,7 +118,7 @@
 		}
 		function drawCowChart(containerId, csvData) {
 			var cowData = new google.visualization.DataTable();
-			cowData.addColumn('string', '년월');
+			cowData.addColumn('date', '년월');
 			cowData.addColumn('number', '1A등급');
 			cowData.addRows(csvData);
 
@@ -113,6 +128,20 @@
 				curveType: 'function',
 				legend: { position: 'in' },
 				hAxis: {
+					format: 'yyyy-dd',
+					ticks: [
+						new Date(2013, 1),
+						new Date(2014, 1),
+						new Date(2015, 1),
+						new Date(2016, 1),
+						new Date(2017, 1),
+						new Date(2018, 1),
+						new Date(2019, 1),
+						new Date(2020, 1),
+						new Date(2021, 1),
+						new Date(2022, 1),
+						new Date(2023, 1),
+					],
 					textStyle: {
 						fontName: 'Noto Sans KR',
 						fontSize: 10,
