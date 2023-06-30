@@ -67,8 +67,6 @@ public class RecipeController {
 		List<Comment> comments = recipeService.findCommentByRecipeId(recipeId);
 		model.addAttribute("comments", comments);
 
-		LocalDateTime currentTime = LocalDateTime.now();
-		model.addAttribute("currentTime", currentTime);
 
 		return "recipe/detail";
 	}
@@ -107,6 +105,8 @@ public class RecipeController {
 		comment.setRecipeId(recipeId);
 		comment.setMemberId(member.getMemberId());
 		comment.setComment(commentText);
+		comment.setCommentDate(LocalDateTime.now());
+		
 	    if (commentText != null && !commentText.isEmpty()) {
 	        recipeService.saveComment(comment);
 	    }

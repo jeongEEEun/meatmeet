@@ -1,5 +1,6 @@
 package meatmeet.meatmeet.repository;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,6 +71,10 @@ public class RecipeRepository {
 		comment.setRecipeId(rs.getLong("recipe_id"));
 		comment.setMemberId(rs.getString("member_id"));
 		comment.setComment(rs.getString("comment"));
+		Timestamp commentDateTimestamp = rs.getTimestamp("comment_date");
+		if (commentDateTimestamp != null) {
+			comment.setCommentDate(commentDateTimestamp.toLocalDateTime());
+		}
 		return comment;
 	};
 
@@ -123,7 +128,7 @@ public class RecipeRepository {
 		log.info("repository");
 		SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
 				.withTableName("comment")
-				.usingColumns("recipe_id", "member_id", "comment");
+				.usingColumns("recipe_id", "member_id", "comment", "comment_date");
 		
 		log.info("repository");
 				
@@ -131,6 +136,7 @@ public class RecipeRepository {
 		parameter.put("recipe_id", comment.getRecipeId());
 		parameter.put("member_id", comment.getMemberId());
 		parameter.put("comment", comment.getComment());
+		parameter.put("comment_date", comment.getCommentDate());
 		log.info("repository");
 		
 		jdbcInsert.execute(new MapSqlParameterSource(parameter));
@@ -138,7 +144,7 @@ public class RecipeRepository {
 	}
 	
 	public List<Comment> findCommentByRecipeId(Long recipeId) {
-		String sql = "select * from comment where recipe_id = ?";
+		String sql = "select * from comment where recipe_id = ? ORDER BY comment_date DESC";
 		return jdbcTemplate.query(sql, commentRowMapper, recipeId);
 	}
 	

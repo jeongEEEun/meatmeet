@@ -94,7 +94,7 @@
 			<hr>
 			<div class="comment" th:each="comment : ${comments}">
 				<div class="name" th:text="${comment.memberId}"></div>
-				<div class="date" th:text="${#temporals.format(currentTime, 'yyyy-MM-dd')}"></div>
+				<div class="date" th:text="${#temporals.format(comment.commentDate, 'yyyy-MM-dd')}"></div>
 				<div class="text" th:text="${comment.comment}"></div>
 				<hr>
 			</div>

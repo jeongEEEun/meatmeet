@@ -44,10 +44,6 @@ public class ItemRepository {
 		String sql = "update item set today_price = ?, yesterday_price = ? where item_name = ? and part = ?";
 		
 		for(Item item: items) {
-			log.info("item >> " + item.getItemName());
-			log.info("item >> " + item.getTodayPrice());
-			log.info("--------------------------");
-			
 			jdbcTemplate.update(sql, 
 					item.getTodayPrice(), item.getYesterdayPrice(), 
 					item.getItemName(), item.getPart());

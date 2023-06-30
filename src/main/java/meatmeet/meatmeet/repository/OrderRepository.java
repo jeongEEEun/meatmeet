@@ -90,9 +90,9 @@ public class OrderRepository {
     	for(int i=0; i<orderInfo.size() -1 ; i++) {
     		if(orderInfo.get(i).getOrderId().equals(orderInfo.get(i + 1).getOrderId())) {
     			orderInfo.remove(i + 1);
+    			i--;
     		}
     	}
-    	
     	return orderInfo;
     }
     

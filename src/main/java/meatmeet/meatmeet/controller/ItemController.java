@@ -1,5 +1,6 @@
 package meatmeet.meatmeet.controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,5 +46,11 @@ public class ItemController {
 		model.addAttribute("milk", milk.get());
 		
 		return "index";
+	}
+	
+	@GetMapping("/update-item-price")
+	public String updateItemPrice() throws IOException {
+		itemService.readCsv();
+		return "/";
 	}
 }
