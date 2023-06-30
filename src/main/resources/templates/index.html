@@ -6,10 +6,10 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="css/header-footer.css" th:href="@{/css/header-footer.css}">
-	<link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
-	<link rel="stylesheet" href="css/index.css" th:href="@{/css/index.css}">
-	<link rel="stylesheet" href="css/jquery.qtip.min.css" th:href="@{/css/jquery.qtip.min.css}">
+	<link rel="stylesheet" href="../../static/css/header-footer.css" th:href="@{/css/header-footer.css}">
+	<link rel="stylesheet" href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+	<link rel="stylesheet" href="../../static/css/index.css" th:href="@{/css/index.css}">
+	<link rel="stylesheet" href="../../static/css/jquery.qtip.min.css" th:href="@{/css/jquery.qtip.min.css}">
 	<script src="js/jquery.min.js"></script>
 	<script src="js/jquery.qtip.min.js"></script>
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -297,10 +297,26 @@
 					<h3 class="title">닭</h3>
 					<img src="img/닭.png" alt="닭고기 시세">
 					<div>
-						<span>1kg</span> <span>1,000원</span>
+						<span>1kg</span>
+						<b class="price to-locale-string" th:text="${chicken.todayPrice}">1,000</b><span>원</span>
+					</div>
+					<div th:if="${chicken.todayPrice} - ${chicken.yesterdayPrice} == 0">
+						어제랑
+						<b> 똑같아요</b>
 					</div>
 					<div>
-						<span>어제랑</span> <span>똑같아요</span>
+						<span th:if="${chicken.todayPrice} - ${chicken.yesterdayPrice} > 0">
+							<span>어제보다</span>
+							<b class="increase" th:text="${chicken.todayPrice} - ${chicken.yesterdayPrice}"></b>
+							<span>원</span>
+							<b class="blue">비싸요</b>
+						</span>
+						<span th:if="${chicken.todayPrice} - ${chicken.yesterdayPrice} < 0">
+							<span>어제보다</span>
+							<b class="increase" th:text="(${chicken.todayPrice} - ${chicken.yesterdayPrice}) * -1"></b>
+							<span>원</span>
+							<b class="red">싸요</b>
+						</span>
 					</div>
 					<button th:if="${member} != null" class="btn btn-primary mt-2"
 						th:onclick="|location.href='@{/cart/{memberId}/{itemId}(memberId=${member.memberId}, itemId=${chicken.itemId})}'|">장바구니에
