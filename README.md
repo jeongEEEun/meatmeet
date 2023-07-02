@@ -62,7 +62,7 @@ Windows 10, Spring Boot 2.7.12, Eclipse, Gradle, Java 11.0.16.1, python3.8.10, M
 
 ### 🔍**주요 기능**
 ⭐**축산물 일별 가격 정보**
-- 당일 가격 변동 매일 아침 8시 55분에 반영됨
+- 당일 가격 변동 매일 아침 9시시에 반영됨
 
 <img src="https://github.com/jeongEEEun/meatmeet/assets/109218705/5976fde5-8e79-4b04-9706-8d8dd877bc8e" width="600" height="800" border="1px solid">
   
