@@ -144,7 +144,7 @@ public class RecipeRepository {
 	}
 	
 	public List<Comment> findCommentByRecipeId(Long recipeId) {
-		String sql = "select * from comment where recipe_id = ? ORDER BY comment_date DESC";
+		String sql = "select * from comment where recipe_id = ? ORDER BY comment_date";
 		return jdbcTemplate.query(sql, commentRowMapper, recipeId);
 	}
 	
