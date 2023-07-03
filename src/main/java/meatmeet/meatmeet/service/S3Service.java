@@ -76,7 +76,7 @@ public class S3Service {
 	}
 	
     private Optional<File> convert(MultipartFile file) throws  IOException {
-    	String fileName = UUID.randomUUID() + file.getOriginalFilename();
+    	String fileName = UUID.randomUUID().toString();
         File convertFile = new File(fileName);
         
         log.info("[S3Uploader] fileName >> " + fileName);
